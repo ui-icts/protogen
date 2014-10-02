@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="1.4.2">
+<database-model alias="" author="" begin-script="" end-script="" name="ryanlorentzen" remarks="" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" uid="54cfb720:13cd45453a4:-7ff9" version="1.0">
+<database-model-description/>
+<schema-list>
+<schema alias="" name="ryanlorentzen" remarks="" uid="54cfb720:13cd45453a4:-7ff6">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="tblaccess" remarks="" uid="54cfb720:13cd45453a4:-7ff8">
+<table-description/>
+<table-figure-bounds height="121" width="164" x="251" y="102"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="PKId" remarks="" uid="54cfb720:13cd45453a4:-7fef">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="strAccess" remarks="" uid="54cfb720:13cd45453a4:-7fee">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TBLACCESS" remarks="" uid="54cfb720:13cd45453a4:-7ff7">
+<primary-key-description/>
+<primary-key-column name="PKId"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="tblMemberAccess" remarks="" uid="54cfb720:13cd45453a4:-7fed">
+<table-description/>
+<table-figure-bounds height="73" width="232" x="175" y="305"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="PKId" remarks="" uid="54cfb720:13cd45453a4:-7fe9">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="intFkAccessId" remarks="" uid="54cfb720:13cd45453a4:-7fe8">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="dateAdd" remarks="" uid="54cfb720:13cd45453a4:-7fd5">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME(%p) WITH TIME ZONE">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TBLMEMBERACCESS" remarks="" uid="54cfb720:13cd45453a4:-7fec">
+<primary-key-description/>
+<primary-key-column name="PKId"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_tblMemberAccess_1" on-delete="" on-update="" referenced-key="PK_TBLACCESS" referenced-table="tblaccess" referenced-table-schema="ryanlorentzen" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="54cfb720:13cd45453a4:-7fdf">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="intFkAccessId" referenced-key-column-name="PKId"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="foo" remarks="" uid="1bfcee4f:13cd4a94b36:-7fce">
+<table-description/>
+<table-figure-bounds height="52" width="82" x="581" y="93"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="foo_id" remarks="" uid="1bfcee4f:13cd4a94b36:-7fc8">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="1bfcee4f:13cd4a94b36:-7fc5">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_FOO" remarks="" uid="1bfcee4f:13cd4a94b36:-7fcd">
+<primary-key-description/>
+<primary-key-column name="foo_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="bar" remarks="" uid="1bfcee4f:13cd4a94b36:-7fc2">
+<table-description/>
+<table-figure-bounds height="69" width="176" x="727" y="410"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="bar_id" remarks="" uid="1bfcee4f:13cd4a94b36:-7fbe">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="1bfcee4f:13cd4a94b36:-7fbd">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="bar_type_id" remarks="" uid="7ad6bae9:147a6c641ce:-73a9">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_BAR" remarks="" uid="1bfcee4f:13cd4a94b36:-7fc1">
+<primary-key-description/>
+<primary-key-column name="bar_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_bar_1" on-delete="" on-update="" referenced-key="PK_BAR_TYPE" referenced-table="bar_type" referenced-table-schema="ryanlorentzen" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="7ad6bae9:147a6c641ce:-73aa">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="bar_type_id" referenced-key-column-name="bar_type_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="foobar" remarks="" uid="1bfcee4f:13cd4a94b36:-7fbc">
+<table-description/>
+<table-figure-bounds height="64" width="140" x="670" y="242"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="foo_id" remarks="" uid="1bfcee4f:13cd4a94b36:-7fb4">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="bar_id" remarks="" uid="7ad6bae9:147a6c641ce:-73dc">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="date_added" remarks="" uid="7ad6bae9:147a6c641ce:-739c">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP">
+<variant type-name-pattern="TIMESTAMP"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_FOOBAR" remarks="" uid="1bfcee4f:13cd4a94b36:-7fbb">
+<primary-key-description/>
+<primary-key-column name="foo_id"/>
+<primary-key-column name="bar_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_TABLE_5_1" on-delete="" on-update="" referenced-key="PK_FOO" referenced-table="foo" referenced-table-schema="ryanlorentzen" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="1bfcee4f:13cd4a94b36:-7fb5">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="foo_id" referenced-key-column-name="foo_id"/>
+</foreign-key>
+<foreign-key alias="" name="FK_foobar_2" on-delete="" on-update="" referenced-key="PK_BAR" referenced-table="bar" referenced-table-schema="ryanlorentzen" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="7ad6bae9:147a6c641ce:-73dd">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="bar_id" referenced-key-column-name="bar_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="two_key_table" remarks="" uid="75978078:13d2217f23a:-7fef">
+<table-description/>
+<table-figure-bounds height="78" width="130" x="462" y="342"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="key_one" remarks="" uid="75978078:13d2217f23a:-7feb">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="key_two" remarks="" uid="75978078:13d2217f23a:-7fea">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="75978078:13d2217f23a:-7fe9">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="value" remarks="" uid="75978078:13d2217f23a:-7fe8">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TWO_KEY_TABLE" remarks="" uid="75978078:13d2217f23a:-7fee">
+<primary-key-description/>
+<primary-key-column name="key_one"/>
+<primary-key-column name="key_two"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="MST_DICT" remarks="" uid="75978078:13d2217f23a:-7fcb">
+<table-description/>
+<table-figure-bounds height="102" width="194" x="134" y="435"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="DICT_ID" remarks="" uid="75978078:13d2217f23a:-7fc7">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="DICT_TAB_NAME" remarks="" uid="75978078:13d2217f23a:-7fc6">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="DICT_COL_NAME" remarks="" uid="75978078:13d2217f23a:-7fc5">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="DICT_COL_DESC" remarks="" uid="75978078:13d2217f23a:-7fc4">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_MST_DICT" remarks="" uid="75978078:13d2217f23a:-7fca">
+<primary-key-description/>
+<primary-key-column name="DICT_ID"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="bar_type" remarks="" uid="7ad6bae9:147a6c641ce:-73ba">
+<table-description/>
+<table-figure-bounds height="57" width="111" x="614" y="580"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="bar_type_id" remarks="" uid="7ad6bae9:147a6c641ce:-73b6">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="7ad6bae9:147a6c641ce:-73b5">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_BAR_TYPE" remarks="" uid="7ad6bae9:147a6c641ce:-73b9">
+<primary-key-description/>
+<primary-key-column name="bar_type_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+</clay-model>

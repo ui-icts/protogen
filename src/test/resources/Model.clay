@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="1.4.2">
+<database-model alias="" author="" begin-script="CREATE SCHEMA schemaname&#10;  AUTHORIZATION test;&#10;CREATE SEQUENCE schemaname.seqnum&#10;  INCREMENT 1&#10;  MINVALUE 1&#10;  MAXVALUE 9223372036854775807&#10;  START 31&#10;  CACHE 1;" end-script="" name="model" remarks="" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" uid="34dcf4d9:12c7933ea8c:-7fe2" version="1.0">
+<database-model-description/>
+<schema-list>
+<schema alias="" name="schemaname" remarks="" uid="34dcf4d9:12c7933ea8c:-7fdf">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="studio" remarks="" uid="34dcf4d9:12c7933ea8c:-7fd9">
+<table-description/>
+<table-figure-bounds height="94" width="199" x="253" y="26"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="studio_id" remarks="" uid="34dcf4d9:12c7933ea8c:-7fd5">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="faf009c:12d2e6e17b7:-7ff8">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="website" remarks="" uid="7301c3be:12d5119facc:-7ea0">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_STUDIO" remarks="" uid="34dcf4d9:12c7933ea8c:-7fd8">
+<primary-key-description/>
+<primary-key-column name="studio_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="movie" remarks="" uid="6c274eec:12d38e12745:-7ffe">
+<table-description/>
+<table-figure-bounds height="144" width="165" x="209" y="294"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="movie_id" remarks="" uid="7301c3be:12d5119facc:-7e9d">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="title" remarks="" uid="6c274eec:12d38e12745:-7ffa">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="year" remarks="" uid="6c274eec:12d38e12745:-7ff9">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="description" remarks="" uid="6c274eec:12d38e12745:-7ff8">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="studio_id" remarks="" uid="7301c3be:12d5119facc:-7e6e">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_MOVIE" remarks="" uid="6c274eec:12d38e12745:-7ffd">
+<primary-key-description/>
+<primary-key-column name="movie_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_movie_1" on-delete="" on-update="" referenced-key="PK_STUDIO" referenced-table="studio" referenced-table-schema="schemaname" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="7301c3be:12d5119facc:-7e6f">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="studio_id" referenced-key-column-name="studio_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="actors" remarks="" uid="7301c3be:12d5119facc:-7e44">
+<table-description/>
+<table-figure-bounds height="70" width="99" x="42" y="32"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="person_id" remarks="" uid="7301c3be:12d5119facc:-7e1c">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="movie_id" remarks="" uid="7301c3be:12d5119facc:-7df3">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_ACTORS" remarks="" uid="7301c3be:12d5119facc:-7e43">
+<primary-key-description/>
+<primary-key-column name="person_id"/>
+<primary-key-column name="movie_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_actors_2" on-delete="" on-update="" referenced-key="PK_MOVIE" referenced-table="movie" referenced-table-schema="schemaname" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="7301c3be:12d5119facc:-7df4">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="movie_id" referenced-key-column-name="movie_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="department" remarks="" uid="18ca86fd:12fc03598ab:-7fb7">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="714" y="439"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="dept_id" remarks="" uid="18ca86fd:12fc03598ab:-7fb5">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="18ca86fd:12fc03598ab:-7fb4">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="abbreviation" remarks="" uid="18ca86fd:12fc03598ab:-7fb3">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="18ca86fd:12fc03598ab:-7fb2">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="department_pkey" remarks="" uid="18ca86fd:12fc03598ab:-7fb1">
+<primary-key-description/>
+<primary-key-column name="dept_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_department_1" on-delete="" on-update="" referenced-key="college_pkey" referenced-table="college" referenced-table-schema="schemaname" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="18ca86fd:12fc03598ab:-7f99">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="abbreviation" referenced-key-column-name="abbreviation"/>
+<foreign-key-column column-name="acronym" referenced-key-column-name="acronym"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="college" remarks="" uid="18ca86fd:12fc03598ab:-7fb0">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="725" y="237"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="abbreviation" remarks="" uid="18ca86fd:12fc03598ab:-7fae">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="18ca86fd:12fc03598ab:-7fad">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="18ca86fd:12fc03598ab:-7fac">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="college_pkey" remarks="" uid="18ca86fd:12fc03598ab:-7fab">
+<primary-key-description/>
+<primary-key-column name="abbreviation"/>
+<primary-key-column name="acronym"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_college_1" on-delete="" on-update="" referenced-key="institution_pkey" referenced-table="institution" referenced-table-schema="schemaname" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="18ca86fd:12fc03598ab:-7f38">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="acronym" referenced-key-column-name="acronym"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="institution" remarks="" uid="18ca86fd:12fc03598ab:-7f63">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="989" y="84"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="18ca86fd:12fc03598ab:-7f61">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="18ca86fd:12fc03598ab:-7f60">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="institution_pkey" remarks="" uid="18ca86fd:12fc03598ab:-7f5f">
+<primary-key-description/>
+<primary-key-column name="acronym"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="collegiate_core" remarks="" uid="18ca86fd:12fc03598ab:-7f09">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="514" y="19"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="abbreviation" remarks="" uid="18ca86fd:12fc03598ab:-7f07">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="18ca86fd:12fc03598ab:-7f06">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="core_id" remarks="" uid="18ca86fd:12fc03598ab:-7f05">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_COLLEGIATE_CORE" remarks="" uid="18ca86fd:12fc03598ab:-7f04">
+<primary-key-description/>
+<primary-key-column name="abbreviation"/>
+<primary-key-column name="acronym"/>
+<primary-key-column name="core_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_collegiate_core_1" on-delete="" on-update="" referenced-key="college_pkey" referenced-table="college" referenced-table-schema="schemaname" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="18ca86fd:12fc03598ab:-7eea">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="abbreviation" referenced-key-column-name="abbreviation"/>
+<foreign-key-column column-name="acronym" referenced-key-column-name="acronym"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+</clay-model>

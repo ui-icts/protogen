@@ -1,0 +1,1893 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="1.4.2">
+<database-model alias="" author="" begin-script="CREATE SCHEMA schemaname&#10;  AUTHORIZATION test;&#10;CREATE SEQUENCE schemaname.seqnum&#10;  INCREMENT 1&#10;  MINVALUE 1&#10;  MAXVALUE 9223372036854775807&#10;  START 31&#10;  CACHE 1;" end-script="" name="model" remarks="" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" uid="34dcf4d9:12c7933ea8c:-7fe2" version="1.0">
+<database-model-description/>
+<schema-list>
+<schema alias="" name="schemaname" remarks="" uid="34dcf4d9:12c7933ea8c:-7fdf">
+<schema-description/>
+<domain-list/>
+<table-list/>
+</schema>
+<schema alias="" name="ccom" remarks="" uid="41c58721:12fa109366a:-7d8e">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="ccom_abstract" remarks="" uid="41c58721:12fa109366a:-7d8d">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="10" y="10"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d8b">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d8a">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="abstr" remarks="" uid="41c58721:12fa109366a:-7d89">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="254" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="abstr_name" remarks="" uid="41c58721:12fa109366a:-7d88">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="ccom_abstract_pkey" remarks="" uid="41c58721:12fa109366a:-7d8c">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="ccom_budget" remarks="" uid="41c58721:12fa109366a:-7d87">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="320" y="10"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d85">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d84">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="support_salary" remarks="" uid="41c58721:12fa109366a:-7d83">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="equipment" remarks="" uid="41c58721:12fa109366a:-7d82">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="supplies" remarks="" uid="41c58721:12fa109366a:-7d81">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="other" remarks="" uid="41c58721:12fa109366a:-7d80">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="total_amount" remarks="" uid="41c58721:12fa109366a:-7d7f">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="budget_justification" remarks="" uid="41c58721:12fa109366a:-7d7e">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="ccom_budget_pkey" remarks="" uid="41c58721:12fa109366a:-7d86">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="ccom_questions" remarks="" uid="41c58721:12fa109366a:-7d7d">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="630" y="10"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d7b">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d7a">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="true" name="conflict_interest" remarks="" uid="41c58721:12fa109366a:-7d79">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="conflict_explanation" remarks="" uid="41c58721:12fa109366a:-7d78">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="human_subjects" remarks="" uid="41c58721:12fa109366a:-7d77">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="irbid" remarks="" uid="41c58721:12fa109366a:-7d76">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="animal_use" remarks="" uid="41c58721:12fa109366a:-7d75">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="animal_use_number" remarks="" uid="41c58721:12fa109366a:-7d74">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="radio_isotopes" remarks="" uid="41c58721:12fa109366a:-7d73">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="admin_drugs" remarks="" uid="41c58721:12fa109366a:-7d72">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="dna_recombinant" remarks="" uid="41c58721:12fa109366a:-7d71">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="facilities_available" remarks="" uid="41c58721:12fa109366a:-7d70">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="future_studies" remarks="" uid="41c58721:12fa109366a:-7d6f">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="support" remarks="" uid="41c58721:12fa109366a:-7d6e">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="funding" remarks="" uid="41c58721:12fa109366a:-7d6d">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="ccom_accuracy_check" remarks="" uid="41c58721:12fa109366a:-7d6c">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="submitted" remarks="" uid="41c58721:12fa109366a:-7d6b">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="score_discrepancy" remarks="" uid="41c58721:12fa109366a:-7d6a">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="score_edited" remarks="" uid="41c58721:12fa109366a:-7d69">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="reviews_open" remarks="" uid="41c58721:12fa109366a:-7d68">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="ccom_questions_pkey" remarks="" uid="41c58721:12fa109366a:-7d7c">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="propid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="ccom_student" remarks="" uid="41c58721:12fa109366a:-7d67">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="940" y="10"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d65">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d64">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="start_date" remarks="" uid="41c58721:12fa109366a:-7d63">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="end_date" remarks="" uid="41c58721:12fa109366a:-7d62">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="number_weeks" remarks="" uid="41c58721:12fa109366a:-7d61">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="prior_research" remarks="" uid="41c58721:12fa109366a:-7d60">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="proposal_role" remarks="" uid="41c58721:12fa109366a:-7d5f">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="keywords" remarks="" uid="41c58721:12fa109366a:-7d5e">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="ccom_student_pkey" remarks="" uid="41c58721:12fa109366a:-7d66">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="ccom_student_audit" remarks="" uid="41c58721:12fa109366a:-7d5d">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1250" y="10"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="audit_id" remarks="" uid="41c58721:12fa109366a:-7d5b">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="uid_viewer" remarks="" uid="41c58721:12fa109366a:-7d5a">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="audit_time_stamp" remarks="" uid="41c58721:12fa109366a:-7d59">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="page_accessed" remarks="" uid="41c58721:12fa109366a:-7d58">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="uid_accessed" remarks="" uid="41c58721:12fa109366a:-7d57">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="ccom_student_audit_pkey" remarks="" uid="41c58721:12fa109366a:-7d5c">
+<primary-key-description/>
+<primary-key-column name="audit_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="student_letter" remarks="" uid="41c58721:12fa109366a:-7d56">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="10" y="323"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d54">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d53">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="support" remarks="" uid="41c58721:12fa109366a:-7d52">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="254" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="support_name" remarks="" uid="41c58721:12fa109366a:-7d51">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="student_letter_pkey" remarks="" uid="41c58721:12fa109366a:-7d55">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="propid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="student_lookup" remarks="" uid="41c58721:12fa109366a:-7d50">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="320" y="323"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pi_id" remarks="" uid="41c58721:12fa109366a:-7d4e">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="first_name" remarks="" uid="41c58721:12fa109366a:-7d4d">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="last_name" remarks="" uid="41c58721:12fa109366a:-7d4c">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="email" remarks="" uid="41c58721:12fa109366a:-7d4b">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="student_lookup_pkey" remarks="" uid="41c58721:12fa109366a:-7d4f">
+<primary-key-description/>
+<primary-key-column name="pi_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+</table-list>
+</schema>
+<schema alias="" name="proposal" remarks="" uid="41c58721:12fa109366a:-7d4a">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="admin" remarks="" uid="41c58721:12fa109366a:-7d49">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="630" y="323"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="hawkid" remarks="" uid="41c58721:12fa109366a:-7d47">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="admin_pkey" remarks="" uid="41c58721:12fa109366a:-7d48">
+<primary-key-description/>
+<primary-key-column name="hawkid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="biosketch" remarks="" uid="41c58721:12fa109366a:-7d46">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="938" y="245"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d44">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pi_id" remarks="" uid="41c58721:12fa109366a:-7d43">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="biosketch_file" remarks="" uid="41c58721:12fa109366a:-7d42">
+<column-description/>
+<data-type jdbc-type="-2" name="BYTEA" selected-variant-pattern="BYTEA">
+<variant type-name-pattern="BYTEA"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="biosketch_name" remarks="" uid="41c58721:12fa109366a:-7d41">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="biosketch_pkey" remarks="" uid="41c58721:12fa109366a:-7d45">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="pi_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_biosketch_1_2" on-delete="CASCADE" on-update="NO ACTION" referenced-key="participant_pkey" referenced-table="participant" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c94">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="pi_id" referenced-key-column-name="pi_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="criteria" remarks="" uid="41c58721:12fa109366a:-7d40">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1250" y="323"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="cid" remarks="" uid="41c58721:12fa109366a:-7d3e">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="label" remarks="" uid="41c58721:12fa109366a:-7d3d">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="min_score" remarks="" uid="41c58721:12fa109366a:-7d3c">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="max_score" remarks="" uid="41c58721:12fa109366a:-7d3b">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="weight" remarks="" uid="41c58721:12fa109366a:-7d3a">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="criteria_pkey" remarks="" uid="41c58721:12fa109366a:-7d3f">
+<primary-key-description/>
+<primary-key-column name="cid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="investigator" remarks="" uid="41c58721:12fa109366a:-7d39">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="522" y="348"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pi_id" remarks="" uid="41c58721:12fa109366a:-7d37">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="first_name" remarks="" uid="41c58721:12fa109366a:-7d36">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="last_name" remarks="" uid="41c58721:12fa109366a:-7d35">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="investigator_pkey" remarks="" uid="41c58721:12fa109366a:-7d38">
+<primary-key-description/>
+<primary-key-column name="pi_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="investigator_backup" remarks="" uid="41c58721:12fa109366a:-7d34">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="320" y="411"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="pi_id" remarks="" uid="41c58721:12fa109366a:-7d32">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="first_name" remarks="" uid="41c58721:12fa109366a:-7d31">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="last_name" remarks="" uid="41c58721:12fa109366a:-7d30">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_INVESTIGATOR_BACKUP" remarks="" uid="41c58721:12fa109366a:-7d33">
+<primary-key-description/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="keyword" remarks="" uid="41c58721:12fa109366a:-7d2f">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1445" y="590"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d2d">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d2c">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="seqnum" remarks="" uid="41c58721:12fa109366a:-7d2b">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="keyword_value" remarks="" uid="41c58721:12fa109366a:-7d2a">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="keyword_pkey" remarks="" uid="41c58721:12fa109366a:-7d2e">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="seqnum"/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_keyword_1" on-delete="CASCADE" on-update="NO ACTION" referenced-key="proposal_pkey" referenced-table="proposal" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c93">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="letter_of_intent" remarks="" uid="41c58721:12fa109366a:-7d29">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="120" y="107"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d27">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d26">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="title" remarks="" uid="41c58721:12fa109366a:-7d25">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="budget_request" remarks="" uid="41c58721:12fa109366a:-7d24">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="created" remarks="" uid="41c58721:12fa109366a:-7d23">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="modified" remarks="" uid="41c58721:12fa109366a:-7d22">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="uploaded" remarks="" uid="41c58721:12fa109366a:-7d21">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="approved" remarks="" uid="41c58721:12fa109366a:-7d20">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="submitted" remarks="" uid="41c58721:12fa109366a:-7d1f">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="letter_of_intent_pkey" remarks="" uid="41c58721:12fa109366a:-7d28">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="propid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_letter_of_intent_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="solicitation_pkey" referenced-table="solicitation" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c92">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="loi_biosketch" remarks="" uid="41c58721:12fa109366a:-7d1e">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1250" y="411"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d1c">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pi_id" remarks="" uid="41c58721:12fa109366a:-7d1b">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="biosketch" remarks="" uid="41c58721:12fa109366a:-7d1a">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="254" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="biosketch_name" remarks="" uid="41c58721:12fa109366a:-7d19">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="loi_biosketch_pkey" remarks="" uid="41c58721:12fa109366a:-7d1d">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="pi_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_biosketch_1" on-delete="CASCADE" on-update="CASCADE" referenced-key="loi_participant_pkey" referenced-table="loi_participant" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c91">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="pi_id" referenced-key-column-name="pi_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="loi_narrative" remarks="" uid="41c58721:12fa109366a:-7d18">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="10" y="559"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d16">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d15">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="narrative" remarks="" uid="41c58721:12fa109366a:-7d14">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="254" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="narrative_name" remarks="" uid="41c58721:12fa109366a:-7d13">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="loi_narrative_pkey" remarks="" uid="41c58721:12fa109366a:-7d17">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="propid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_loi_narrative_1" on-delete="CASCADE" on-update="CASCADE" referenced-key="letter_of_intent_pkey" referenced-table="letter_of_intent" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c90">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="loi_participant" remarks="" uid="41c58721:12fa109366a:-7d12">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="284" y="524"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d10">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pi_id" remarks="" uid="41c58721:12fa109366a:-7d0f">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rid" remarks="" uid="41c58721:12fa109366a:-7d0e">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d0d">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="loi_participant_pkey" remarks="" uid="41c58721:12fa109366a:-7d11">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="pi_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_loi_participant_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="investigator_pkey" referenced-table="investigator" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c8f">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="pi_id" referenced-key-column-name="pi_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_loi_participant_1" on-delete="CASCADE" on-update="CASCADE" referenced-key="letter_of_intent_pkey" referenced-table="letter_of_intent" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c8e">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+</foreign-key>
+<foreign-key alias="" name="fk_loi_participant_3" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="role_pkey" referenced-table="role" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c8d">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="rid" referenced-key-column-name="rid"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="loi_review" remarks="" uid="41c58721:12fa109366a:-7d0c">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="630" y="559"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d0a">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d09">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7d08">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="assigned" remarks="" uid="41c58721:12fa109366a:-7d07">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="received" remarks="" uid="41c58721:12fa109366a:-7d06">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="loi_review_pkey" remarks="" uid="41c58721:12fa109366a:-7d0b">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="propid"/>
+<primary-key-column name="rev_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_loi_review_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="letter_of_intent_pkey" referenced-table="letter_of_intent" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c8c">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+</foreign-key>
+<foreign-key alias="" name="fk_loi_review_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="reviewer_pkey" referenced-table="reviewer" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c8b">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="rev_id" referenced-key-column-name="rev_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="loi_score" remarks="" uid="41c58721:12fa109366a:-7d05">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="940" y="559"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7d03">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="cid" remarks="" uid="41c58721:12fa109366a:-7d02">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="seqnum" remarks="" uid="41c58721:12fa109366a:-7d01">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7d00">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7cff">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="score" remarks="" uid="41c58721:12fa109366a:-7cfe">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="remarks" remarks="" uid="41c58721:12fa109366a:-7cfd">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="loi_score_pkey" remarks="" uid="41c58721:12fa109366a:-7d04">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="cid"/>
+<primary-key-column name="seqnum"/>
+<primary-key-column name="propid"/>
+<primary-key-column name="rev_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_loi_score_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="loi_review_pkey" referenced-table="loi_review" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c8a">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="rev_id" referenced-key-column-name="rev_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_loi_score_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="scoring_pkey" referenced-table="scoring" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c89">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+<foreign-key-column column-name="cid" referenced-key-column-name="cid"/>
+<foreign-key-column column-name="seqnum" referenced-key-column-name="seqnum"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="member" remarks="" uid="41c58721:12fa109366a:-7cfc">
+<table-description/>
+<table-figure-bounds height="103" width="118" x="260" y="1341"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7cfa">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7cf9">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="member_pkey" remarks="" uid="41c58721:12fa109366a:-7cfb">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="rev_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_member_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="reviewer_pkey" referenced-table="reviewer" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c88">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="rev_id" referenced-key-column-name="rev_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_member_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="solicitation_pkey" referenced-table="solicitation" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c87">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="narrative" remarks="" uid="41c58721:12fa109366a:-7cf8">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="-18" y="398"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7cf6">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7cf5">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="narrative_file" remarks="" uid="41c58721:12fa109366a:-7cf4">
+<column-description/>
+<data-type jdbc-type="-2" name="BYTEA" selected-variant-pattern="BYTEA">
+<variant type-name-pattern="BYTEA"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="narrative_name" remarks="" uid="41c58721:12fa109366a:-7cf3">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="narrative_pkey" remarks="" uid="41c58721:12fa109366a:-7cf7">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_narrative_1" on-delete="CASCADE" on-update="NO ACTION" referenced-key="proposal_pkey" referenced-table="proposal" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c86">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="panelist" remarks="" uid="41c58721:12fa109366a:-7cf2">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="320" y="677"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7cf0">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7cef">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="panelist_pkey" remarks="" uid="41c58721:12fa109366a:-7cf1">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="rev_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_panelist_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="reviewer_pkey" referenced-table="reviewer" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c85">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="rev_id" referenced-key-column-name="rev_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_panelist_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="solicitation_pkey" referenced-table="solicitation" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c84">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="participant" remarks="" uid="41c58721:12fa109366a:-7cee">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="630" y="677"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7cec">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pi_id" remarks="" uid="41c58721:12fa109366a:-7ceb">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rid" remarks="" uid="41c58721:12fa109366a:-7cea">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7ce9">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="participant_pkey" remarks="" uid="41c58721:12fa109366a:-7ced">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="pi_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_participant_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="investigator_pkey" referenced-table="investigator" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c83">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="pi_id" referenced-key-column-name="pi_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_participant_1" on-delete="CASCADE" on-update="NO ACTION" referenced-key="proposal_pkey" referenced-table="proposal" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c82">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_participant_3" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="role_pkey" referenced-table="role" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c81">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="rid" referenced-key-column-name="rid"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="proposal" remarks="" uid="41c58721:12fa109366a:-7ce8">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="737" y="1474"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7ce6">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7ce5">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="title" remarks="" uid="41c58721:12fa109366a:-7ce4">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="budget_request" remarks="" uid="41c58721:12fa109366a:-7ce3">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="created" remarks="" uid="41c58721:12fa109366a:-7ce2">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="modified" remarks="" uid="41c58721:12fa109366a:-7ce1">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="uploaded" remarks="" uid="41c58721:12fa109366a:-7ce0">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="funded" remarks="" uid="41c58721:12fa109366a:-7cdf">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="funding_amount" remarks="" uid="41c58721:12fa109366a:-7cde">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="abstr" remarks="" uid="41c58721:12fa109366a:-7cdd">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="submitted" remarks="" uid="41c58721:12fa109366a:-7cdc">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="proposal_pkey" remarks="" uid="41c58721:12fa109366a:-7ce7">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_proposal_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="solicitation_pkey" referenced-table="solicitation" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c80">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="review" remarks="" uid="41c58721:12fa109366a:-7cdb">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1250" y="677"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7cd9">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7cd8">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="assigned" remarks="" uid="41c58721:12fa109366a:-7cd7">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="received" remarks="" uid="41c58721:12fa109366a:-7cd6">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7cd5">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="review_pkey" remarks="" uid="41c58721:12fa109366a:-7cda">
+<primary-key-description/>
+<primary-key-column name="propid"/>
+<primary-key-column name="rev_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_review_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="proposal_pkey" referenced-table="proposal" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c7f">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_review_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="reviewer_pkey" referenced-table="reviewer" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c7e">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="rev_id" referenced-key-column-name="rev_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="reviewer" remarks="" uid="41c58721:12fa109366a:-7cd4">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="-46" y="1222"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7cd2">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="first_name" remarks="" uid="41c58721:12fa109366a:-7cd1">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="last_name" remarks="" uid="41c58721:12fa109366a:-7cd0">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="reviewer_pkey" remarks="" uid="41c58721:12fa109366a:-7cd3">
+<primary-key-description/>
+<primary-key-column name="rev_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="reviewer_temp" remarks="" uid="41c58721:12fa109366a:-7ccf">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="62" y="716"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7ccd">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="first_name" remarks="" uid="41c58721:12fa109366a:-7ccc">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="last_name" remarks="" uid="41c58721:12fa109366a:-7ccb">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_REVIEWER_TEMP" remarks="" uid="41c58721:12fa109366a:-7cce">
+<primary-key-description/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="role" remarks="" uid="41c58721:12fa109366a:-7cca">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="630" y="855"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rid" remarks="" uid="41c58721:12fa109366a:-7cc8">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="label" remarks="" uid="41c58721:12fa109366a:-7cc7">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="role_pkey" remarks="" uid="41c58721:12fa109366a:-7cc9">
+<primary-key-description/>
+<primary-key-column name="rid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="score" remarks="" uid="41c58721:12fa109366a:-7cc6">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1082" y="1044"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7cc4">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="cid" remarks="" uid="41c58721:12fa109366a:-7cc3">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="seqnum" remarks="" uid="41c58721:12fa109366a:-7cc2">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="propid" remarks="" uid="41c58721:12fa109366a:-7cc1">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="rev_id" remarks="" uid="41c58721:12fa109366a:-7cc0">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="score_value" remarks="" uid="41c58721:12fa109366a:-7cbf">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="remarks" remarks="" uid="41c58721:12fa109366a:-7cbe">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="score_id" remarks="" uid="41c58721:12fa109366a:-7cbd">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="score_pkey" remarks="" uid="41c58721:12fa109366a:-7cc5">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="cid"/>
+<primary-key-column name="seqnum"/>
+<primary-key-column name="propid"/>
+<primary-key-column name="rev_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_score_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="review_pkey" referenced-table="review" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c7d">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="propid" referenced-key-column-name="propid"/>
+<foreign-key-column column-name="rev_id" referenced-key-column-name="rev_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_score_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="scoring_pkey" referenced-table="scoring" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c7c">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+<foreign-key-column column-name="cid" referenced-key-column-name="cid"/>
+<foreign-key-column column-name="seqnum" referenced-key-column-name="seqnum"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="score_copy" remarks="" uid="41c58721:12fa109366a:-7cbc">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1250" y="855"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="score_id" remarks="" uid="41c58721:12fa109366a:-7cba">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="17" decimal-digits="17" default-value="" mandatory="false" name="score" remarks="" uid="41c58721:12fa109366a:-7cb9">
+<column-description/>
+<data-type jdbc-type="8" name="DOUBLE PRECISION" selected-variant-pattern="DOUBLE PRECISION">
+<variant type-name-pattern="DOUBLE PRECISION"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="remarks" remarks="" uid="41c58721:12fa109366a:-7cb8">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="score_copy_pkey" remarks="" uid="41c58721:12fa109366a:-7cbb">
+<primary-key-description/>
+<primary-key-column name="score_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="scoring" remarks="" uid="41c58721:12fa109366a:-7cb7">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="10" y="988"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7cb5">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="cid" remarks="" uid="41c58721:12fa109366a:-7cb4">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="seqnum" remarks="" uid="41c58721:12fa109366a:-7cb3">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="scoring_pkey" remarks="" uid="41c58721:12fa109366a:-7cb6">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+<primary-key-column name="cid"/>
+<primary-key-column name="seqnum"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_scoring_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="criteria_pkey" referenced-table="criteria" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c7b">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="cid" referenced-key-column-name="cid"/>
+</foreign-key>
+<foreign-key alias="" name="fk_scoring_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="solicitation_pkey" referenced-table="solicitation" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c7a">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="settings" remarks="" uid="41c58721:12fa109366a:-7cb2">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="320" y="988"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="settings_id" remarks="" uid="41c58721:12fa109366a:-7cb0">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="50" decimal-digits="0" default-value="" mandatory="true" name="name" remarks="" uid="41c58721:12fa109366a:-7caf">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="false" name="value" remarks="" uid="41c58721:12fa109366a:-7cae">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="settings_pkey" remarks="" uid="41c58721:12fa109366a:-7cb1">
+<primary-key-description/>
+<primary-key-column name="settings_id"/>
+<primary-key-column name="name"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="solicitation" remarks="" uid="41c58721:12fa109366a:-7cad">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="630" y="988"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7cab">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="title" remarks="" uid="41c58721:12fa109366a:-7caa">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="visibility_date" remarks="" uid="41c58721:12fa109366a:-7ca9">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="loi_required" remarks="" uid="41c58721:12fa109366a:-7ca8">
+<column-description/>
+<data-type jdbc-type="16" name="BOOL" selected-variant-pattern="BOOL">
+<variant type-name-pattern="BOOL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="loi_submission_deadline" remarks="" uid="41c58721:12fa109366a:-7ca7">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="loi_notification_deadline" remarks="" uid="41c58721:12fa109366a:-7ca6">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="submission_deadline" remarks="" uid="41c58721:12fa109366a:-7ca5">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="review_assignment" remarks="" uid="41c58721:12fa109366a:-7ca4">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="review_deadline" remarks="" uid="41c58721:12fa109366a:-7ca3">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="council_deadline" remarks="" uid="41c58721:12fa109366a:-7ca2">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="notification_deadline" remarks="" uid="41c58721:12fa109366a:-7ca1">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="snippet" remarks="" uid="41c58721:12fa109366a:-7ca0">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="description" remarks="" uid="41c58721:12fa109366a:-7c9f">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="29" decimal-digits="6" default-value="" mandatory="false" name="award_date" remarks="" uid="41c58721:12fa109366a:-7c9e">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP(%p)">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="instructions" remarks="" uid="41c58721:12fa109366a:-7c9d">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="max_amount" remarks="" uid="41c58721:12fa109366a:-7c9c">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="type" remarks="" uid="41c58721:12fa109366a:-7c9b">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="solicitation_pkey" remarks="" uid="41c58721:12fa109366a:-7cac">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="support" remarks="" uid="41c58721:12fa109366a:-7c9a">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="940" y="988"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="sol_id" remarks="" uid="41c58721:12fa109366a:-7c98">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="abbrevation" remarks="" uid="41c58721:12fa109366a:-7c97">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="acronym" remarks="" uid="41c58721:12fa109366a:-7c96">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="41c58721:12fa109366a:-7c95">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="support_pkey" remarks="" uid="41c58721:12fa109366a:-7c99">
+<primary-key-description/>
+<primary-key-column name="sol_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_support_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="solicitation_pkey" referenced-table="solicitation" referenced-table-schema="proposal" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="41c58721:12fa109366a:-7c79">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="sol_id" referenced-key-column-name="sol_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+</clay-model>

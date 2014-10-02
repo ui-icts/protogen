@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="1.4.2">
+<database-model alias="" author="" begin-script="" end-script="" name="DemographicsTagLib" remarks="" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" uid="6239310f:123ddde2c07:-7ff2" version="1.0">
+<database-model-description/>
+<schema-list>
+<schema alias="" name="demographics" remarks="" uid="6239310f:123ddde2c07:-7ff0">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="appointment" remarks="" uid="6239310f:123ddde2c07:-7fef">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="625" y="624"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="dept_id" remarks="" uid="6239310f:123ddde2c07:-7fed">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pid" remarks="" uid="6239310f:123ddde2c07:-7fec">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="prime" remarks="" uid="6239310f:123ddde2c07:-7feb">
+<column-description/>
+<data-type jdbc-type="16" name="BOOLEAN" selected-variant-pattern="BOOLEAN">
+<variant type-name-pattern="BOOLEAN"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="administrator" remarks="" uid="6239310f:123ddde2c07:-7fea">
+<column-description/>
+<data-type jdbc-type="16" name="BOOLEAN" selected-variant-pattern="BOOLEAN">
+<variant type-name-pattern="BOOLEAN"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="appointment_pkey" remarks="" uid="6239310f:123ddde2c07:-7fee">
+<primary-key-description/>
+<primary-key-column name="pid"/>
+<primary-key-column name="dept_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_appointment_3" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="department_pkey" referenced-table="department" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fc5">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="dept_id" referenced-key-column-name="dept_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_appointment_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="person_pkey" referenced-table="person" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fc4">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="pid" referenced-key-column-name="pid"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="college" remarks="" uid="6239310f:123ddde2c07:-7fe9">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="763" y="268"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="abbreviation" remarks="" uid="6239310f:123ddde2c07:-7fe7">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="6239310f:123ddde2c07:-7fe6">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="6239310f:123ddde2c07:-7fe5">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="college_pkey" remarks="" uid="6239310f:123ddde2c07:-7fe8">
+<primary-key-description/>
+<primary-key-column name="abbreviation"/>
+<primary-key-column name="acronym"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_college_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="institution_pkey" referenced-table="institution" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fc3">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="acronym" referenced-key-column-name="acronym"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="delegate" remarks="" uid="6239310f:123ddde2c07:-7fe4">
+<table-description/>
+<table-figure-bounds height="79" width="139" x="975" y="369"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="dept_id" remarks="" uid="6239310f:123ddde2c07:-7fe2">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="delegate_id" remarks="" uid="6239310f:123ddde2c07:-7fe1">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="delegate_pkey" remarks="" uid="6239310f:123ddde2c07:-7fe3">
+<primary-key-description/>
+<primary-key-column name="dept_id"/>
+<primary-key-column name="delegate_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_delegate_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="department_pkey" referenced-table="department" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fc2">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="dept_id" referenced-key-column-name="dept_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_delegate_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="person_pkey" referenced-table="person" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fc1">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="delegate_id" referenced-key-column-name="pid"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="delegation" remarks="" uid="6239310f:123ddde2c07:-7fe0">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1173" y="609"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="dept_id" remarks="" uid="6239310f:123ddde2c07:-7fde">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="delegate_id" remarks="" uid="6239310f:123ddde2c07:-7fdd">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pid" remarks="" uid="6239310f:123ddde2c07:-7fdc">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="delegation_pkey" remarks="" uid="6239310f:123ddde2c07:-7fdf">
+<primary-key-description/>
+<primary-key-column name="dept_id"/>
+<primary-key-column name="delegate_id"/>
+<primary-key-column name="pid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_delegation_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="delegate_pkey" referenced-table="delegate" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fc0">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="dept_id" referenced-key-column-name="dept_id"/>
+<foreign-key-column column-name="delegate_id" referenced-key-column-name="delegate_id"/>
+</foreign-key>
+<foreign-key alias="" name="fk_delegation_2" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="person_pkey" referenced-table="person" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fbf">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="pid" referenced-key-column-name="pid"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="department" remarks="" uid="6239310f:123ddde2c07:-7fdb">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="636" y="419"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="dept_id" remarks="" uid="6239310f:123ddde2c07:-7fd9">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="6239310f:123ddde2c07:-7fd8">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="abbreviation" remarks="" uid="6239310f:123ddde2c07:-7fd7">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="6239310f:123ddde2c07:-7fd6">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="department_pkey" remarks="" uid="6239310f:123ddde2c07:-7fda">
+<primary-key-description/>
+<primary-key-column name="dept_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_department_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="college_pkey" referenced-table="college" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="6239310f:123ddde2c07:-7fbe">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="abbreviation" referenced-key-column-name="abbreviation"/>
+<foreign-key-column column-name="acronym" referenced-key-column-name="acronym"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="institution" remarks="" uid="6239310f:123ddde2c07:-7fd5">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="981" y="163"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="6239310f:123ddde2c07:-7fd3">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="6239310f:123ddde2c07:-7fd2">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="institution_pkey" remarks="" uid="6239310f:123ddde2c07:-7fd4">
+<primary-key-description/>
+<primary-key-column name="acronym"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="person" remarks="" uid="6239310f:123ddde2c07:-7fd1">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="814" y="730"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="pid" remarks="" uid="6239310f:123ddde2c07:-7fcf">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="first_name" remarks="" uid="6239310f:123ddde2c07:-7fce">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="middle_name" remarks="" uid="6239310f:123ddde2c07:-7fcd">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="last_name" remarks="" uid="6239310f:123ddde2c07:-7fcc">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="office" remarks="" uid="6239310f:123ddde2c07:-7fcb">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="phone" remarks="" uid="6239310f:123ddde2c07:-7fca">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="email" remarks="" uid="6239310f:123ddde2c07:-7fc9">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="hawkid" remarks="" uid="6239310f:123ddde2c07:-7fc8">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="title" remarks="" uid="6239310f:123ddde2c07:-7fc7">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="2147483647" decimal-digits="0" default-value="" mandatory="false" name="rank" remarks="" uid="6239310f:123ddde2c07:-7fc6">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="person_pkey" remarks="" uid="6239310f:123ddde2c07:-7fd0">
+<primary-key-description/>
+<primary-key-column name="pid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="core" remarks="" uid="75471dd2:12657505c67:-7fd4">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="124" y="356"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="core_id" remarks="" uid="75471dd2:12657505c67:-7fd0">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="75471dd2:12657505c67:-7fcf">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="description" remarks="" uid="75471dd2:12657505c67:-7fce">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_CORE" remarks="" uid="75471dd2:12657505c67:-7fd3">
+<primary-key-description/>
+<primary-key-column name="core_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="institutional_core" remarks="" uid="75471dd2:12657505c67:-7fcd">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="467" y="92"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="75471dd2:12657505c67:-7fa4">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="core_id" remarks="" uid="75471dd2:12657505c67:-7f99">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_INSTITUTIONAL_CORE" remarks="" uid="75471dd2:12657505c67:-7fcc">
+<primary-key-description/>
+<primary-key-column name="acronym"/>
+<primary-key-column name="core_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_institutional_core_1" on-delete="" on-update="" referenced-key="institution_pkey" referenced-table="institution" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7fa5">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="acronym" referenced-key-column-name="acronym"/>
+</foreign-key>
+<foreign-key alias="" name="FK_institutional_core_2" on-delete="" on-update="" referenced-key="PK_CORE" referenced-table="core" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7f9a">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="core_id" referenced-key-column-name="core_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="departmental_core" remarks="" uid="75471dd2:12657505c67:-7fc9">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="380" y="409"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="dept_id" remarks="" uid="75471dd2:12657505c67:-7f5f">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="core_id" remarks="" uid="75471dd2:12657505c67:-7f48">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_DEPARTMENTAL_CORE" remarks="" uid="75471dd2:12657505c67:-7fc8">
+<primary-key-description/>
+<primary-key-column name="dept_id"/>
+<primary-key-column name="core_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_departmental_core_1" on-delete="" on-update="" referenced-key="department_pkey" referenced-table="department" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7f60">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="dept_id" referenced-key-column-name="dept_id"/>
+</foreign-key>
+<foreign-key alias="" name="FK_departmental_core_2" on-delete="" on-update="" referenced-key="PK_CORE" referenced-table="core" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7f49">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="core_id" referenced-key-column-name="core_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="collegiate_core" remarks="" uid="75471dd2:12657505c67:-7fc5">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="431" y="287"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="abbreviation" remarks="" uid="75471dd2:12657505c67:-7f85">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="acronym" remarks="" uid="75471dd2:12657505c67:-7f84">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="core_id" remarks="" uid="75471dd2:12657505c67:-7f68">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_COLLEGIATE_CORE" remarks="" uid="75471dd2:12657505c67:-7fc4">
+<primary-key-description/>
+<primary-key-column name="abbreviation"/>
+<primary-key-column name="acronym"/>
+<primary-key-column name="core_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_collegiate_core_1" on-delete="" on-update="" referenced-key="college_pkey" referenced-table="college" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7f86">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="abbreviation" referenced-key-column-name="abbreviation"/>
+<foreign-key-column column-name="acronym" referenced-key-column-name="acronym"/>
+</foreign-key>
+<foreign-key alias="" name="FK_collegiate_core_2" on-delete="" on-update="" referenced-key="PK_CORE" referenced-table="core" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7f69">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="core_id" referenced-key-column-name="core_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="boilerplate" remarks="" uid="75471dd2:12657505c67:-7f3f">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="384" y="632"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="core_id" remarks="" uid="75471dd2:12657505c67:-7f33">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="sequence_number" remarks="counter demographics.core" uid="75471dd2:12657505c67:-7f1c">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="label" remarks="" uid="75471dd2:12657505c67:-7f25">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="description" remarks="" uid="75471dd2:12657505c67:-7f24">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="last_modified" remarks="" uid="75471dd2:12657505c67:-7f23">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP">
+<variant type-name-pattern="TIMESTAMP"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant type-name-pattern="TIMESTAMP WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_BOILERPLATE" remarks="" uid="75471dd2:12657505c67:-7f3e">
+<primary-key-description/>
+<primary-key-column name="core_id"/>
+<primary-key-column name="sequence_number"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_boilerplate_1" on-delete="" on-update="" referenced-key="PK_CORE" referenced-table="core" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7f34">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="core_id" referenced-key-column-name="core_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="administrator" remarks="" uid="75471dd2:12657505c67:-7f1b">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="266" y="830"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="core_id" remarks="" uid="75471dd2:12657505c67:-7f0f">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="pid" remarks="" uid="75471dd2:12657505c67:-7efd">
+<column-description/>
+<data-type jdbc-type="4" name="INT4" selected-variant-pattern="INT4">
+<variant type-name-pattern="INT4"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_ADMINISTRATOR" remarks="" uid="75471dd2:12657505c67:-7f1a">
+<primary-key-description/>
+<primary-key-column name="core_id"/>
+<primary-key-column name="pid"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_administrator_1" on-delete="" on-update="" referenced-key="PK_CORE" referenced-table="core" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7f10">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="core_id" referenced-key-column-name="core_id"/>
+</foreign-key>
+<foreign-key alias="" name="FK_administrator_2" on-delete="" on-update="" referenced-key="person_pkey" referenced-table="person" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="75471dd2:12657505c67:-7efe">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="pid" referenced-key-column-name="pid"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="org" remarks="" uid="11efca08:1269744c943:-7fe5">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1198" y="237"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="org_code" remarks="" uid="11efca08:1269744c943:-7fe1">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="11efca08:1269744c943:-7fe0">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_ORG" remarks="" uid="11efca08:1269744c943:-7fe4">
+<primary-key-description/>
+<primary-key-column name="org_code"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="unit" remarks="" uid="11efca08:1269744c943:-7fdf">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1184" y="438"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="unit_code" remarks="" uid="11efca08:1269744c943:-7fdb">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="11efca08:1269744c943:-7fda">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="org_code" remarks="" uid="11efca08:1269744c943:-7fd9">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_UNIT" remarks="" uid="11efca08:1269744c943:-7fde">
+<primary-key-description/>
+<primary-key-column name="unit_code"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_unit_1" on-delete="" on-update="" referenced-key="PK_ORG" referenced-table="org" referenced-table-schema="demographics" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="11efca08:1269744c943:-7fcf">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="org_code" referenced-key-column-name="org_code"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+</clay-model>

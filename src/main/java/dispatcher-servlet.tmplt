@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+           xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                             http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       ">
+
+	<context:annotation-config/>
+   	<context:component-scan base-package="edu.uiowa.icts.webutils" />
+   	@springcomponents@
+   	
+<!--	<bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver"	p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />-->
+<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+  <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+</bean>
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+  <property name="definitions">
+    <list>
+      <value>/WEB-INF/tiles-defs/templates.xml</value>
+    </list>
+  </property>
+</bean>  
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+
+		<!-- Hibernate SessionFactory -->
+	<property name="packagesToScan">
+	<list>
+		@hibernatepackages@
+	</list>
+	</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.connection.datasource">java:comp/env/jdbc/@databasename@</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="configurationClass">org.hibernate.cfg.AnnotationConfiguration</prop>
+			</props>
+		</property>
+	</bean> 
+ <tx:annotation-driven/>
+
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"  />
+
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+</beans>

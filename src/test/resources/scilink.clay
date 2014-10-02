@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="1.4.2">
+<database-model alias="" author="" begin-script="" end-script="" name="scilink" remarks="" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" uid="6579fef5:13d35dab97e:-8000" version="1.0">
+<database-model-description/>
+<schema-list>
+<schema alias="" name="dbo" remarks="" uid="6579fef5:13d35dab97e:-7ffe">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="MST_BBNK_CNSNT" remarks="" uid="6579fef5:13d35dab97e:-7ffd">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="403" y="307"/>
+<column-list>
+<column alias="" auto-increment="true" column-size="18" decimal-digits="0" default-value="" mandatory="false" name="CNSNT_ID" remarks="" uid="6579fef5:13d35dab97e:-7ffb">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="false" name="CNSNT_NAME" remarks="" uid="6579fef5:13d35dab97e:-7ffa">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="18" decimal-digits="0" default-value="" mandatory="false" name="CNSNT_VER" remarks="" uid="6579fef5:13d35dab97e:-7ff9">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="18" decimal-digits="0" default-value="" mandatory="false" name="CRT_USR_ID" remarks="" uid="6579fef5:13d35dab97e:-7ff8">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="23" decimal-digits="3" default-value="" mandatory="false" name="CRT_DATE" remarks="" uid="6579fef5:13d35dab97e:-7ff7">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP">
+<variant type-name-pattern="TIMESTAMP"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="18" decimal-digits="0" default-value="" mandatory="false" name="UPD_USR_ID" remarks="" uid="6579fef5:13d35dab97e:-7ff6">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="23" decimal-digits="3" default-value="" mandatory="false" name="UPD_DATE" remarks="" uid="6579fef5:13d35dab97e:-7ff5">
+<column-description/>
+<data-type jdbc-type="93" name="TIMESTAMP" selected-variant-pattern="TIMESTAMP">
+<variant type-name-pattern="TIMESTAMP"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIMESTAMP(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_MST_BBNK_CNSNT" remarks="" uid="6579fef5:13d35dab97e:-7ffc">
+<primary-key-description/>
+<primary-key-column name="CNSNT_ID"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+</clay-model>
