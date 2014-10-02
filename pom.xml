@@ -138,9 +138,8 @@
 			<groupId>org.jboss.teiid</groupId>
 			<artifactId>teiid-client</artifactId>
 			<version>7.1.0.Final</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
