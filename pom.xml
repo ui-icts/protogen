@@ -26,6 +26,11 @@
 			<url>https://www-test.icts.uiowa.edu/artifactory/plugins-release-local</url>
 		</repository>
 	</distributionManagement>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+	</properties>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
