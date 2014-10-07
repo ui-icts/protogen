@@ -83,8 +83,8 @@ ${compositeKey}
     @RequestMapping( value = "save${pathExtension}", method = RequestMethod.POST )
     public ModelAndView save(${foreignClassParameters}@ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName} ) {
 ${compositeKey}
-${compositeKeySetter}
 ${foreignClassSetters}
+${compositeKeySetter}
         ${daoServiceName}.get${domainName}Service().saveOrUpdate( ${lowerDomainName} );
         return new ModelAndView( new RedirectView( "list${pathExtension}", true, true, false ) );
     }

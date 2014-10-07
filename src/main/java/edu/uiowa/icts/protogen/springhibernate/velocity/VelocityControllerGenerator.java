@@ -119,7 +119,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			output.append( tab( 2 ) + domainClass.getIdentifier() + "Id " + domainClass.getLowerIdentifier() + "Id = new " + domainClass.getIdentifier() + "Id();\n" );
 			for ( Attribute attribute : domainClass.getEntity().getPrimaryKeyAttributes() ) {
 				String setter = "set" + attribute.getLowerLabel().substring( 0, 1 ).toUpperCase() + attribute.getLowerLabel().substring( 1, attribute.getLowerLabel().length() );
-				output.append( tab( 2 ) + domainClass.getLowerIdentifier() + "Id." + setter + "( " + attribute.getLowerLabel() + " );\n" );
+				//output.append( tab( 2 ) + domainClass.getLowerIdentifier() + "Id." + setter + "( " + attribute.getLowerLabel() + " );\n" );
 			}
 		}
 		return output.toString();

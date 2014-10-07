@@ -7,12 +7,19 @@ import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Vector;
 
 import org.junit.Test;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
+import edu.uiowa.webapp.Attribute;
+import edu.uiowa.webapp.Entity;
 import edu.uiowa.webapp.Schema;
 
 public class VelocityControllerGeneratorTest {
@@ -138,6 +145,73 @@ public class VelocityControllerGeneratorTest {
 		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,domainClass,properties);
 		assertEquals("edu.uiowa.icts.controller", generator.getPackageName());
 	}
+	
+	
+	
+	@Test
+	public void shouldGenerateSaveMethodWithSingularPrimaryKey() {
+		String packageRoot = "edu.uiowa.icts";
+		
+		Schema schema = new Schema();
+		schema.setLabel("ictssysadmin");
+		
+		DomainClass domainClass = new DomainClass(null);
+		domainClass.setSchema(schema);
+		domainClass.setIdentifier("ClinicalDocument");
+		
+		Properties properties = new Properties();
+		
+		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,domainClass,properties);
+				
+		String sourceCode = generator.javaSourceCode();
+		
+		// test save
+		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
+		assertThat(sourceCode, containsString("public ModelAndView save( @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument ) {"));
+		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().saveOrUpdate( clinicalDocument );"));
+		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list\", true, true, false ) );"));
+	}
+	
+//	@Test
+//	public void shouldGenerateSaveMethodWithCompositePrimaryKey() {
+//		String packageRoot = "edu.uiowa.icts";
+//		
+//		Schema schema = new Schema();
+//		schema.setLabel("ictssysadmin");
+//		
+//		DomainClass referencedObjectOne = new DomainClass(null);
+//		referencedObjectOne.setSchema(schema);
+//		referencedObjectOne.setIdentifier("Job");
+//		
+//		DomainClass referencedObjectTwo = new DomainClass(null);
+//		referencedObjectTwo.setSchema(schema);
+//		referencedObjectTwo.setIdentifier("JobStatus");		
+//
+//		Vector<Attribute> primaryKeyAttributes = new Vector<Attribute>();
+//		primaryKeyAttributes.add(e)
+//		
+//		Entity compositeKey = new Entity();
+//		compositeKey.setAttributes(primaryKeyAttributes);
+//		
+//		DomainClass parentObject = new DomainClass(null);
+//		parentObject.setSchema(schema);
+//		parentObject.setIdentifier("JobJobStatus");
+//		parentObject.setUsesCompositeKey(true);
+//		parentObject.setEntity(compositeKey);
+//
+//		Properties properties = new Properties();
+//		
+//		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,parentObject,properties);
+//				
+//		String sourceCode = generator.javaSourceCode();
+//		System.out.println(sourceCode);
+//		
+//		// test save
+//		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
+//		assertThat(sourceCode, containsString("public ModelAndView save( @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument ) {"));
+//		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().saveOrUpdate( clinicalDocument );"));
+//		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list\", true, true, false ) );"));
+//	}
 	
 	@Test
 	public void shouldGenerateJavaSourceCodeForSpringControllerFileWithSchemaNameInRequestMapping() {
