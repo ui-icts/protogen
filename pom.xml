@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<name>Protogen</name>
 	<groupId>edu.uiowa.icts</groupId>
 	<artifactId>protogen</artifactId>
@@ -16,8 +17,8 @@
 		<connection>scm:git:ssh://git@git.its.uiowa.edu:7999/icts/protogen.git</connection>
 		<developerConnection>scm:git:ssh://git@git.its.uiowa.edu:7999/icts/protogen.git</developerConnection>
 		<url>ssh://git@git.its.uiowa.edu:7999/icts/protogen.git</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<distributionManagement>
 		<repository>
@@ -26,7 +27,7 @@
 			<url>https://www-test.icts.uiowa.edu/artifactory/plugins-release-local</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
@@ -95,26 +96,116 @@
 			<groupId>edu.uiowa.icts.spring</groupId>
 			<artifactId>spring-utils</artifactId>
 			<version>1.0.5</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>batik-xml</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-gvt</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-anim</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-extension</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-dom</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-gui-util</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-awt-util</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-parser</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-swing</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-script</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-svg-dom</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-codec</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-util</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-svggen</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>pdf-transcoder</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-css</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-transcoder</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-ext</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-bridge</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>batik-js</artifactId>
+					<groupId>batik</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>json</artifactId>
+					<groupId>json</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>pdfbox</artifactId>
+					<groupId>pdfbox</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-project</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
 			<version>2.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
 			<artifactId>jaxws-rt</artifactId>
@@ -144,26 +235,26 @@
 			<artifactId>teiid-client</artifactId>
 			<version>7.1.0.Final</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.4-702.jdbc4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
 			<artifactId>jtds</artifactId>
 			<version>1.2.7</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
 			<version>1.3</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
