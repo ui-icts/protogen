@@ -82,7 +82,7 @@ ${compositeKey}
 
     @RequestMapping( value = "save${pathExtension}", method = RequestMethod.POST )
     public ModelAndView save(${foreignClassParameters}@ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName} ) {
-${compositeKey}
+${newCompositeKey}
 ${foreignClassSetters}
 ${compositeKeySetter}
         ${daoServiceName}.get${domainName}Service().saveOrUpdate( ${lowerDomainName} );

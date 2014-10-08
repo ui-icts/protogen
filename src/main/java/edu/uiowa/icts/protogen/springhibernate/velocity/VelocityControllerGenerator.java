@@ -68,6 +68,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		context.put( "requestParameterIdentifier", requestParameterIdentifier() );
 		context.put( "addEditListDependencies", addEditListDependencies() );
+		context.put( "newCompositeKey", newCompositeKey() );
 		context.put( "compositeKey", compositeKey() );
 		context.put( "compositeKeySetter", compositeKeySetter() );
 		context.put( "foreignClassParameters", foreignClassParameters() );
@@ -112,6 +113,14 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		}
 		return output.toString();
 	}
+	
+	private String newCompositeKey() {
+		StringBuilder output = new StringBuilder();
+		if ( domainClass.isUsesCompositeKey() ) {
+			output.append( tab( 2 ) + domainClass.getIdentifier() + "Id " + domainClass.getLowerIdentifier() + "Id = new " + domainClass.getIdentifier() + "Id();\n" );
+		}
+		return output.toString();
+	}
 
 	private String compositeKey() {
 		StringBuilder output = new StringBuilder();
@@ -119,7 +128,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			output.append( tab( 2 ) + domainClass.getIdentifier() + "Id " + domainClass.getLowerIdentifier() + "Id = new " + domainClass.getIdentifier() + "Id();\n" );
 			for ( Attribute attribute : domainClass.getEntity().getPrimaryKeyAttributes() ) {
 				String setter = "set" + attribute.getLowerLabel().substring( 0, 1 ).toUpperCase() + attribute.getLowerLabel().substring( 1, attribute.getLowerLabel().length() );
-				//output.append( tab( 2 ) + domainClass.getLowerIdentifier() + "Id." + setter + "( " + attribute.getLowerLabel() + " );\n" );
+				output.append( tab( 2 ) + domainClass.getLowerIdentifier() + "Id." + setter + "( " + attribute.getLowerLabel() + " );\n" );
 			}
 		}
 		return output.toString();
