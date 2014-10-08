@@ -1,6 +1,8 @@
 package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
@@ -9,14 +11,26 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 
-import edu.uiowa.icts.protogen.springhibernate.ClassVariable;
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
+import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
+import edu.uiowa.webapp.ClayLoader;
+import edu.uiowa.webapp.Database;
+import edu.uiowa.webapp.DatabaseSchemaLoader;
+import edu.uiowa.webapp.Generator;
 import edu.uiowa.webapp.Schema;
 
 public class ControllerMvcTestGeneratorTest {
+	
+	 @Before
+	 public void setup() {
+	
+	 }
+	
+	
 	@Test
 	public void shouldGenerateJavaSourceCodeForSpringMVCTestFileWithSchemaNameInPackageName() {
 		String packageRoot = "edu.uiowa.icts";
@@ -209,50 +223,72 @@ public class ControllerMvcTestGeneratorTest {
 
 
 	@Test
-	public void shouldGenerateSetUpMethodThatLoadsDataAndTestsDatatables() {
-		String packageRoot = "edu.uiowa.icts";
-		
-		Schema schema = new Schema();
-		schema.setLabel("ictssysadmin");
-		
-//		List<ClassVariable> symTable = new ArrayList<ClassVariable>();
-//		ClassVariable primaryKey = new ClassVariable();
-//		primaryKey.setAttribType(ClassVariable.AttributeType.PRIMARYKEY);
-//		primaryKey.setType("Integer");
-		
-		DomainClass domainClass = new DomainClass(null);
-		domainClass.setSchema(schema);
-		domainClass.setIdentifier("ClinicalDocument");
-	//	domainClass.setSymTable(symTable);
-		
+	public void shouldGenerateSetUpMethodThatLoadsDataAndTestsDatatablesForDomainClassWithIntegerPrimaryKey() {
+		String packageRoot = "edu.uiowa.icts";		
+		String pathPrefix = System.getProperty( "user.dir" );
+
 		Properties properties = new Properties();
 		properties.setProperty( "datatables.generation", "2" );
-		
-		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator(packageRoot,domainClass,properties);
+		properties.setProperty( "include.schema.in.request.mapping", "false" );	
+
+		DatabaseSchemaLoader theLoader =  new ClayLoader();
+        try {
+			theLoader.run(pathPrefix + "/src/test/resources/mvc-test-generator.clay");
+		} catch (Exception e) {
+			assertNull(e);
+		}
+        Database database =  theLoader.getDatabase();
+     //   database.dump();
+        SpringHibernateModel model = new SpringHibernateModel( database, packageRoot, properties );
+        
+        DomainClass jobType = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("JobType")){
+				jobType = dc;
+			}
+		}
+        
+		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator(packageRoot,jobType,properties);
 		
 		String sourceCode = generator.javaSourceCode();
         System.out.println(sourceCode);
         
         // test imports
-        assertThat(sourceCode, containsString("import edu.uiowa.icts.ictssysadmin.domain.*;"));
-        assertThat(sourceCode, containsString("import edu.uiowa.icts.ictssysadmin.dao.*;"));
+        assertThat(sourceCode, containsString("import edu.uiowa.icts.aptamer.domain.*;"));
+        assertThat(sourceCode, containsString("import edu.uiowa.icts.aptamer.dao.*;"));
 
 		// test member variables
 		assertThat(sourceCode, containsString("@Autowired"));
-		assertThat(sourceCode, containsString("private IctssysadminDaoService ictssysadminDaoService;"));
+		assertThat(sourceCode, containsString("private AptamerDaoService aptamerDaoService;"));
 		
 		// test set up method
 		assertThat(sourceCode, containsString("for(int x=1; x<21; x++){"));
-		assertThat(sourceCode, containsString("ClinicalDocument clinicalDocument = new ClinicalDocument();"));
-		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().save(clinicalDocument);"));
+		assertThat(sourceCode, containsString("JobType jobType = new JobType();"));
+		assertThat(sourceCode, containsString("aptamerDaoService.getJobTypeService().save(jobType);"));
 		assertThat(sourceCode, containsString("if (x == 1){"));
-		assertThat(sourceCode, containsString("firstClinicalDocument = clinicalDocument;"));
+		assertThat(sourceCode, containsString("firstJobType = jobType;"));
 		
 		// test datatables test
-//		assertThat(sourceCode, containsString("public void listShouldSimplyLoadPage() throws Exception {"));
-//		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/ictssysadmin/clinicaldocument/list\"))"));
-//		assertThat(sourceCode, containsString(".andExpect(view().name(\"/ictssysadmin/clinicaldocument/list\"));"));
-		
-		
+		assertThat(sourceCode, containsString("public void defaultDatatableShouldReturnJSONDataWith10Rows() throws Exception {"));
+		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/jobtype/datatable\")"));
+		assertThat(sourceCode, containsString(".param(\"display\", \"list\")"));
+		assertThat(sourceCode, containsString(".param(\"search[value]\", \"\")"));
+		assertThat(sourceCode, containsString(".param(\"search[regex]\", \"false\")"));
+		assertThat(sourceCode, containsString(".param(\"length\", \"10\")"));
+		assertThat(sourceCode, containsString(".param(\"start\", \"0\")"));
+		assertThat(sourceCode, containsString(".param(\"columnCount\", \"4\")"));
+		assertThat(sourceCode, containsString(".param(\"draw\", \"1\")"));
+		assertThat(sourceCode, containsString(".param(\"individualSearch\", \"true\")"));
+		assertThat(sourceCode, containsString(".param(\"columns[0][data]\",\"0\").param(\"columns[0][name]\",\"description\").param(\"columns[0][searchable]\",\"true\").param(\"columns[0][orderable]\",\"true\").param(\"columns[0][search][regex]\",\"false\").param(\"columns[0][search][value]\",\"\")"));
+		assertThat(sourceCode, containsString(".param(\"columns[1][data]\",\"1\").param(\"columns[1][name]\",\"jobs\").param(\"columns[1][searchable]\",\"true\").param(\"columns[1][orderable]\",\"true\").param(\"columns[1][search][regex]\",\"false\").param(\"columns[1][search][value]\",\"\")"));
+		assertThat(sourceCode, containsString(".param(\"columns[2][data]\",\"2\").param(\"columns[2][name]\",\"name\").param(\"columns[2][searchable]\",\"true\").param(\"columns[2][orderable]\",\"true\").param(\"columns[2][search][regex]\",\"false\").param(\"columns[2][search][value]\",\"\")"));
+		assertThat(sourceCode, containsString(".param(\"columns[3][data]\",\"3\").param(\"columns[3][name]\",\"parameters\").param(\"columns[3][searchable]\",\"true\").param(\"columns[3][orderable]\",\"true\").param(\"columns[3][search][regex]\",\"false\").param(\"columns[3][search][value]\",\"\")"));
+		assertThat(sourceCode, containsString(".accept(MediaType.APPLICATION_JSON))"));
+		assertThat(sourceCode, containsString(".andExpect(status().isOk())"));
+		assertThat(sourceCode, containsString(".andExpect(content().contentType(\"application/json\"))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.recordsTotal\", is(aptamerDaoService.getJobTypeService().list().size())))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.recordsFiltered\", is(aptamerDaoService.getJobTypeService().list().size())))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.draw\", is(\"1\")))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data\", hasSize(is(10))))"));		
 	}
 }
