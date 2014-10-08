@@ -25,8 +25,6 @@ import edu.uiowa.webapp.Attribute;
  */
 public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
-	private static final String INTERFACE_SUFFIX = "Service";
-
 	public VelocityControllerGenerator( String packageRoot, DomainClass domainClass, Properties properties ) {
 		super( packageRoot, domainClass, properties );
 	}
@@ -53,13 +51,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		}
 		context.put( "abstractControllerClassName", abstractControllerClassName );
 		
-		String daoServiceName = properties.getProperty( domainClass.getSchema().getUpperLabel().toLowerCase() + ".master.dao.service.name" );
-		if( daoServiceName == null || "".equals( daoServiceName.trim() ) ){
-			daoServiceName = domainClass.getSchema().getLowerLabel() + "DaoService";
-		} else {
-			daoServiceName = StringUtils.substring( daoServiceName, 0, 1 ).toLowerCase() + StringUtils.substring( daoServiceName, 1, daoServiceName.length() );
-		}
-		context.put( "daoServiceName", daoServiceName );
+		addDaoServiceNameToVelocityContext(context);
 		
 		context.put( "domainPackageName", this.packageRoot + "." + domainClass.getSchema().getLowerLabel() + ".domain" );
 
@@ -83,26 +75,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 	}
 
-	private String compositeKeySetter() {
-		StringBuilder output = new StringBuilder();
-		if ( domainClass.isUsesCompositeKey() ) {
-			output.append( tab( 2 ) + "" + domainClass.getLowerIdentifier() + ".setId( " + domainClass.getLowerIdentifier() + "Id );" );
-		}
-		return output.toString();
-	}
-
-	private String foreignClassSetters() {
-		StringBuilder output = new StringBuilder();
-		for ( ClassVariable cv : domainClass.getForeignClassVariables() ) {
-			if ( !cv.isPrimary() && !domainClass.isUsesCompositeKey() ) {
-				String getter = domainClass.getSchema().getLowerLabel() + "DaoService.get" + cv.getDomainClass().getIdentifier() + INTERFACE_SUFFIX + "().findById( " + cv.getDomainClass().getLowerIdentifier() + "_" + cv.getDomainClass().getPrimaryKey().getIdentifier() + " )";
-				output.append( tab( 2 ) + domainClass.getLowerIdentifier() + ".set" + cv.getUpperIdentifier() + "( " + getter + " );\n" );
-			} else {
-				output.append( tab( 2 ) + domainClass.getLowerIdentifier() + "Id.set" + cv.getAttribute().getUpperLabel() + "( " + cv.getDomainClass().getLowerIdentifier() + "_" + cv.getDomainClass().getPrimaryKey().getIdentifier() + " );\n" );
-			}
-		}
-		return output.toString();
-	}
+	
 
 	private String foreignClassParameters() {
 		StringBuilder output = new StringBuilder( " " );
@@ -114,13 +87,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		return output.toString();
 	}
 	
-	private String newCompositeKey() {
-		StringBuilder output = new StringBuilder();
-		if ( domainClass.isUsesCompositeKey() ) {
-			output.append( tab( 2 ) + domainClass.getIdentifier() + "Id " + domainClass.getLowerIdentifier() + "Id = new " + domainClass.getIdentifier() + "Id();\n" );
-		}
-		return output.toString();
-	}
+
 
 	private String compositeKey() {
 		StringBuilder output = new StringBuilder();
@@ -270,12 +237,6 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		return output.toString();
 	}
 
-	private String tab( int tabCount ) {
-		StringBuilder output = new StringBuilder();
-		for ( int i = 0; i < tabCount; i++ ) {
-			output.append( '\t' );
-		}
-		return output.toString();
-	}
+	
 
 }

@@ -18,12 +18,15 @@ public class ControllerMvcTestGenerator extends AbstractVelocityGenerator {
 	public String javaSourceCode() {
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
+		context.put( "basePackageName", this.getBasePackageName() );
 		context.put( "packageName", this.getPackageName() );
 		context.put( "date", new Date().toString() ); // can be done with Velocity tools but let's keep it simple to start
 		context.put( "className", this.domainClass.getIdentifier() );
 		context.put( "pathPrefix", this.getPathPrefix() );
 		context.put( "jspPath", this.getJspPath() );
 		context.put( "pathExtension", this.getPathExtension());
+		addDaoServiceNameToVelocityContext(context);
+		context.put( "domainClass", this.domainClass );	
 
 		/* lets render a template loaded from the classpath */
 		StringWriter w = new StringWriter();

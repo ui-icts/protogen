@@ -4,11 +4,15 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import edu.uiowa.icts.protogen.springhibernate.ClassVariable;
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
 import edu.uiowa.webapp.Schema;
 
@@ -204,4 +208,51 @@ public class ControllerMvcTestGeneratorTest {
 	}
 
 
+	@Test
+	public void shouldGenerateSetUpMethodThatLoadsDataAndTestsDatatables() {
+		String packageRoot = "edu.uiowa.icts";
+		
+		Schema schema = new Schema();
+		schema.setLabel("ictssysadmin");
+		
+//		List<ClassVariable> symTable = new ArrayList<ClassVariable>();
+//		ClassVariable primaryKey = new ClassVariable();
+//		primaryKey.setAttribType(ClassVariable.AttributeType.PRIMARYKEY);
+//		primaryKey.setType("Integer");
+		
+		DomainClass domainClass = new DomainClass(null);
+		domainClass.setSchema(schema);
+		domainClass.setIdentifier("ClinicalDocument");
+	//	domainClass.setSymTable(symTable);
+		
+		Properties properties = new Properties();
+		properties.setProperty( "datatables.generation", "2" );
+		
+		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator(packageRoot,domainClass,properties);
+		
+		String sourceCode = generator.javaSourceCode();
+        System.out.println(sourceCode);
+        
+        // test imports
+        assertThat(sourceCode, containsString("import edu.uiowa.icts.ictssysadmin.domain.*;"));
+        assertThat(sourceCode, containsString("import edu.uiowa.icts.ictssysadmin.dao.*;"));
+
+		// test member variables
+		assertThat(sourceCode, containsString("@Autowired"));
+		assertThat(sourceCode, containsString("private IctssysadminDaoService ictssysadminDaoService;"));
+		
+		// test set up method
+		assertThat(sourceCode, containsString("for(int x=1; x<21; x++){"));
+		assertThat(sourceCode, containsString("ClinicalDocument clinicalDocument = new ClinicalDocument();"));
+		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().save(clinicalDocument);"));
+		assertThat(sourceCode, containsString("if (x == 1){"));
+		assertThat(sourceCode, containsString("firstClinicalDocument = clinicalDocument;"));
+		
+		// test datatables test
+//		assertThat(sourceCode, containsString("public void listShouldSimplyLoadPage() throws Exception {"));
+//		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/ictssysadmin/clinicaldocument/list\"))"));
+//		assertThat(sourceCode, containsString(".andExpect(view().name(\"/ictssysadmin/clinicaldocument/list\"));"));
+		
+		
+	}
 }

@@ -105,6 +105,40 @@ public class VelocityControllerGeneratorTest {
 	}
 	
 	@Test
+	public void getBasePackageNameShouldIncludeSchemaName() {
+		String packageRoot = "edu.uiowa.icts";
+		
+		Schema schema = new Schema();
+		schema.setLabel("ictssysadmin");
+		
+		DomainClass domainClass = new DomainClass(null);
+		domainClass.setSchema(schema);
+		domainClass.setIdentifier("ClinicalDocument");
+		
+		Properties properties = new Properties();
+	//	properties.setProperty( "include.schema.in.package.name", "false" );			
+		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,domainClass,properties);
+		assertEquals("edu.uiowa.icts.ictssysadmin", generator.getBasePackageName());
+	}
+	
+	@Test
+	public void getBasePackageNameShouldNotIncludeSchemaName() {
+		String packageRoot = "edu.uiowa.icts";
+		
+		Schema schema = new Schema();
+		schema.setLabel("ictssysadmin");
+		
+		DomainClass domainClass = new DomainClass(null);
+		domainClass.setSchema(schema);
+		domainClass.setIdentifier("ClinicalDocument");
+		
+		Properties properties = new Properties();
+		properties.setProperty( "include.schema.in.package.name", "false" );			
+		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,domainClass,properties);
+		assertEquals("edu.uiowa.icts", generator.getBasePackageName());
+	}
+	
+	@Test
 	public void getPackageNameShouldIncludeSchemaName() {
 		String packageRoot = "edu.uiowa.icts";
 		

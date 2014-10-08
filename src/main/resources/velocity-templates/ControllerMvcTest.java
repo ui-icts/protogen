@@ -3,10 +3,13 @@ package ${packageName};
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import ${basePackageName}.dao.*;
+import ${basePackageName}.domain.*;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,9 +24,30 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
 	
     private MockMvc mockMvc;
     
+    @Autowired
+	private ${daoServiceName.substring(0, 1).toUpperCase()}${daoServiceName.substring(1)} ${daoServiceName};
+    
+    private ${className} first${className};
+    
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+
+      #if ( ${domainClass.isUsesCompositeKey()} ) 
+    	// at the moment, do nothing for composite keys 
+      #elseif ( ${domainClass.getPrimaryKey().getType()} && ${domainClass.getPrimaryKey().getType()} != "Integer" )
+        // at the moment, do nothing for ids generated without sequences  
+      #else	  
+        // add 20 records to test database
+        for(int x=1; x<21; x++){
+        	${className} ${className.substring(0, 1).toLowerCase()}${className.substring(1)} = new ${className}();
+        	${daoServiceName}.get${className}Service().save(${className.substring(0, 1).toLowerCase()}${className.substring(1)});
+	        if (x == 1){
+	        	// use this ID for update, show, and delete assertions
+	        	first${className} = ${className.substring(0, 1).toLowerCase()}${className.substring(1)};
+	        }
+        }   
+      #end
     }
 
     @Test
@@ -55,4 +79,14 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
        .andExpect(model().attributeExists("${className.substring(0, 1).toLowerCase()}${className.substring(1)}List")) 
        .andExpect(view().name("${jspPath}/list_alt"));
     }
+    
+      #if ( ${domainClass.isUsesCompositeKey()} ) 
+    	// at the moment, don't test datatables for composite keys 
+      #elseif ( ${domainClass.getPrimaryKey().getType()} && ${domainClass.getPrimaryKey().getType()} != "Integer" )
+        // at the moment, don't test datatables for ids generated without sequences  
+      #else	  
+        
+      #end
+    
+    
 }
