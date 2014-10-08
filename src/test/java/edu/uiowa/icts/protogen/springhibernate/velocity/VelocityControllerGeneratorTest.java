@@ -7,19 +7,11 @@ import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Vector;
-
 import org.junit.Test;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+
 
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
-import edu.uiowa.webapp.Attribute;
-import edu.uiowa.webapp.Entity;
+
 import edu.uiowa.webapp.Schema;
 
 public class VelocityControllerGeneratorTest {
@@ -146,7 +138,29 @@ public class VelocityControllerGeneratorTest {
 		assertEquals("edu.uiowa.icts.controller", generator.getPackageName());
 	}
 	
-	
+	@Test
+	public void shouldGenerateAdddMethod() {
+		String packageRoot = "edu.uiowa.icts";
+		
+		Schema schema = new Schema();
+		schema.setLabel("ictssysadmin");
+		
+		DomainClass domainClass = new DomainClass(null);
+		domainClass.setSchema(schema);
+		domainClass.setIdentifier("ClinicalDocument");
+		
+		Properties properties = new Properties();
+		
+		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,domainClass,properties);
+				
+		String sourceCode = generator.javaSourceCode();
+		
+		// test add
+		assertThat(sourceCode, containsString("@RequestMapping( value = \"add\", method = RequestMethod.GET )"));
+		assertThat(sourceCode, containsString("public String add( Model model ) {"));
+		assertThat(sourceCode, containsString("model.addAttribute( \"clinicalDocument\", new ClinicalDocument() );"));
+		assertThat(sourceCode, containsString("return \"/ictssysadmin/clinicaldocument/edit\";"));
+	}
 	
 	@Test
 	public void shouldGenerateSaveMethodWithSingularPrimaryKey() {

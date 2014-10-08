@@ -59,10 +59,10 @@ public class ${className} extends ${abstractControllerClassName} {
 ${datatableMethod}
 
     @RequestMapping( value = "add${pathExtension}", method = RequestMethod.GET )
-    public ModelAndView add( ModelMap model ) {
+    public String add( Model model ) {
         model.addAttribute( "${lowerDomainName}", new ${domainName}() );
 ${addEditListDependencies}
-        return new ModelAndView( "${jspPath}/edit", model );
+        return "${jspPath}/edit";
     }
 
     @RequestMapping( value = "edit${pathExtension}", method = RequestMethod.GET )
