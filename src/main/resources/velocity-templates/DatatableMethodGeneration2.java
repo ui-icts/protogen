@@ -13,7 +13,7 @@
 		List<DataTableHeader> headers = new ArrayList<DataTableHeader>();
 		for ( int i = 0; i < columnCount; i++ ) {
 			DataTableHeader dth = new DataTableHeader();
-			dth.setData( Integer.valueOf( request.getParameter( "columns[" + i + "][data]" ) ) );
+			dth.setData( request.getParameter( "columns[" + i + "][data]" ) );
 			dth.setName( request.getParameter( "columns[" + i + "][name]" ) );
 			dth.setOrderable( Boolean.valueOf( request.getParameter( "columns[" + i + "][orderable]" ) ) );
 			dth.setSearchable( Boolean.valueOf( request.getParameter( "columns[" + i + "][searchable]" ) ) );
