@@ -434,6 +434,8 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += spaces( indent ) + "var columns = [];";
 		output += lines( 1 );
 
+		output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"urls\", \"" + titleLabel + "\":\"\", \"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
+		output += lines( 1 );
 		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
 
 		Iterator<ClassVariable> cvIter = ec.listAllIter();
@@ -454,8 +456,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				}
 			}
 		}
-		output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"urls\", \"" + titleLabel + "\":\"\", \"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
-		output += lines( 1 );
+
 
 		output += spaces( indent ) + "var table = setDataTable({";
 		indent += 4;

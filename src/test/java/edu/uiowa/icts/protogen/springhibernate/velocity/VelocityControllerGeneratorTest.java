@@ -220,47 +220,6 @@ public class VelocityControllerGeneratorTest {
 		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list\", true, true, false ) );"));
 	}
 	
-//	@Test
-//	public void shouldGenerateSaveMethodWithCompositePrimaryKey() {
-//		String packageRoot = "edu.uiowa.icts";
-//		
-//		Schema schema = new Schema();
-//		schema.setLabel("ictssysadmin");
-//		
-//		DomainClass referencedObjectOne = new DomainClass(null);
-//		referencedObjectOne.setSchema(schema);
-//		referencedObjectOne.setIdentifier("Job");
-//		
-//		DomainClass referencedObjectTwo = new DomainClass(null);
-//		referencedObjectTwo.setSchema(schema);
-//		referencedObjectTwo.setIdentifier("JobStatus");		
-//
-//		Vector<Attribute> primaryKeyAttributes = new Vector<Attribute>();
-//		primaryKeyAttributes.add(e)
-//		
-//		Entity compositeKey = new Entity();
-//		compositeKey.setAttributes(primaryKeyAttributes);
-//		
-//		DomainClass parentObject = new DomainClass(null);
-//		parentObject.setSchema(schema);
-//		parentObject.setIdentifier("JobJobStatus");
-//		parentObject.setUsesCompositeKey(true);
-//		parentObject.setEntity(compositeKey);
-//
-//		Properties properties = new Properties();
-//		
-//		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,parentObject,properties);
-//				
-//		String sourceCode = generator.javaSourceCode();
-//		System.out.println(sourceCode);
-//		
-//		// test save
-//		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
-//		assertThat(sourceCode, containsString("public ModelAndView save( @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument ) {"));
-//		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().saveOrUpdate( clinicalDocument );"));
-//		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list\", true, true, false ) );"));
-//	}
-	
 	@Test
 	public void shouldGenerateJavaSourceCodeForSpringControllerFileWithSchemaNameInRequestMapping() {
 		String packageRoot = "edu.uiowa.icts";
@@ -366,9 +325,9 @@ public class VelocityControllerGeneratorTest {
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"delete\", method = RequestMethod.POST )"));
 		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list\", true, true, false ) );"));
 		// test datatable links
-		assertThat(sourceCode, containsString("urls += \"<a href=\\\"show?\"+\"\\\">[view]</a>\";"));
-		assertThat(sourceCode, containsString("urls += \"<a href=\\\"edit?\"+\"\\\">[edit]</a>\";"));
-		assertThat(sourceCode, containsString("urls += \"<a href=\\\"delete?\"+\"\\\">[delete]</a>\";"));
+		assertThat(sourceCode, containsString("urls += \"<a href=\\\"show?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";"));
+		assertThat(sourceCode, containsString("urls += \"<a href=\\\"edit?\"+\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";"));
+		assertThat(sourceCode, containsString("urls += \"<a href=\\\"delete?\"+\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";"));
 	}
 	
 	@Test
@@ -400,9 +359,9 @@ public class VelocityControllerGeneratorTest {
 		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list.html\", true, true, false ) );"));
 		
 		// test datatable links
-		assertThat(sourceCode, containsString("urls += \"<a href=\\\"show.html?\"+\"\\\">[view]</a>\";"));
-		assertThat(sourceCode, containsString("urls += \"<a href=\\\"edit.html?\"+\"\\\">[edit]</a>\";"));
-		assertThat(sourceCode, containsString("urls += \"<a href=\\\"delete.html?\"+\"\\\">[delete]</a>\";"));		
+		assertThat(sourceCode, containsString("urls += \"<a href=\\\"show.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";"));
+		assertThat(sourceCode, containsString("urls += \"<a href=\\\"edit.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";"));
+		assertThat(sourceCode, containsString("urls += \"<a href=\\\"delete.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";"));		
 	}
 
 }

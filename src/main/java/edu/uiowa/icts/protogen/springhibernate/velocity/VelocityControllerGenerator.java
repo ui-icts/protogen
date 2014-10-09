@@ -205,9 +205,9 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			}
 		}
 
-		output.append( tab( indent ) + "urls += \"<a href=\\\"show"+this.getPathExtension()+"?\"+" + params + "\"\\\">[view]</a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"edit"+this.getPathExtension()+"?\"+" + params + "\"\\\">[edit]</a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"delete"+this.getPathExtension()+"?\"+" + params + "\"\\\">[delete]</a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"show"+this.getPathExtension()+"?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"edit"+this.getPathExtension()+"?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"delete"+this.getPathExtension()+"?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";\n" );
 
 		indent -= 1;
 
