@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import ${domainPackageName}.*;
 import edu.uiowa.icts.spring.GenericDaoListOptions;
@@ -66,42 +64,42 @@ ${addEditListDependencies}
     }
 
     @RequestMapping( value = "edit${pathExtension}", method = RequestMethod.GET )
-    public ModelAndView edit( ModelMap model, ${requestParameterIdentifier} ) {
+    public String edit( ModelMap model, ${requestParameterIdentifier} ) {
 ${addEditListDependencies}
 ${compositeKey}
         model.addAttribute( "${lowerDomainName}", ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id ) );
-        return new ModelAndView( "${jspPath}/edit", model );
+        return "${jspPath}/edit";
     }
 
     @RequestMapping( value = "show${pathExtension}", method = RequestMethod.GET )
-    public ModelAndView show( ModelMap model, ${requestParameterIdentifier} ) {
+    public String show( ModelMap model, ${requestParameterIdentifier} ) {
 ${compositeKey}
         model.addAttribute( "${lowerDomainName}", ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id ) );
-        return new ModelAndView( "${jspPath}/show", model );
+        return "${jspPath}/show";
     }
 
     @RequestMapping( value = "save${pathExtension}", method = RequestMethod.POST )
-    public ModelAndView save(${foreignClassParameters}@ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName} ) {
+    public String save(${foreignClassParameters}@ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName} ) {
 ${newCompositeKey}
 ${foreignClassSetters}
 ${compositeKeySetter}
         ${daoServiceName}.get${domainName}Service().saveOrUpdate( ${lowerDomainName} );
-        return new ModelAndView( new RedirectView( "list${pathExtension}", true, true, false ) );
+        return "redirect:${pathPrefix}/list${pathExtension}";
     }
 
     @RequestMapping( value = "delete${pathExtension}", method = RequestMethod.GET )
-    public ModelAndView confirmDelete( ModelMap model, ${requestParameterIdentifier} ) {
+    public String confirmDelete( ModelMap model, ${requestParameterIdentifier} ) {
 ${compositeKey}
         model.addAttribute( "${lowerDomainName}", ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id ) );
-        return new ModelAndView( "${jspPath}/delete", model );
+        return "${jspPath}/delete";
     }
 
     @RequestMapping( value = "delete${pathExtension}", method = RequestMethod.POST )
-    public ModelAndView doDelete( @RequestParam( value = "submit" ) String submitButtonValue, ${requestParameterIdentifier} ) {
+    public String doDelete( ModelMap model, @RequestParam( value = "submit" ) String submitButtonValue, ${requestParameterIdentifier} ) {
 ${compositeKey}
         if ( StringUtils.equalsIgnoreCase( submitButtonValue, "yes" ) ) {
             ${daoServiceName}.get${domainName}Service().delete( ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id ) );
         }
-        return new ModelAndView( new RedirectView( "list${pathExtension}", true, true, false ) );
+        return "redirect:${pathPrefix}/list${pathExtension}";
     }
 }

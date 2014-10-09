@@ -57,9 +57,18 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	}
 
 	private void generateDeleteJSP( DomainClass ec ) throws IOException {
-		String directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+
+		String directory;
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
+			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+		} else {
+			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
+		}
+
 		( new File( directory ) ).mkdirs();
+
 		String jspFile = directory + "/delete.jsp";
+
 		int indent = 0;
 
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
@@ -77,7 +86,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		cvIter = ec.listAllIter();
 		output += lines( 1 );
 
-		output += "<form method=\"post\" action=\"delete"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"\">";
+		output += "<form method=\"post\" action=\"delete" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\">";
 		output += lines( 1 );
 		indent += 4;
 
@@ -228,9 +237,18 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	}
 
 	private void generateShowJSP( DomainClass ec ) throws IOException {
-		String directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+
+		String directory;
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
+			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+		} else {
+			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
+		}
+
 		( new File( directory ) ).mkdirs();
+
 		String jspFile = directory + "/show.jsp";
+
 		int indent = 0;
 
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
@@ -311,7 +329,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 					output += lines( 1 );
 					indent += 4;
 
-					output += spaces( indent ) + "<li><a href=\"../" + cv.getAttribute().getEntity().getDomainClass().getLowerIdentifier().toLowerCase() + "/edit"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + pkString + "\" > ${item." + cv.getAttribute().getEntity().getDomainClass().getPrimaryKey().getLowerIdentifier() + "}</a></li>";
+					output += spaces( indent ) + "<li><a href=\"../" + cv.getAttribute().getEntity().getDomainClass().getLowerIdentifier().toLowerCase() + "/edit" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + pkString + "\" > ${item." + cv.getAttribute().getEntity().getDomainClass().getPrimaryKey().getLowerIdentifier() + "}</a></li>";
 					output += lines( 1 );
 					indent -= 4;
 
@@ -361,14 +379,26 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	}
 
 	private void generateListJSP( DomainClass ec ) throws IOException {
-		
+
+		String directory;
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
+			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+		} else {
+			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
+		}
+
+		( new File( directory ) ).mkdirs();
+
+		String jspFile = directory + "/list.jsp";
+
 		String nameLabel = "sName";
 		String titleLabel = "sTitle";
 		String classLabel = "sClass";
 		String sortableLabel = "bSortable";
 		String searchableLabel = "bSearchable";
 		String individualSearchingLabel = "includeSearches";
-		String datatableUrl = "datatable"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"";
+
+		String datatableUrl = "datatable" + properties.getProperty( "controller.request.mapping.extension", "" ) + "";
 
 		if ( StringUtils.equals( properties.getProperty( "datatables.generation", "1" ), "2" ) ) {
 			nameLabel = "name";
@@ -377,16 +407,17 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			sortableLabel = "sortable";
 			searchableLabel = "searchable";
 			individualSearchingLabel = "individualSearching";
-			datatableUrl = "datatable";
+		}
+
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
+			datatableUrl = "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase() + "/" + datatableUrl;
+		} else {
+			datatableUrl = "/" + ec.getIdentifier().toLowerCase() + "/" + datatableUrl;
 		}
 
 		log.debug( "GeneratingListJSP:" + ec.getIdentifier() );
 		log.debug( "...." + ec.getIdentifier() );
-		String directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
 
-		( new File( directory ) ).mkdirs();
-
-		String jspFile = directory + "/list.jsp";
 		int indent = 0;
 
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
@@ -396,7 +427,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += lines( 1 );
 
 		output += lines( 1 );
-		output += spaces( indent ) + "<a href=\"add"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"\" class=\"btn btn-default\">Add</a>";
+		output += spaces( indent ) + "<a href=\"add" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" class=\"btn btn-default\">Add</a>";
 		output += lines( 2 );
 		output += spaces( indent ) + "<div id=\"error_div\" class=\"alert alert-error\" style=\"display: none;\">";
 		output += lines( 1 );
@@ -443,10 +474,10 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			ClassVariable cv = cvIter.next();
 			// by default, don't display primary keys
 			if ( cv.isPrimary() ) { //&& ec.isUsesCompositeKey() ) {
-//				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
-//					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"id." + a.getLowerLabel() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + a.getSqlLabel() + "') } " : a.getLabel() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
-//					output += lines( 1 );
-//				}
+				//				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
+				//					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"id." + a.getLowerLabel() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + a.getSqlLabel() + "') } " : a.getLabel() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
+				//					output += lines( 1 );
+				//				}
 			} else {
 				if ( RelationshipType.NONE == cv.getRelationshipType() ) {
 					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : cv.getUpperIdentifier() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":true, \"" + searchableLabel + "\": true });";
@@ -457,7 +488,6 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				}
 			}
 		}
-
 
 		output += spaces( indent ) + "var table = setDataTable({";
 		indent += 4;
@@ -486,15 +516,22 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 	private void generateListAltJSP( DomainClass ec ) throws IOException {
 
-		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
-
-		log.debug( "GeneratingListJSP:" + ec.getIdentifier() );
-		log.debug( "...." + ec.getIdentifier() );
-		String directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+		String directory;
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
+			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+		} else {
+			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
+		}
 
 		( new File( directory ) ).mkdirs();
 
 		String jspFile = directory + "/list_alt.jsp";
+
+		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
+
+		log.debug( "GeneratingListJSP:" + ec.getIdentifier() );
+		log.debug( "...." + ec.getIdentifier() );
+
 		int indent = 0;
 
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
@@ -504,7 +541,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += lines( 1 );
 
 		output += lines( 1 );
-		output += spaces( indent ) + "<a href=\"add"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"\" class=\"btn btn-default\">Add</a>";
+		output += spaces( indent ) + "<a href=\"add" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" class=\"btn btn-default\">Add</a>";
 		output += lines( 2 );
 		output += spaces( indent ) + "<div id=\"error_div\" class=\"alert alert-error\" style=\"display: none;\">";
 		output += lines( 1 );
@@ -586,7 +623,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 					output += spaces( indent ) + "<td>";
 					output += lines( 1 );
 					indent += 4;
-					output += spaces( indent ) + "<a href=\"edit"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + params + "\">" + label + "</a>";
+					output += spaces( indent ) + "<a href=\"edit" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + params + "\">" + label + "</a>";
 					indent -= 4;
 					output += lines( 1 );
 					output += spaces( indent ) + "</td>";
@@ -594,11 +631,11 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 					links += spaces( indent ) + "<td>";
 					indent += 4;
 					links += lines( 1 );
-					links += spaces( indent ) + "<a href=\"edit"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + params + "\">edit</a> ";
+					links += spaces( indent ) + "<a href=\"edit" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + params + "\">edit</a> ";
 					links += lines( 1 );
-					links += spaces( indent ) + "<a href=\"show"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + params + "\">view</a>";
+					links += spaces( indent ) + "<a href=\"show" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + params + "\">view</a>";
 					links += lines( 1 );
-					links += spaces( indent ) + "<a href=\"delete"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + params + "\">delete</a>";
+					links += spaces( indent ) + "<a href=\"delete" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + params + "\">delete</a>";
 					links += lines( 1 );
 					indent -= 4;
 					links += spaces( indent ) + "</td>";
@@ -606,16 +643,16 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 					links += spaces( indent ) + "<td>";
 					indent += 4;
 					links += lines( 1 );
-					links += spaces( indent ) + "<a href=\"edit"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">edit</a> ";
+					links += spaces( indent ) + "<a href=\"edit" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">edit</a> ";
 					links += lines( 1 );
-					links += spaces( indent ) + "<a href=\"show"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">view</a>";
+					links += spaces( indent ) + "<a href=\"show" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">view</a>";
 					links += lines( 1 );
-					links += spaces( indent ) + "<a href=\"delete"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">delete</a>";
+					links += spaces( indent ) + "<a href=\"delete" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">delete</a>";
 					links += lines( 1 );
 					indent -= 4;
 					links += spaces( indent ) + "</td>";
 
-					output += spaces( indent ) + "<td><a href=\"edit"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}</a></td>";
+					output += spaces( indent ) + "<td><a href=\"edit" + properties.getProperty( "controller.request.mapping.extension", "" ) + "?" + cv.getIdentifier() + "=${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}\">${" + ec.getLowerIdentifier() + "." + cv.getIdentifier() + "}</a></td>";
 				}
 			} else if ( cv.getRelationshipType() == RelationshipType.ONETOMANY ) {
 				output += spaces( indent ) + "<td>" + cv.getLowerIdentifier() + "</td>";
@@ -660,10 +697,18 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	}
 
 	private void generateEditJSP( DomainClass ec ) throws IOException {
-		String directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+
+		String directory;
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
+			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
+		} else {
+			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
+		}
+
 		( new File( directory ) ).mkdirs();
 
 		String jspFile = directory + "/edit.jsp";
+
 		int indent = 0;
 
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
@@ -682,7 +727,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			output += lines( 1 );
 		}
 
-		output += "<form:form method=\"post\" commandName=\"" + ec.getLowerIdentifier() + "\" action=\"save"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"\" >";
+		output += "<form:form method=\"post\" commandName=\"" + ec.getLowerIdentifier() + "\" action=\"save" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" >";
 		output += lines( 1 );
 		indent += 4;
 
@@ -792,7 +837,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += lines( 1 );
 		output += spaces( indent ) + "<input type=\"submit\" value=\"Save\" class=\"btn btn-primary\" />";
 		output += lines( 1 );
-		output += spaces( indent ) + "<a class=\"btn btn-default\" href=\"list"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"\">Cancel</a>";
+		output += spaces( indent ) + "<a class=\"btn btn-default\" href=\"list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\">Cancel</a>";
 		output += lines( 1 );
 		indent -= 4;
 		output += spaces( indent ) + "</fieldset>";
@@ -822,7 +867,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		while ( dcIter.hasNext() )
 		{
 			DomainClass dc = dcIter.next();
-			output += "<a href=\"<c:url value=\"/" + dc.getSchema().getUnqualifiedLabel() + "/" + dc.getLowerIdentifier().toLowerCase() + "/list"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"\" />\" >" + dc.getIdentifier() + " List</a><br/>";
+			output += "<a href=\"<c:url value=\"/" + dc.getSchema().getUnqualifiedLabel() + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a><br/>";
 			output += lines( 1 );
 
 		}
@@ -836,8 +881,11 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	}
 
 	private void generateMenu( List<DomainClass> ecList ) throws IOException {
+
 		( new File( jspRoot ) ).mkdirs();
+
 		String jspFile = jspRoot + "/menu.jsp";
+
 		int indent = 0;
 
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
@@ -850,7 +898,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		while ( dcIter.hasNext() )
 		{
 			DomainClass dc = dcIter.next();
-			output += "<li><a href=\"<c:url value=\""+ (Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" )) ? "/" + dc.getSchema().getUnqualifiedLabel() : "") + "/" + dc.getLowerIdentifier().toLowerCase() + "/list"+ properties.getProperty( "controller.request.mapping.extension", "" ) +"\" />\" >" + dc.getIdentifier() + " List</a></li>";
+			output += "<li><a href=\"<c:url value=\"" + ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ? "/" + dc.getSchema().getUnqualifiedLabel() : "" ) + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a></li>";
 			output += lines( 1 );
 
 		}

@@ -64,13 +64,15 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "jsp.file.location", pathPrefix + "/target/clay/test/jsp" + "src" );
 		props.setProperty( "test.file.location", pathPrefix + "/target/clay/test/javatest" + "src" );
 		
-		props.setProperty( "include.schema.in.jsp.path", "false" );
 		props.setProperty( "generate.templates.xml", "true" );
 		props.setProperty( "overwrite.templates.xml", "true" );
 		props.setProperty( "templates.xml.file.location", pathPrefix + "/target/clay/test/src/main/resources/tiles/" );
 
 		props.setProperty( "datatables.generation", "1" );
-		
+		props.setProperty( "controller.request.mapping.extension", ".html" );
+
+		props.setProperty( "include.schema.in.request.mapping", "false" );
+		props.setProperty( "include.schema.in.jsp.path", "false" );
 		props.setProperty( "include.schema.in.package.name", "false" );
 		
 		props.setProperty( "ryanlorentzen.master.dao.service.name", "FooBarDaoService" );

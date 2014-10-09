@@ -215,9 +215,9 @@ public class VelocityControllerGeneratorTest {
 		
 		// test save
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
-		assertThat(sourceCode, containsString("public ModelAndView save( @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument ) {"));
+		assertThat(sourceCode, containsString("public String save( @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument ) {"));
 		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().saveOrUpdate( clinicalDocument );"));
-		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list\", true, true, false ) );"));
+		assertThat(sourceCode, containsString("return \"redirect:/ictssysadmin/clinicaldocument/list\";"));
 	}
 	
 	@Test
@@ -323,7 +323,7 @@ public class VelocityControllerGeneratorTest {
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"delete\", method = RequestMethod.GET )"));
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"delete\", method = RequestMethod.POST )"));
-		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list\", true, true, false ) );"));
+		assertThat( sourceCode, containsString( "return \"redirect:/ictssysadmin/clinicaldocument/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\";" ) );
 		// test datatable links
 		assertThat(sourceCode, containsString("urls += \"<a href=\\\"show?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";"));
 		assertThat(sourceCode, containsString("urls += \"<a href=\\\"edit?\"+\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";"));
@@ -356,7 +356,7 @@ public class VelocityControllerGeneratorTest {
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"delete.html\", method = RequestMethod.GET )"));
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"save.html\", method = RequestMethod.POST )"));
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"delete.html\", method = RequestMethod.POST )"));
-		assertThat(sourceCode, containsString("return new ModelAndView( new RedirectView( \"list.html\", true, true, false ) );"));
+		assertThat(sourceCode, containsString("return \"redirect:/ictssysadmin/clinicaldocument/list.html\";"));
 		
 		// test datatable links
 		assertThat(sourceCode, containsString("urls += \"<a href=\\\"show.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";"));

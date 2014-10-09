@@ -47,7 +47,11 @@ public abstract class AbstractVelocityGenerator {
 		}
     }
 	public String getJspPath(){
-		return "/" + domainClass.getSchema().getLowerLabel() + "/" + domainClass.getLowerIdentifier().toLowerCase();
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
+			return "/" + domainClass.getSchema().getLowerLabel() + "/" + domainClass.getLowerIdentifier().toLowerCase();
+		} else {
+			return "/" + domainClass.getLowerIdentifier().toLowerCase();
+		}
     }
 	
 	public String getPathExtension(){
