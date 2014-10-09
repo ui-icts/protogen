@@ -71,7 +71,7 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "datatables.generation", "1" );
 		props.setProperty( "controller.request.mapping.extension", ".html" );
 
-		props.setProperty( "include.schema.in.request.mapping", "false" );
+		props.setProperty( "include.schema.in.request.mapping", "true" );
 		props.setProperty( "include.schema.in.jsp.path", "false" );
 		props.setProperty( "include.schema.in.package.name", "false" );
 		
