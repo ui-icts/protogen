@@ -296,7 +296,12 @@ public class TLDGenerator {
         }
     }
     
-    private void generateAttributeFunction(Entity theEntity, Attribute theAttribute) {
+    /**
+     * @deprecated - no longer used
+     */
+    @Deprecated
+    @SuppressWarnings( "unused" )
+	private void generateAttributeFunction(Entity theEntity, Attribute theAttribute) {
         functionBuffer.append("\n\t<function>\n");
         functionBuffer.append("\t\t<name>" + theEntity.getLowerLabel() + theAttribute.getUpperLabel() + "Value</name>\n");
         functionBuffer.append("\t\t<function-class>" + packagePrefix + "." + theEntity.getUnqualifiedLowerLabel() + "." + theEntity.getUnqualifiedLabel() + "</function-class>\n");

@@ -2,19 +2,17 @@ package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable;
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
-import edu.uiowa.webapp.Attribute;
 
 public class ControllerMvcTestGenerator extends AbstractVelocityGenerator {
 
@@ -31,21 +29,21 @@ public class ControllerMvcTestGenerator extends AbstractVelocityGenerator {
 		context.put( "className", this.domainClass.getIdentifier() );
 		context.put( "pathPrefix", this.getPathPrefix() );
 		context.put( "jspPath", this.getJspPath() );
-		context.put( "pathExtension", this.getPathExtension());
-		addDaoServiceNameToVelocityContext(context);
-		context.put( "domainClass", this.domainClass );	
+		context.put( "pathExtension", this.getPathExtension() );
+		addDaoServiceNameToVelocityContext( context );
+		context.put( "domainClass", this.domainClass );
 
-		List columnNamesList = new ArrayList();
+		List<String> columnNamesList = new ArrayList<String>();
 		Iterator<ClassVariable> iter = this.domainClass.listAllIter();
 		while ( iter.hasNext() ) {
 			ClassVariable cv = iter.next();
 			if ( !cv.isPrimary() ) {
-				columnNamesList.add(cv.getLowerIdentifier());
+				columnNamesList.add( cv.getLowerIdentifier() );
 			}
 		}
-		java.util.Collections.sort(columnNamesList);
-		context.put( "columnNamesList", columnNamesList );	
-		
+		Collections.sort( columnNamesList );
+		context.put( "columnNamesList", columnNamesList );
+
 		/* lets render a template loaded from the classpath */
 		StringWriter w = new StringWriter();
 		Velocity.mergeTemplate( "/velocity-templates/ControllerMvcTest.java", Velocity.ENCODING_DEFAULT, context, w );

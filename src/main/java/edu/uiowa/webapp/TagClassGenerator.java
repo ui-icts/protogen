@@ -879,9 +879,10 @@ public class TagClassGenerator {
             return;
 
         Vector<Attribute> primaryKeys = theEntity.getPrimaryKeyAttributes();
-        Vector<Attribute> parentKeys = theEntity.getParentKeyAttributes();
         Vector<Attribute> subKeys = theEntity.getSubKeyAttributes();
+        
         Attribute keyAttribute = (subKeys.size() == 0 ? theEntity.getPrimaryKeyAttributes().firstElement() : subKeys.firstElement());
+        
         File baseClassFile = new File(tagDirectory, "/" + theEntity.getUnqualifiedLabel() + "Iterator.java");
         FileWriter fstream = new FileWriter(baseClassFile);
         BufferedWriter out = new BufferedWriter(fstream);
@@ -1198,7 +1199,7 @@ public class TagClassGenerator {
         }
         out.write(" from \" + generateFromClause() + \" where 1=1\"\n");
         out.write("                                                        + generateJoinCriteria()\n");
-        StringBuffer paramBuffer = new StringBuffer();
+        
         queryBuffer = new StringBuffer();
         
         for (int i = 0; i < theEntity.getParents().size(); i++) {
@@ -1488,9 +1489,7 @@ public class TagClassGenerator {
             return;
 
         Vector<Attribute> primaryKeys = theEntity.getPrimaryKeyAttributes();
-        Vector<Attribute> parentKeys = theEntity.getParentKeyAttributes();
-        Vector<Attribute> subKeys = theEntity.getSubKeyAttributes();
-        Attribute keyAttribute = (subKeys.size() == 0 ? theEntity.getPrimaryKeyAttributes().firstElement() : subKeys.firstElement());
+        
         File baseClassFile = new File(tagDirectory, "/" + theEntity.getUnqualifiedLabel() + "Deleter.java");
         FileWriter fstream = new FileWriter(baseClassFile);
         BufferedWriter out = new BufferedWriter(fstream);
@@ -1747,10 +1746,9 @@ public class TagClassGenerator {
 
     private void generateEntityShifterClass(Entity theEntity) throws IOException {
         Vector<Attribute> primaryKeys = theEntity.getPrimaryKeyAttributes();
-        Vector<Attribute> parentKeys = theEntity.getParentKeyAttributes();
-        Vector<Attribute> subKeys = theEntity.getSubKeyAttributes();
-        Attribute keyAttribute = (subKeys.size() == 0 ? theEntity.getPrimaryKeyAttributes().firstElement() : subKeys.firstElement());
+        
         File baseClassFile = new File(tagDirectory, "/" + theEntity.getUnqualifiedLabel() + "Shifter.java");
+        
         FileWriter fstream = new FileWriter(baseClassFile);
         BufferedWriter out = new BufferedWriter(fstream);
         out.write("package " + packagePrefix + "." + theEntity.getUnqualifiedLowerLabel() + ";\n"
@@ -2380,8 +2378,6 @@ public class TagClassGenerator {
     private void generateEntityUploadClass(Entity theEntity) throws IOException {
         if ((theEntity.getPrimaryKeyAttributes() == null || theEntity.getPrimaryKeyAttributes().size() == 0) && (theEntity.getSubKeyAttributes() == null || theEntity.getSubKeyAttributes().size() == 0))
             return;
-        Attribute keyAttribute = (theEntity.getSubKeyAttributes().size() == 0 ? theEntity.getPrimaryKeyAttributes().firstElement() : theEntity.getSubKeyAttributes().firstElement());
-
 
         File baseClassFile = new File(tagDirectory, "/" + theEntity.getUnqualifiedLabel() + "Upload.java");
         FileWriter fstream = new FileWriter(baseClassFile);

@@ -45,7 +45,7 @@ public class ControllerCodeGenerator extends AbstractSpringHibernateCodeGenerato
 		String packagePath = pathBase + "/" + packageName.replaceAll( "\\.", "/" );
 
 		String className = domainClass.getIdentifier() + "Controller";
-		String jspPath = ( "/" + domainClass.getSchema().getLowerLabel() + "/" + domainClass.getLowerIdentifier() ).toLowerCase();
+		// String jspPath = ( "/" + domainClass.getSchema().getLowerLabel() + "/" + domainClass.getLowerIdentifier() ).toLowerCase();
 
 		// Generate corresponding Spring MVC test file
 		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator( model.getPackageRoot(), domainClass, properties );

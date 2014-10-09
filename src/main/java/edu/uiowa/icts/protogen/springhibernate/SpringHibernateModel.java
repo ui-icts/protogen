@@ -38,7 +38,7 @@ public class SpringHibernateModel {
 	private HashMap<Schema, List<DomainClass>> schemaMap;
 	//private Schema currentSchema;
 	private static final Log log = LogFactory.getLog( SpringHibernateModel.class );
-	
+
 	private Properties properties;
 
 	public List<DomainClass> getDomainClassList() {
@@ -63,7 +63,7 @@ public class SpringHibernateModel {
 		schemaMap = new HashMap<Schema, List<DomainClass>>();
 		for ( Schema schema : theDatabase.getSchemas() ) {
 			schema.populateEntityAttributeForeignReference();
-			if ( !schemaMap.containsKey( schema ) ){
+			if ( !schemaMap.containsKey( schema ) ) {
 				schemaMap.put( schema, new ArrayList<DomainClass>() );
 			}
 			loadSchema( schema );
@@ -448,11 +448,12 @@ public class SpringHibernateModel {
 		return hash;
 	}
 
+	@SuppressWarnings( "unused" )
 	private HashMap<String, Attribute> getHashFromAttributesFfPt( Iterator<Attribute> attribIter ) {
 		HashMap<String, Attribute> hash = new HashMap<String, Attribute>();
-		while ( attribIter.hasNext() ){
+		while ( attribIter.hasNext() ) {
 			Attribute attribute = attribIter.next();
-			if ( !attribute.isForeign() && attribute.isPrimary() ){
+			if ( !attribute.isForeign() && attribute.isPrimary() ) {
 				hash.put( attribute.getUnqualifiedLabel(), attribute );
 			}
 		}
@@ -473,14 +474,14 @@ public class SpringHibernateModel {
 		return hash;
 	}
 
-	private HashMap<String, Attribute> getHashFromAttributesFfPf( Iterator<Attribute> attribIter )
-	{
+	@SuppressWarnings( "unused" )
+	private HashMap<String, Attribute> getHashFromAttributesFfPf( Iterator<Attribute> attribIter ) {
 		HashMap<String, Attribute> hash = new HashMap<String, Attribute>();
-		while ( attribIter.hasNext() )
-		{
+		while ( attribIter.hasNext() ) {
 			Attribute attribute = attribIter.next();
-			if ( !attribute.isForeign() && !attribute.isPrimary() )
+			if ( !attribute.isForeign() && !attribute.isPrimary() ) {
 				hash.put( attribute.getUnqualifiedLabel(), attribute );
+			}
 		}
 		return hash;
 	}
