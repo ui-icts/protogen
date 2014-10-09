@@ -441,11 +441,12 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		Iterator<ClassVariable> cvIter = ec.listAllIter();
 		while ( cvIter.hasNext() ) {
 			ClassVariable cv = cvIter.next();
-			if ( cv.isPrimary() && ec.isUsesCompositeKey() ) {
-				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
-					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"id." + a.getLowerLabel() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + a.getSqlLabel() + "') } " : a.getLabel() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
-					output += lines( 1 );
-				}
+			// by default, don't display primary keys
+			if ( cv.isPrimary() ) { //&& ec.isUsesCompositeKey() ) {
+//				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
+//					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"id." + a.getLowerLabel() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + a.getSqlLabel() + "') } " : a.getLabel() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
+//					output += lines( 1 );
+//				}
 			} else {
 				if ( RelationshipType.NONE == cv.getRelationshipType() ) {
 					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : cv.getUpperIdentifier() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":true, \"" + searchableLabel + "\": true });";
