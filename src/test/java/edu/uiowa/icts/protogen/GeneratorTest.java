@@ -63,10 +63,16 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "controller.file.location", pathPrefix + "/target/clay/test/java" + "src" );
 		props.setProperty( "jsp.file.location", pathPrefix + "/target/clay/test/jsp" + "src" );
 		props.setProperty( "test.file.location", pathPrefix + "/target/clay/test/javatest" + "src" );
+		
+		props.setProperty( "generate.templates.xml", "true" );
+		props.setProperty( "overwrite.templates.xml", "true" );
+		props.setProperty( "templates.xml.file.location", pathPrefix + "/target/clay/test/src/main/resources/tiles/" );
 
 		props.setProperty( "datatables.generation", "1" );
 		
+		props.setProperty( "include.schema.in.jsp.path", "true" );
 		props.setProperty( "include.schema.in.package.name", "false" );
+		
 		props.setProperty( "ryanlorentzen.master.dao.service.name", "FooBarDaoService" );
 		props.setProperty( "ryanlorentzen.abstract.controller.name", "SomeOtherAbstractControllerName" );
 		
@@ -107,6 +113,8 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "generate.domain", "false" );
 		props.setProperty( "generate.dao", "false" );
 
+		props.setProperty( "templates.xml.file.location", pathPrefix + "/target/clay/test/src/main/resources/tiles/" );
+		
 		props.setProperty( "controller.file.location", pathPrefix + "/target/clay/test/javasrc" );
 		props.setProperty( "jsp.file.location", pathPrefix + "/target/clay/test/jspsrc/generation2" );
 		props.setProperty( "test.file.location", pathPrefix + "/target/clay/test/javatestsrc" );
