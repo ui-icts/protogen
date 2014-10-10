@@ -115,7 +115,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
 			.param("individualSearch", "true")
 			#foreach( $columnName in $columnNamesList )
 			   #set( $arrayIndex = $foreach.count - 1 )
-			  .param("columns[${arrayIndex}][data]","${arrayIndex}").param("columns[${arrayIndex}][name]","${columnName}").param("columns[${arrayIndex}][searchable]","true").param("columns[${arrayIndex}][orderable]","true").param("columns[${arrayIndex}][search][regex]","false").param("columns[${arrayIndex}][search][value]","")
+			.param("columns[${arrayIndex}][data]","${arrayIndex}").param("columns[${arrayIndex}][name]","${columnName}").param("columns[${arrayIndex}][searchable]","true").param("columns[${arrayIndex}][orderable]","true").param("columns[${arrayIndex}][search][regex]","false").param("columns[${arrayIndex}][search][value]","")
 			#end    	    			
 			.accept(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())

@@ -34,6 +34,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
+		context.put( "domainClass", this.domainClass );
 		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
 		context.put( "packageName", this.getPackageName() );
 		context.put( "className", domainClass.getIdentifier() + "Controller" );

@@ -7,11 +7,13 @@ import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import org.junit.Test;
 
+import javax.validation.Valid;
+
+import org.junit.Test;
+import org.springframework.validation.BindingResult;
 
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
-
 import edu.uiowa.webapp.Schema;
 
 public class VelocityControllerGeneratorTest {
@@ -212,10 +214,12 @@ public class VelocityControllerGeneratorTest {
 		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,domainClass,properties);
 				
 		String sourceCode = generator.javaSourceCode();
+		System.out.println(sourceCode);
 		
 		// test save
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
-		assertThat(sourceCode, containsString("public String save( @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument ) {"));
+		assertThat(sourceCode, containsString("public String save( @Valid @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument, BindingResult result ) {"));
+		assertThat(sourceCode, containsString("if (result.hasErrors()) { return \"/ictssysadmin/clinicaldocument/edit\"; }"));
 		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().saveOrUpdate( clinicalDocument );"));
 		assertThat(sourceCode, containsString("return \"redirect:/ictssysadmin/clinicaldocument/list\";"));
 	}
