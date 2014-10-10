@@ -214,7 +214,6 @@ public class VelocityControllerGeneratorTest {
 		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,domainClass,properties);
 				
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
 		
 		// test save
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
