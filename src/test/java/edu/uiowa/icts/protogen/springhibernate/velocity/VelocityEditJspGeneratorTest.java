@@ -205,6 +205,64 @@ public class VelocityEditJspGeneratorTest {
         assertThat(sourceCode, containsString("<label for=\"tableTwo.tableTwoId\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_two_id') }</label>"));
         assertThat(sourceCode, containsString("<label for=\"tableOne.tableOneId\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_one_id') }</label>"));   
 	}
+	
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithThatReferencesACompositeKeyComprisedOfForeignKeys() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();		
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass tableFour = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("TableFour")){
+				tableFour = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFour,properties);
+		String sourceCode = generator.javaSourceCode();
+
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableFour\" action=\"save\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>TableFour</legend>"));        
+        
+        assertThat(sourceCode, containsString("<form:hidden path=\"tableFourId\" />"));        
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"tableFour.tableFourId\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableFour.tableFourId\">TableFour</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"tableFour.tableFourId\" items=\"${tableFourList}\" itemValue=\"tableFourId\" itemLabel=\"tableFourId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"tableFour.tableFourId\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"tableThree.tableThreeId\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableThree.tableThreeId\">TableThree</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"tableThree.tableThreeId\" items=\"${tableThreeList}\" itemValue=\"tableThreeId\" itemLabel=\"tableThreeId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"tableThree.tableThreeId\" class=\"help-block\"/>"));        
+	}
+	
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithThatReferencesACompositeKeyComprisedOfForeignKeysAndDeobfuscateColumnNames() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();
+		properties.setProperty("deobfuscate.column.names", "true");
+
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass tableFour = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("TableFour")){
+				tableFour = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFour,properties);
+		String sourceCode = generator.javaSourceCode();
+
+        assertThat(sourceCode, containsString("<label for=\"tableFour.tableFourId\">${ aptamer:deobfuscateColumn ( 'table_four', 'table_two_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableThree.tableThreeId\">${ aptamer:deobfuscateColumn ( 'table_four', 'table_one_id') }</label>"));   
+	}
+	
+	
 	@Test
 	public void shouldGenerateEditJSPForDomainClassWithForeignKeyFields() {
 		String packageRoot = "edu.uiowa.icts";		

@@ -852,7 +852,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		File file = new File( jspFile );
 		FileWriter fstream = new FileWriter( file );
 		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( output );
+		out.write( sourceCode );
 		out.close();
 	}
 
