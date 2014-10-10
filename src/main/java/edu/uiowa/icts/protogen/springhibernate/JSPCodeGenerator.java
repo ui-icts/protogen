@@ -20,6 +20,7 @@ import org.codehaus.plexus.util.StringUtils;
 
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable.AttributeType;
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable.RelationshipType;
+import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityEditJspGenerator;
 import edu.uiowa.webapp.Attribute;
 
 public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
@@ -844,6 +845,9 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		indent -= 4;
 		output += lines( 1 );
 		output += "</form:form>";
+
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,ec,properties);
+		String sourceCode = generator.javaSourceCode();
 
 		File file = new File( jspFile );
 		FileWriter fstream = new FileWriter( file );

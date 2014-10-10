@@ -35,41 +35,13 @@ public class VelocityEditJspGenerator extends AbstractVelocityGenerator {
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
 		context.put( "domainClass", this.domainClass );
-		context.put("deOb", Boolean.parseBoolean( this.properties.getProperty( "deobfuscate.column.names", "false" ) ));
-//		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
-//		context.put( "packageName", this.getPackageName() );
-//		context.put( "className", domainClass.getIdentifier() + "Controller" );
-//		context.put( "pathPrefix", this.getPathPrefix() );
-//		context.put( "jspPath", this.getJspPath() );
 		context.put( "pathExtension", this.getPathExtension());
-//		context.put( "domainName", domainClass.getIdentifier() );
-//		context.put( "lowerDomainName", domainClass.getLowerIdentifier() );
-//		
-//		String abstractControllerClassName = properties.getProperty( domainClass.getSchema().getLabel().toLowerCase() + ".abstract.controller.name" );
-//		if( abstractControllerClassName == null ){
-//			abstractControllerClassName = "Abstract" + domainClass.getSchema().getUpperLabel() + "Controller";
-//		}
-//		context.put( "abstractControllerClassName", abstractControllerClassName );
-//		
-//		addDaoServiceNameToVelocityContext(context);
-//		
-//		context.put( "domainPackageName", this.packageRoot + "." + domainClass.getSchema().getLowerLabel() + ".domain" );
-//
-//		String dtMethod = datatableMethod( context );
-//		context.put( "datatableMethod", dtMethod );
-//
-//		context.put( "requestParameterIdentifier", requestParameterIdentifier() );
-//		context.put( "addEditListDependencies", addEditListDependencies() );
-//		context.put( "newCompositeKey", newCompositeKey() );
-//		context.put( "compositeKey", compositeKey() );
-//		context.put( "compositeKeySetter", compositeKeySetter() );
-//		context.put( "foreignClassParameters", foreignClassParameters() );
-//		context.put( "foreignClassSetters", foreignClassSetters() );
+		context.put("deOb", Boolean.parseBoolean( this.properties.getProperty( "deobfuscate.column.names", "false" ) ));
+		// in the Velocity template, ${esc.d} will get converted to $ 
+	    context.put("esc", new org.apache.velocity.tools.generic.EscapeTool());
 
 		/* render a template loaded from the classpath */
 		StringWriter writer = new StringWriter();
-		// in the Velocity template, ${esc.d} gets converted to $ 
-		context.put("esc", new org.apache.velocity.tools.generic.EscapeTool());
 		
 		Velocity.mergeTemplate( "/velocity-templates/edit.jsp", Velocity.ENCODING_DEFAULT, context, writer );
 		return writer.toString();

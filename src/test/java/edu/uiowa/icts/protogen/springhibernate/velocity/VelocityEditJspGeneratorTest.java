@@ -3,17 +3,9 @@ package edu.uiowa.icts.protogen.springhibernate.velocity;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
-
-import javax.validation.Valid;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.validation.BindingResult;
-
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
 import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
 import edu.uiowa.webapp.ClayLoader;
@@ -52,7 +44,6 @@ public class VelocityEditJspGeneratorTest {
         
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
 
         assertThat(sourceCode, containsString("<label for=\"name\">${ aptamer:deobfuscateColumn ( 'job_type', 'name') }</label>"));
         assertThat(sourceCode, containsString("<label for=\"description\">${ aptamer:deobfuscateColumn ( 'job_type', 'description') }</label>"));
@@ -77,7 +68,6 @@ public class VelocityEditJspGeneratorTest {
         
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
 
         assertThat(sourceCode, containsString("<%@ include file=\"/WEB-INF/include.jsp\"  %>"));
         assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobType\" action=\"save\" role=\"form\">"));
@@ -107,6 +97,188 @@ public class VelocityEditJspGeneratorTest {
 	}
 	
 	@Test
+	public void shouldGenerateEditJSPForDomainClassWithCompositeKeyThatHasNoForeignKeyReferences() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();		
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass tableFive = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("TableFive")){
+				tableFive = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFive,properties);
+		String sourceCode = generator.javaSourceCode();
+		System.out.println(sourceCode);
+
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableFive\" action=\"save\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>TableFive</legend>"));        
+     
+        assertThat(sourceCode, containsString("<spring:bind path=\"id.idOne\">"));
+        assertThat(sourceCode, containsString("<label for=\"id.idOne\">idOne</label>"));
+        assertThat(sourceCode, containsString("<form:input path=\"id.idOne\"  class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"id.idOne\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"id.idTwo\">"));
+        assertThat(sourceCode, containsString("<label for=\"id.idTwo\">idTwo</label>"));
+        assertThat(sourceCode, containsString("<form:input path=\"id.idTwo\"  class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"id.idTwo\" class=\"help-block\"/>"));
+	}
+	
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithCompositeKeyThatHasNoForeignKeyReferencesAndDeobfuscateColumnNames() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();		
+		properties.setProperty("deobfuscate.column.names", "true");
+
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass tableFive = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("TableFive")){
+				tableFive = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFive,properties);
+		String sourceCode = generator.javaSourceCode();
+		System.out.println(sourceCode);
+
+        assertThat(sourceCode, containsString("<label for=\"id.idOne\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_one') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"id.idTwo\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_two') }</label>"));   
+	}
+	
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithCompositeKeyComprisedOfForeignKeys() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();		
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass tableThree = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("TableThree")){
+				tableThree = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableThree,properties);
+		String sourceCode = generator.javaSourceCode();
+
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableThree\" action=\"save\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>TableThree</legend>"));        
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"tableTwo.tableTwoId\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableTwo.tableTwoId\">TableTwo</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"tableTwo.tableTwoId\" items=\"${tableTwoList}\" itemValue=\"tableTwoId\" itemLabel=\"tableTwoId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"tableTwo.tableTwoId\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"tableOne.tableOneId\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableOne.tableOneId\">TableOne</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"tableOne.tableOneId\" items=\"${tableOneList}\" itemValue=\"tableOneId\" itemLabel=\"tableOneId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"tableOne.tableOneId\" class=\"help-block\"/>"));        
+	}
+	
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithCompositeKeyComprisedOfForeignKeysAndDeobfuscateColumnNames() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();
+		properties.setProperty("deobfuscate.column.names", "true");
+
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass tableThree = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("TableThree")){
+				tableThree = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableThree,properties);
+		String sourceCode = generator.javaSourceCode();
+
+        assertThat(sourceCode, containsString("<label for=\"tableTwo.tableTwoId\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_two_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableOne.tableOneId\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_one_id') }</label>"));   
+	}
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithForeignKeyFields() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();		
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass jobType = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("Job")){
+				jobType = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
+		String sourceCode = generator.javaSourceCode();
+
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"job\" action=\"save\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>Job</legend>"));        
+        assertThat(sourceCode, containsString("<form:hidden path=\"jobId\" />"));
+     
+        assertThat(sourceCode, containsString("<spring:bind path=\"fileName\">"));
+        assertThat(sourceCode, containsString("<label for=\"fileName\">FileName</label>"));
+        assertThat(sourceCode, containsString("<form:input path=\"fileName\"  class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"fileName\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"parameters\">"));
+        assertThat(sourceCode, containsString("<label for=\"parameters\">Parameters</label>"));
+        assertThat(sourceCode, containsString("<form:input path=\"parameters\"  class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"parameters\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"childJobId\">"));
+        assertThat(sourceCode, containsString("<label for=\"childJobId\">ChildJobId</label>"));
+        assertThat(sourceCode, containsString("<form:input path=\"childJobId\"  class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"childJobId\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"jobType.jobTypeId\">"));
+        assertThat(sourceCode, containsString("<label for=\"jobType.jobTypeId\">JobType</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"jobType.jobTypeId\" items=\"${jobTypeList}\" itemValue=\"jobTypeId\" itemLabel=\"jobTypeId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"jobType.jobTypeId\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"person.personId\">"));
+        assertThat(sourceCode, containsString("<label for=\"person.personId\">Person</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"person.personId\" items=\"${personList}\" itemValue=\"personId\" itemLabel=\"personId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"person.personId\" class=\"help-block\"/>"));        
+	}
+	
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithForeignKeyFieldsAndDeobfuscateColumnNames() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();		
+		properties.setProperty("deobfuscate.column.names", "true");
+
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass jobType = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("Job")){
+				jobType = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
+		String sourceCode = generator.javaSourceCode();
+      
+        assertThat(sourceCode, containsString("<label for=\"fileName\">${ aptamer:deobfuscateColumn ( 'job', 'file_name') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"parameters\">${ aptamer:deobfuscateColumn ( 'job', 'parameters') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"childJobId\">${ aptamer:deobfuscateColumn ( 'job', 'child_job_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"jobType.jobTypeId\">${ aptamer:deobfuscateColumn ( 'job', 'job_type_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"person.personId\">${ aptamer:deobfuscateColumn ( 'job', 'person_id') }</label>"));      
+	}
+	
+	@Test
 	public void shouldGenerateEditJSPForDomainClassWithCompositePrimaryKeyAndDateFields() {
 		String packageRoot = "edu.uiowa.icts";		
 
@@ -122,7 +294,6 @@ public class VelocityEditJspGeneratorTest {
         
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
 
         assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobJobStatus\" action=\"save\" role=\"form\">"));
         assertThat(sourceCode, containsString("<legend>JobJobStatus</legend>"));        
@@ -132,15 +303,39 @@ public class VelocityEditJspGeneratorTest {
         assertThat(sourceCode, containsString("<form:input path=\"dateSet\"  class=\"form-control dateinput \"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"dateSet\" class=\"help-block\"/>"));
         
-//        assertThat(sourceCode, containsString("<spring:bind path=\"description\">"));
-//        assertThat(sourceCode, containsString("<label for=\"description\">Description</label>"));
-//        assertThat(sourceCode, containsString("<form:input path=\"description\"  class=\"form-control\"/>"));
-//        assertThat(sourceCode, containsString("<form:errors path=\"description\" class=\"help-block\"/>"));
-//        
-//        assertThat(sourceCode, containsString("<spring:bind path=\"parameters\">"));
-//        assertThat(sourceCode, containsString("<label for=\"parameters\">Parameters</label>"));
-//        assertThat(sourceCode, containsString("<form:input path=\"parameters\"  class=\"form-control\"/>"));
-//        assertThat(sourceCode, containsString("<form:errors path=\"parameters\" class=\"help-block\"/>"));        
+        assertThat(sourceCode, containsString("<spring:bind path=\"jobStatus.jobStatusId\">"));
+        assertThat(sourceCode, containsString("<label for=\"jobStatus.jobStatusId\">JobStatus</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"jobStatus.jobStatusId\" items=\"${jobStatusList}\" itemValue=\"jobStatusId\" itemLabel=\"jobStatusId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"jobStatus.jobStatusId\" class=\"help-block\"/>"));
+        
+        assertThat(sourceCode, containsString("<spring:bind path=\"job.jobId\">"));
+        assertThat(sourceCode, containsString("<label for=\"job.jobId\">Job</label>"));
+        assertThat(sourceCode, containsString("<form:select path=\"job.jobId\" items=\"${jobList}\" itemValue=\"jobId\" itemLabel=\"jobId\" class=\"form-control\"/>"));
+        assertThat(sourceCode, containsString("<form:errors path=\"job.jobId\" class=\"help-block\"/>"));        
+	}
+	
+	@Test
+	public void shouldGenerateEditJSPForDomainClassWithCompositePrimaryKeyAndDateFieldsAndDeobfuscateColumnNames() {
+		String packageRoot = "edu.uiowa.icts";		
+
+		Properties properties = new Properties();		
+		properties.setProperty("deobfuscate.column.names", "true");
+
+        SpringHibernateModel model = new SpringHibernateModel( this.database, packageRoot, properties );
+        
+        DomainClass jobType = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("JobJobStatus")){
+				jobType = dc;
+			}
+		}
+        
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
+		String sourceCode = generator.javaSourceCode();
+		
+        assertThat(sourceCode, containsString("<label for=\"dateSet\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'date_set') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"jobStatus.jobStatusId\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'job_status_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"job.jobId\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'job_id') }</label>"));
 	}
 	
 	@Test

@@ -316,7 +316,7 @@
 </table>
 <table alias="" name="job_job_status" remarks="" uid="2a58267a:1487986c529:-6458">
 <table-description/>
-<table-figure-bounds height="67" width="159" x="589" y="597"/>
+<table-figure-bounds height="67" width="159" x="595" y="497"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="job_id" remarks="" uid="2a58267a:1487986c529:-6448">
 <column-description/>
@@ -363,6 +363,163 @@
 <foreign-key-column column-name="job_status_id" referenced-key-column-name="job_status_id"/>
 </foreign-key>
 </foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="table_one" remarks="" uid="484c5495:148f14b0123:-7f72">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="359" y="669"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="table_one_id" remarks="" uid="484c5495:148f14b0123:-7f6e">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="484c5495:148f14b0123:-7f6d">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TABLE_ONE" remarks="" uid="484c5495:148f14b0123:-7f71">
+<primary-key-description/>
+<primary-key-column name="table_one_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="table_two" remarks="" uid="484c5495:148f14b0123:-7f6c">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="952" y="701"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="table_two_id" remarks="" uid="484c5495:148f14b0123:-7f6a">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="name" remarks="" uid="484c5495:148f14b0123:-7f69">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TABLE_TWO" remarks="" uid="484c5495:148f14b0123:-7f68">
+<primary-key-description/>
+<primary-key-column name="table_two_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="table_three" remarks="" uid="484c5495:148f14b0123:-7f65">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="661" y="728"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="table_one_id" remarks="" uid="484c5495:148f14b0123:-7f11">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="table_two_id" remarks="" uid="484c5495:148f14b0123:-7ef9">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TABLE_THREE" remarks="" uid="484c5495:148f14b0123:-7f64">
+<primary-key-description/>
+<primary-key-column name="table_one_id"/>
+<primary-key-column name="table_two_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_TABLE_11_1" on-delete="" on-update="" referenced-key="PK_TABLE_ONE" referenced-table="table_one" referenced-table-schema="aptamer" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="484c5495:148f14b0123:-7f12">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="table_one_id" referenced-key-column-name="table_one_id"/>
+</foreign-key>
+<foreign-key alias="" name="FK_TABLE_11_2" on-delete="" on-update="" referenced-key="PK_TABLE_TWO" referenced-table="table_two" referenced-table-schema="aptamer" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="484c5495:148f14b0123:-7efa">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="table_two_id" referenced-key-column-name="table_two_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="table_four" remarks="" uid="484c5495:148f14b0123:-7ee2">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="845" y="587"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="table_four_id" remarks="" uid="484c5495:148f14b0123:-7ede">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="table_one_id" remarks="" uid="484c5495:148f14b0123:-7eb6">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="table_two_id" remarks="" uid="484c5495:148f14b0123:-7eb5">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TABLE_FOUR" remarks="" uid="484c5495:148f14b0123:-7ee1">
+<primary-key-description/>
+<primary-key-column name="table_four_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_table_four_1" on-delete="" on-update="" referenced-key="PK_TABLE_THREE" referenced-table="table_three" referenced-table-schema="aptamer" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="484c5495:148f14b0123:-7eb7">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="table_one_id" referenced-key-column-name="table_one_id"/>
+<foreign-key-column column-name="table_two_id" referenced-key-column-name="table_two_id"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="table_five" remarks="" uid="484c5495:148f14b0123:-7eac">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1051" y="633"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="id_one" remarks="" uid="484c5495:148f14b0123:-7ea8">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="id_two" remarks="" uid="484c5495:148f14b0123:-7ea7">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TABLE_FIVE" remarks="" uid="484c5495:148f14b0123:-7eab">
+<primary-key-description/>
+<primary-key-column name="id_one"/>
+<primary-key-column name="id_two"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
 <index-list/>
 </table>
 </table-list>
