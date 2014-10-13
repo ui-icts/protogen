@@ -1,5 +1,7 @@
 package ${packageName};
 
+#set( $classNameLowerCaseFirstLetter = $className.substring(0, 1).toLowerCase() + $className.substring(1) )
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,11 +48,11 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
       #else	  
         // add 20 records to test database
         for(int x=1; x<21; x++){
-        	${className} ${className.substring(0, 1).toLowerCase()}${className.substring(1)} = new ${className}();
-        	${daoServiceName}.get${className}Service().save(${className.substring(0, 1).toLowerCase()}${className.substring(1)});
+        	${className} ${classNameLowerCaseFirstLetter} = new ${className}();
+        	${daoServiceName}.get${className}Service().save(${classNameLowerCaseFirstLetter});
 	        if (x == 1){
 	        	// use this ID for update, show, and delete assertions
-	        	first${className} = ${className.substring(0, 1).toLowerCase()}${className.substring(1)};
+	        	first${className} = ${classNameLowerCaseFirstLetter};
 	        }
         }   
       #end
@@ -60,7 +62,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     public void addShouldDisplayNew${className}Form() throws Exception {
        mockMvc.perform(get("${pathPrefix}/add${pathExtension}"))
        .andExpect(status().isOk())
-       .andExpect(model().attributeExists("${className.substring(0, 1).toLowerCase()}${className.substring(1)}")) 
+       .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
        .andExpect(view().name("${jspPath}/edit"));
     }
     
@@ -82,7 +84,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     public void listAltShouldLoadListOf${className}s() throws Exception {
        mockMvc.perform(get("${pathPrefix}/list_alt${pathExtension}"))
        .andExpect(status().isOk())
-       .andExpect(model().attributeExists("${className.substring(0, 1).toLowerCase()}${className.substring(1)}List")) 
+       .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}List")) 
        .andExpect(view().name("${jspPath}/list_alt"));
     }
     
@@ -97,14 +99,30 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     public void saveShouldPersistAndRedirectToListView() throws Exception {
        int count = ${daoServiceName}.get${className}Service().list().size();
        
-       mockMvc.perform(post("${pathPrefix}/save")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));   
+       mockMvc.perform(post("${pathPrefix}/save${pathExtension}")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));   
        
        assertEquals("${className} count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().list().size());
 	}
   
     @Test
+    public void editShouldLoadObjectAndDisplayForm() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/edit${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString()))
+         .andExpect(status().isOk())
+         .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
+         .andExpect(view().name("${jspPath}/edit"));
+    }
+    
+    @Test
+    public void showShouldLoadAndDisplayObject() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/show${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString()))
+         .andExpect(status().isOk())
+         .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
+         .andExpect(view().name("${jspPath}/show"));
+    }
+      
+    @Test
     public void defaultDatatableShouldReturnJSONDataWith10Rows() throws Exception {
-    	mockMvc.perform(get("${pathPrefix}/datatable")
+    	mockMvc.perform(get("${pathPrefix}/datatable${pathExtension}")
 			.param("display", "list")
 			.param("search[value]", "")
 			.param("search[regex]", "false")

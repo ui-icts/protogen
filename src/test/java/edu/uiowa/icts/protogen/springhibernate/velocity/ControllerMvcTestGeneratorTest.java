@@ -261,6 +261,7 @@ public class ControllerMvcTestGeneratorTest {
 		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator(packageRoot,jobType,properties);
 		
 		String sourceCode = generator.javaSourceCode();
+		System.out.println(sourceCode);
         
         // test imports
         assertThat(sourceCode, containsString("import edu.uiowa.icts.aptamer.domain.*;"));
@@ -299,5 +300,26 @@ public class ControllerMvcTestGeneratorTest {
 		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.recordsFiltered\", is(aptamerDaoService.getJobTypeService().list().size())))"));
 		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.draw\", is(\"1\")))"));
 		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data\", hasSize(is(10))))"));		
+		
+		
+		// test edit
+		assertThat(sourceCode, containsString("public void editShouldLoadObjectAndDisplayForm() throws Exception {"));
+		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/jobtype/edit\").param(\"jobTypeId\", firstJobType.getJobTypeId().toString()))"));
+		assertThat(sourceCode, containsString(".andExpect(status().isOk())"));
+		assertThat(sourceCode, containsString(".andExpect(model().attributeExists(\"jobType\"))"));
+		assertThat(sourceCode, containsString(".andExpect(view().name(\"/aptamer/jobtype/edit\"));"));
+		
+		// test show
+		assertThat(sourceCode, containsString("public void showShouldLoadAndDisplayObject() throws Exception {"));
+		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/jobtype/show\").param(\"jobTypeId\", firstJobType.getJobTypeId().toString()))"));
+		assertThat(sourceCode, containsString(".andExpect(status().isOk())"));
+		assertThat(sourceCode, containsString(".andExpect(model().attributeExists(\"jobType\"))"));
+		assertThat(sourceCode, containsString(".andExpect(view().name(\"/aptamer/jobtype/show\"));"));
+		
+		// test delete GET
+		
+		// test delete POST
+		
+				
 	}
 }
