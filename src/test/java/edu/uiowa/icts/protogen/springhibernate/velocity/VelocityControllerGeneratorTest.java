@@ -10,10 +10,15 @@ import java.util.Properties;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.validation.BindingResult;
 
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
+import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
+import edu.uiowa.webapp.ClayLoader;
+import edu.uiowa.webapp.Database;
+import edu.uiowa.webapp.DatabaseSchemaLoader;
 import edu.uiowa.webapp.Schema;
 
 public class VelocityControllerGeneratorTest {
@@ -367,4 +372,39 @@ public class VelocityControllerGeneratorTest {
 		assertThat(sourceCode, containsString("urls += \"<a href=\\\"delete.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";"));		
 	}
 
+	@Test
+	public void shouldGenerateDatatablesWithSizeDisplayedForCollections() {
+		String packageRoot = "edu.uiowa.icts";		
+		String pathPrefix = System.getProperty( "user.dir" );
+
+		Properties properties = new Properties();
+		properties.setProperty( "datatables.generation", "2" );
+		properties.setProperty( "include.schema.in.request.mapping", "false" );	
+
+		DatabaseSchemaLoader theLoader =  new ClayLoader();
+        try {
+			theLoader.run(pathPrefix + "/src/test/resources/mvc-test-generator.clay");
+		} catch (Exception e) {
+			assertNull(e);
+		}
+        Database database =  theLoader.getDatabase();
+     //   database.dump();
+        SpringHibernateModel model = new SpringHibernateModel( database, packageRoot, properties );
+        
+        DomainClass jobType = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("JobType")){
+				jobType = dc;
+			}
+		}
+        
+		VelocityControllerGenerator generator = new VelocityControllerGenerator(packageRoot,jobType,properties);
+		
+		String sourceCode = generator.javaSourceCode();
+		System.out.println(sourceCode);
+        
+		assertThat(sourceCode, containsString("tableRow.put( jobType.getJobTypeId() );"));
+        assertThat(sourceCode, containsString("tableRow.put( jobType.getParameters() );"));
+        assertThat(sourceCode, containsString("tableRow.put( jobType.getJobs().size() );"));						
+	}
 }

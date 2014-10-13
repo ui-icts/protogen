@@ -175,7 +175,11 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			} else {
 				output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"" + cv.getLowerIdentifier() + "\", headerName ) ){\n" );
 				indent += 1;
-				output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+				if (cv.getType().contains("Set<")){
+					output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
+				} else {
+					output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+				}
 				indent -= 1;
 				count++;
 			}
