@@ -119,6 +119,34 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
          .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
          .andExpect(view().name("${jspPath}/show"));
     }
+    
+    @Test
+    public void deleteGetShouldLoadAndDisplayYesNoButtons() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/delete${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString()))
+         .andExpect(status().isOk())
+         .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
+         .andExpect(view().name("${jspPath}/delete"));
+    }
+    
+    @Test
+    public void deletePostSubmitYesShouldDeleteAndRedirectToListView() throws Exception {
+        int count = ${daoServiceName}.get${className}Service().list().size();
+
+       mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString())
+       .param("submit", "Yes")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));  
+       
+       assertEquals("count should decrease by 1", count - 1 , ${daoServiceName}.get${className}Service().list().size());
+    }
+    
+    @Test
+    public void deletePostSubmitNoShouldNotDeleteAndRedirectToListView() throws Exception {
+        int count = ${daoServiceName}.get${className}Service().list().size();
+
+       mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString())
+       .param("submit", "No")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));  
+       
+       assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().list().size());
+    }
       
     @Test
     public void defaultDatatableShouldReturnJSONDataWith10Rows() throws Exception {
