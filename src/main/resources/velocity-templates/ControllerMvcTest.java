@@ -1,6 +1,6 @@
 package ${packageName};
 
-#set( $classNameLowerCaseFirstLetter = $className.substring(0, 1).toLowerCase() + $className.substring(1) )
+#set( $classNameLowerCaseFirstLetter = $display.uncapitalize($className) )
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     private MockMvc mockMvc;
     
     @Autowired
-	private ${daoServiceName.substring(0, 1).toUpperCase()}${daoServiceName.substring(1)} ${daoServiceName};
+	private ${display.capitalize($daoServiceName)} ${daoServiceName};
     
     private ${className} first${className};
     

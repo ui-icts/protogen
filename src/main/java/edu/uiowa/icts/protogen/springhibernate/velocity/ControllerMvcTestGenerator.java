@@ -23,6 +23,7 @@ public class ControllerMvcTestGenerator extends AbstractVelocityGenerator {
 	public String javaSourceCode() {
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
+		context.put("display", new org.apache.velocity.tools.generic.DisplayTool());
 		context.put( "basePackageName", this.getBasePackageName() );
 		context.put( "packageName", this.getPackageName() );
 		context.put( "date", new Date().toString() ); // can be done with Velocity tools but let's keep it simple to start
