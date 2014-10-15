@@ -15,6 +15,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.NonUniqueObjectException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,7 +86,13 @@ ${foreignClassSetters}
 ${compositeKeySetter}
 		if (result.hasErrors()) { return "${jspPath}/edit"; }
 		else {
-			${daoServiceName}.get${domainName}Service().saveOrUpdate( ${lowerDomainName} );
+			
+			try {
+				${daoServiceName}.get${domainName}Service().saveOrUpdate( ${lowerDomainName} );
+			} catch (NonUniqueObjectException e) {
+				log.debug("Merging Results");
+				${daoServiceName}.get${domainName}Service().merge( ${lowerDomainName} );
+			}
 	        return "redirect:${pathPrefix}/list${pathExtension}";
 		}
     }
