@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import edu.uiowa.icts.aptamer.domain.JobType;
 import ${basePackageName}.dao.*;
 import ${basePackageName}.domain.*;
 import static org.hamcrest.Matchers.containsString;
