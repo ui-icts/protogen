@@ -335,4 +335,50 @@ public class ControllerMvcTestGeneratorTest {
 		assertThat(sourceCode, containsString("assertEquals(\"count should NOT decrease by 1\", count , aptamerDaoService.getJobTypeService().list().size());"));
 				
 	}
+	
+	@Test
+	public void shouldGenerateMVCTestsCorrectlyWhenPrimaryKeyDoesntIncludeClassName() {
+		String packageRoot = "edu.uiowa.icts";		
+		String pathPrefix = System.getProperty( "user.dir" );
+
+		Properties properties = new Properties();
+		properties.setProperty( "datatables.generation", "2" );
+		properties.setProperty( "include.schema.in.request.mapping", "false" );	
+
+		DatabaseSchemaLoader theLoader =  new ClayLoader();
+        try {
+			theLoader.run(pathPrefix + "/src/test/resources/mvc-test-generator.clay");
+		} catch (Exception e) {
+			assertNull(e);
+		}
+        Database database =  theLoader.getDatabase();
+     //   database.dump();
+        SpringHibernateModel model = new SpringHibernateModel( database, packageRoot, properties );
+        
+        DomainClass tablewithprimarykeyasid = null;
+        for ( DomainClass dc : model.getDomainClassList() ) {
+			if (dc.getIdentifier().equals("TableWithPrimaryKeyAsId")){
+				tablewithprimarykeyasid = dc;
+			}
+		}
+        
+		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator(packageRoot,tablewithprimarykeyasid,properties);
+		
+		String sourceCode = generator.javaSourceCode();
+		System.out.println(sourceCode);
+		// test edit
+		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/tablewithprimarykeyasid/edit\").param(\"id\", firstTableWithPrimaryKeyAsId.getId().toString()))"));
+		
+		// test show
+		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/tablewithprimarykeyasid/show\").param(\"id\", firstTableWithPrimaryKeyAsId.getId().toString()))"));
+
+		// test delete GET
+		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/tablewithprimarykeyasid/delete\").param(\"id\", firstTableWithPrimaryKeyAsId.getId().toString()))"));
+
+		// test delete POST - YES
+		assertThat(sourceCode, containsString("mockMvc.perform(post(\"/tablewithprimarykeyasid/delete\").param(\"id\", firstTableWithPrimaryKeyAsId.getId().toString())"));
+		
+		// test delete POST - NO
+		assertThat(sourceCode, containsString("mockMvc.perform(post(\"/tablewithprimarykeyasid/delete\").param(\"id\", firstTableWithPrimaryKeyAsId.getId().toString())"));				
+	}
 }

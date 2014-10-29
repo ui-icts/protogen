@@ -105,7 +105,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
   
     @Test
     public void editShouldLoadObjectAndDisplayForm() throws Exception {
-    	mockMvc.perform(get("${pathPrefix}/edit${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString()))
+    	mockMvc.perform(get("${pathPrefix}/edit${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
          .andExpect(status().isOk())
          .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
          .andExpect(view().name("${jspPath}/edit"));
@@ -113,7 +113,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     
     @Test
     public void showShouldLoadAndDisplayObject() throws Exception {
-    	mockMvc.perform(get("${pathPrefix}/show${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString()))
+    	mockMvc.perform(get("${pathPrefix}/show${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
          .andExpect(status().isOk())
          .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
          .andExpect(view().name("${jspPath}/show"));
@@ -121,7 +121,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     
     @Test
     public void deleteGetShouldLoadAndDisplayYesNoButtons() throws Exception {
-    	mockMvc.perform(get("${pathPrefix}/delete${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString()))
+    	mockMvc.perform(get("${pathPrefix}/delete${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
          .andExpect(status().isOk())
          .andExpect(model().attributeExists("${classNameLowerCaseFirstLetter}")) 
          .andExpect(view().name("${jspPath}/delete"));
@@ -131,7 +131,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     public void deletePostSubmitYesShouldDeleteAndRedirectToListView() throws Exception {
         int count = ${daoServiceName}.get${className}Service().list().size();
 
-       mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString())
+       mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())
        .param("submit", "Yes")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));  
        
        assertEquals("count should decrease by 1", count - 1 , ${daoServiceName}.get${className}Service().list().size());
@@ -141,7 +141,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     public void deletePostSubmitNoShouldNotDeleteAndRedirectToListView() throws Exception {
         int count = ${daoServiceName}.get${className}Service().list().size();
 
-       mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${classNameLowerCaseFirstLetter}Id", first${className}.get${className}Id().toString())
+       mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())
        .param("submit", "No")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));  
        
        assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().list().size());

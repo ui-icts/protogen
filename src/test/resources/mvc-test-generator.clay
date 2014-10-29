@@ -522,6 +522,25 @@
 <foreign-key-list/>
 <index-list/>
 </table>
+<table alias="" name="table_with_primary_key_as_id" remarks="" uid="33d94f44:1495d4d547f:-7fcd">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="133" y="208"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="id" remarks="" uid="33d94f44:1495d4d547f:-7fc9">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TABLE_WITH_PRIMARY_KEY_AS_ID" remarks="" uid="33d94f44:1495d4d547f:-7fcc">
+<primary-key-description/>
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
 </table-list>
 </schema>
 </schema-list>
