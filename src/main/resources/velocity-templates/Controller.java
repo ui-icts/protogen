@@ -80,7 +80,7 @@ ${compositeKey}
     }
 
     @RequestMapping( value = "save${pathExtension}", method = RequestMethod.POST )
-    public String save(${foreignClassParameters}@Valid @ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName}, BindingResult result ) {
+    public String save(${foreignClassParameters}@Valid @ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName}, BindingResult result, Model model ) {
 ${newCompositeKey}
 ${foreignClassSetters}
 ${compositeKeySetter}

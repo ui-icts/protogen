@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
@@ -222,7 +223,7 @@ public class VelocityControllerGeneratorTest {
 		
 		// test save
 		assertThat(sourceCode, containsString("@RequestMapping( value = \"save\", method = RequestMethod.POST )"));
-		assertThat(sourceCode, containsString("public String save( @Valid @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument, BindingResult result ) {"));
+		assertThat(sourceCode, containsString("public String save( @Valid @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument, BindingResult result, Model model ) {"));
 		assertThat(sourceCode, containsString("if (result.hasErrors()) { return \"/ictssysadmin/clinicaldocument/edit\"; }"));
 		assertThat(sourceCode, containsString("ictssysadminDaoService.getClinicalDocumentService().saveOrUpdate( clinicalDocument );"));
 		assertThat(sourceCode, containsString("return \"redirect:/ictssysadmin/clinicaldocument/list\";"));
