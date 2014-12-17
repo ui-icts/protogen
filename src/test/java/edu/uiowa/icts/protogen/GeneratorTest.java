@@ -68,7 +68,7 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "overwrite.templates.xml", "true" );
 		props.setProperty( "templates.xml.file.location", pathPrefix + "/target/clay/test/src/main/resources/tiles/" );
 
-		props.setProperty( "datatables.generation", "1" );
+		props.setProperty( "datatables.generation", "2" );
 		props.setProperty( "controller.request.mapping.extension", ".html" );
 
 		props.setProperty( "include.schema.in.request.mapping", "true" );

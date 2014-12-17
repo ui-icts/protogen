@@ -55,15 +55,17 @@
 				options.setSearch( search );
 				options.setSearchColumns( searchColumns );
 			} else {
-				Map<String, Object> likes = new HashMap<String, Object>();
+				Map<String, List<Object>> likes = new HashMap<String, List<Object>>();
 				for ( DataTableHeader header : headers ) {
 					if ( header.getSearchable() && header.getSearchValue() != null ) {
+						List<Object> values = new ArrayList<Object>();
 						for ( String splitColumnValue : StringUtils.split( header.getSearchValue().trim(), ' ' ) ) {
-							likes.put( header.getName(), splitColumnValue );
+							values.add( splitColumnValue.trim() );
 						}
+						likes.put( header.getName(), values );
 					}
 				}
-				options.setIndividualLikes( likes );
+				options.setLikes( likes );
 			}
 
 			Integer count = ${daoServiceName}.get${domainName}Service().count( options );
