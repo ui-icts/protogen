@@ -321,6 +321,8 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 				if ( cv.getAttribute().getEntity().getDomainClass().isUsesCompositeKey() ) {
 					output += spaces( indent ) + "not implemented<br/><br/>";
+				} else if ( cv.getAttribute().getEntity().getDomainClass().getLowerIdentifier() == null ) {
+					output += spaces( indent ) + "cv.getAttribute().getEntity().getDomainClass().getLowerIdentifier() was null<br/><br/>";
 				} else {
 					output += spaces( indent ) + "<ul>";
 					output += lines( 1 );

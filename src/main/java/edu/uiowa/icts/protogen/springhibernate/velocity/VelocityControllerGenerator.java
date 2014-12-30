@@ -26,7 +26,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 	public VelocityControllerGenerator( String packageRoot, DomainClass domainClass, Properties properties ) {
 		super( packageRoot, domainClass, properties );
 	}
-    
+
 	public String javaSourceCode() {
 
 		SimpleDateFormat sdf = new SimpleDateFormat( "MM/dd/yyyy HH:mm:ss z", Locale.US );
@@ -34,25 +34,25 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
-		context.put( "domainClass", this.domainClass );
+		context.put( "domainClass", domainClass );
 		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
-		context.put( "packageName", this.getPackageName() );
+		context.put( "packageName", getPackageName() );
 		context.put( "className", domainClass.getIdentifier() + "Controller" );
-		context.put( "pathPrefix", this.getPathPrefix() );
-		context.put( "jspPath", this.getJspPath() );
-		context.put( "pathExtension", this.getPathExtension());
+		context.put( "pathPrefix", getPathPrefix() );
+		context.put( "jspPath", getJspPath() );
+		context.put( "pathExtension", getPathExtension() );
 		context.put( "domainName", domainClass.getIdentifier() );
 		context.put( "lowerDomainName", domainClass.getLowerIdentifier() );
-		
+
 		String abstractControllerClassName = properties.getProperty( domainClass.getSchema().getLabel().toLowerCase() + ".abstract.controller.name" );
-		if( abstractControllerClassName == null ){
+		if ( abstractControllerClassName == null ) {
 			abstractControllerClassName = "Abstract" + domainClass.getSchema().getUpperLabel() + "Controller";
 		}
 		context.put( "abstractControllerClassName", abstractControllerClassName );
-		
-		addDaoServiceNameToVelocityContext(context);
-		
-		context.put( "domainPackageName", this.packageRoot + "." + domainClass.getSchema().getLowerLabel() + ".domain" );
+
+		addDaoServiceNameToVelocityContext( context );
+
+		context.put( "domainPackageName", packageRoot + "." + domainClass.getSchema().getLowerLabel() + ".domain" );
 
 		String dtMethod = datatableMethod( context );
 		context.put( "datatableMethod", dtMethod );
@@ -74,8 +74,6 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 	}
 
-	
-
 	private String foreignClassParameters() {
 		StringBuilder output = new StringBuilder( " " );
 		if ( domainClass.getForeignClassVariables() != null && !domainClass.getForeignClassVariables().isEmpty() ) {
@@ -85,8 +83,6 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		}
 		return output.toString();
 	}
-	
-
 
 	private String compositeKey() {
 		StringBuilder output = new StringBuilder();
@@ -175,7 +171,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			} else {
 				output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"" + cv.getLowerIdentifier() + "\", headerName ) ){\n" );
 				indent += 1;
-				if (cv.getType().contains("Set<")){
+				if ( cv.getType().contains( "Set<" ) ) {
 					output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
 				} else {
 					output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
@@ -210,9 +206,9 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			}
 		}
 
-		output.append( tab( indent ) + "urls += \"<a href=\\\"show"+this.getPathExtension()+"?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"edit"+this.getPathExtension()+"?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"delete"+this.getPathExtension()+"?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"show" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"edit" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"delete" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";\n" );
 
 		indent -= 1;
 
@@ -239,7 +235,5 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		return output.toString();
 	}
-
-	
 
 }

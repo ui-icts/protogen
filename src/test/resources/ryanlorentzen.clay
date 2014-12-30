@@ -222,6 +222,30 @@
 <foreign-key-list/>
 <index-list/>
 </table>
+<table alias="" name="no_key_table" remarks="" uid="160efe6f:14a97bec1d9:-7ff1">
+<table-description/>
+<table-figure-bounds height="74" width="146" x="1060" y="222"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="col_one" remarks="" uid="160efe6f:14a97bec1d9:-7fed">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="col_two" remarks="" uid="160efe6f:14a97bec1d9:-7fec">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_NO_KEY_TABLE" remarks="" uid="160efe6f:14a97bec1d9:-7ff0">
+<primary-key-description/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
 </table-list>
 </schema>
 <schema alias="" name="secondschema" remarks="" uid="5dc0dabc:148f66559ac:-7ff8">

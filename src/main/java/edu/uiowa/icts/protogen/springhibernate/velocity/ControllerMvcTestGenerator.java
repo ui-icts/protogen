@@ -23,19 +23,19 @@ public class ControllerMvcTestGenerator extends AbstractVelocityGenerator {
 	public String javaSourceCode() {
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
-		context.put("display", new org.apache.velocity.tools.generic.DisplayTool());
-		context.put( "basePackageName", this.getBasePackageName() );
-		context.put( "packageName", this.getPackageName() );
+		context.put( "display", new org.apache.velocity.tools.generic.DisplayTool() );
+		context.put( "basePackageName", getBasePackageName() );
+		context.put( "packageName", getPackageName() );
 		context.put( "date", new Date().toString() ); // can be done with Velocity tools but let's keep it simple to start
-		context.put( "className", this.domainClass.getIdentifier() );
-		context.put( "pathPrefix", this.getPathPrefix() );
-		context.put( "jspPath", this.getJspPath() );
-		context.put( "pathExtension", this.getPathExtension() );
+		context.put( "className", domainClass.getIdentifier() );
+		context.put( "pathPrefix", getPathPrefix() );
+		context.put( "jspPath", getJspPath() );
+		context.put( "pathExtension", getPathExtension() );
 		addDaoServiceNameToVelocityContext( context );
-		context.put( "domainClass", this.domainClass );
+		context.put( "domainClass", domainClass );
 
 		List<String> columnNamesList = new ArrayList<String>();
-		Iterator<ClassVariable> iter = this.domainClass.listAllIter();
+		Iterator<ClassVariable> iter = domainClass.listAllIter();
 		while ( iter.hasNext() ) {
 			ClassVariable cv = iter.next();
 			if ( !cv.isPrimary() ) {
