@@ -17,10 +17,11 @@
 	  #end
 	  <spring:bind path="${path}">        
 	     <div class="form-group ${esc.d}{status.error ? 'has-error' : ''}">
-	      <label for="${path}">$label</label>
+	      <label for="${path}" style="display: inline;">$label
 		      <form:input path="${path}"  class="form-control"/>
 		      <form:errors path="${path}" class="help-block"/>
-		     </div>
+		  </label>
+		 </div>
 		</spring:bind>	
 	#end
   #end
