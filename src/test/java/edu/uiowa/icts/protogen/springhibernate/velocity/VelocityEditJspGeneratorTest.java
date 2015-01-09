@@ -118,12 +118,12 @@ public class VelocityEditJspGeneratorTest {
         assertThat(sourceCode, containsString("<legend>TableFive</legend>"));        
      
         assertThat(sourceCode, containsString("<spring:bind path=\"id.idOne\">"));
-        assertThat(sourceCode, containsString("<label for=\"id.idOne\">idOne</label>"));
+        assertThat(sourceCode, containsString("<label for=\"id.idOne\" style=\"display: inline;\">idOne"));
         assertThat(sourceCode, containsString("<form:input path=\"id.idOne\"  class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"id.idOne\" class=\"help-block\"/>"));
         
         assertThat(sourceCode, containsString("<spring:bind path=\"id.idTwo\">"));
-        assertThat(sourceCode, containsString("<label for=\"id.idTwo\">idTwo</label>"));
+        assertThat(sourceCode, containsString("<label for=\"id.idTwo\" style=\"display: inline;\">idTwo"));
         assertThat(sourceCode, containsString("<form:input path=\"id.idTwo\"  class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"id.idTwo\" class=\"help-block\"/>"));
 	}
@@ -148,8 +148,8 @@ public class VelocityEditJspGeneratorTest {
 		String sourceCode = generator.javaSourceCode();
 		System.out.println(sourceCode);
 
-        assertThat(sourceCode, containsString("<label for=\"id.idOne\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_one') }</label>"));
-        assertThat(sourceCode, containsString("<label for=\"id.idTwo\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_two') }</label>"));   
+        assertThat(sourceCode, containsString("<label for=\"id.idOne\" style=\"display: inline;\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_one') }"));
+        assertThat(sourceCode, containsString("<label for=\"id.idTwo\" style=\"display: inline;\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_two') }"));   
 	}
 	
 	@Test
