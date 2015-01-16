@@ -115,7 +115,7 @@ public class VelocityEditJspGeneratorTest {
         
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFive,properties);
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
+	//	System.out.println(sourceCode);
 
         assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableFive\" action=\"save\" role=\"form\">"));
         assertThat(sourceCode, containsString("<legend>TableFive</legend>"));        
@@ -149,7 +149,7 @@ public class VelocityEditJspGeneratorTest {
         
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFive,properties);
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
+	//	System.out.println(sourceCode);
 
         assertThat(sourceCode, containsString("<label for=\"id.idOne\" style=\"display: inline;\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_one') }"));
         assertThat(sourceCode, containsString("<label for=\"id.idTwo\" style=\"display: inline;\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_two') }"));   
