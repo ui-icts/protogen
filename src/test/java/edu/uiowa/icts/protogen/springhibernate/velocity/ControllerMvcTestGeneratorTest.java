@@ -365,7 +365,7 @@ public class ControllerMvcTestGeneratorTest {
 		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator(packageRoot,tablewithprimarykeyasid,properties);
 		
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
+	//	System.out.println(sourceCode);
 		// test edit
 		assertThat(sourceCode, containsString("mockMvc.perform(get(\"/tablewithprimarykeyasid/edit\").param(\"id\", firstTableWithPrimaryKeyAsId.getId().toString()))"));
 		
