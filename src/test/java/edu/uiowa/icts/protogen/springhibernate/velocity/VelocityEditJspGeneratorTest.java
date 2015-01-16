@@ -94,6 +94,9 @@ public class VelocityEditJspGeneratorTest {
         
         assertThat(sourceCode, containsString("<a class=\"btn btn-default\" href=\"list\">Cancel</a>"));
         
+        // assert that job child set doesn't have an input box
+        assertThat(sourceCode, not(containsString("<form:input path=\"jobs\"  class=\"form-control\"/>")));
+        
 	}
 	
 	@Test

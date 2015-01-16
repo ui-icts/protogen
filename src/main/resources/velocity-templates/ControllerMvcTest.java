@@ -93,7 +93,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
       #elseif ( ${domainClass.getPrimaryKey().getType()} && ${domainClass.getPrimaryKey().getType()} != "Integer" )
         // at the moment, don't test datatables for ids generated without sequences  
       #else	  
-    	  
+ /*   	  
     @Test
     public void saveShouldPersistAndRedirectToListView() throws Exception {
        int count = ${daoServiceName}.get${className}Service().list().size();
@@ -102,7 +102,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
        
        assertEquals("${className} count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().list().size());
 	}
-  
+  */
     @Test
     public void editShouldLoadObjectAndDisplayForm() throws Exception {
     	mockMvc.perform(get("${pathPrefix}/edit${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))

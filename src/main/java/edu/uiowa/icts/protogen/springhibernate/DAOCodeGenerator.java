@@ -131,16 +131,17 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		importList.add( "import edu.uiowa.icts.spring.*;" );
 		importList.add( "import " + dc.getPackageName() + ".*;" );
-		importList.add( "import java.util.ArrayList;" );
-		importList.add( "import java.util.List;" );
-		importList.add( "import org.hibernate.Criteria;" );
-		importList.add( "import org.hibernate.criterion.Order;" );
-		importList.add( "import edu.uiowa.icts.util.SortColumn;" );
 		importList.add( "import org.apache.commons.logging.LogFactory;" );
 		importList.add( "import org.apache.commons.logging.Log;" );
 		importList.add( "import org.springframework.stereotype.Repository;" );
 		importList.add( "import org.springframework.transaction.annotation.Transactional;" );
-		importList.add( "import org.hibernate.criterion.Restrictions;" );
+		
+		// importList.add( "import java.util.ArrayList;" );
+		// importList.add( "import java.util.List;" );
+		// importList.add( "import org.hibernate.Criteria;" );
+		// importList.add( "import org.hibernate.criterion.Order;" );
+		// importList.add( "import edu.uiowa.icts.util.SortColumn;" );
+		// importList.add( "import org.hibernate.criterion.Restrictions;" );
 
 		BufferedWriter out =  createFileInSrcElseTarget(packagePath, className + ".java");
 
@@ -346,10 +347,11 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	private void generateDaoMasterService( List<DomainClass> domainClassList, String className, String daoPackageName, String packagePath ) throws IOException {
 
 		List<String> importList = new ArrayList<String>();
-		importList.add( "import edu.uiowa.icts.spring.*;" );
 		importList.add( "import org.springframework.beans.factory.annotation.Autowired;" );
 		importList.add( "import org.springframework.stereotype.Component;" );
-		importList.add( "import " + daoPackageName + ".*;" );
+		
+		// importList.add( "import edu.uiowa.icts.spring.*;" );
+		// importList.add( "import " + daoPackageName + ".*;" );
 
 		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
 
@@ -375,23 +377,25 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		out.write( " * @since " + sdf.format( new Date() ) + "\n" );
 		out.write( " */\n" );
 		out.write( "@Component\n" );
-		out.write( "public class " + className + " {\n\n" );
+		out.write( "public class " + className + " {\n" );
 
 		for ( DomainClass dc : domainClassList ) {
 			String type = "" + dc.getIdentifier() + interfaceSuffix;
 			String variableName = dc.getLowerIdentifier() + interfaceSuffix;
-			lines( out, 2 );
+			lines( out, 1 );
+		//	spaces( out, 4 );
+		//	out.write( "/*********** " + variableName + " ****************/\n" );
 			spaces( out, 4 );
-			out.write( "/*********** " + variableName + " ****************/\n" );
+			out.write( "@Autowired" );
+			lines( out,  1);
 			spaces( out, 4 );
 			out.write( "private " + type + " " + variableName + ";\n" );
 			lines( out, 1 );
 			out.write( createGetter( type, variableName, 4 ) );
-			lines( out, 1 );
-			spaces( out, 4 );
-			out.write( "@Autowired\n" );
-			out.write( createSetter( type, variableName, 4 ) );
-			lines( out, 1 );
+//			lines( out, 2 );
+	//		spaces( out, 4 );
+	//		out.write( createSetter( type, variableName, 4 ) );
+	//		lines( out, 1 );
 
 		}
 

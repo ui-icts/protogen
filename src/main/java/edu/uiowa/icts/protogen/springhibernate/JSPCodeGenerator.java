@@ -899,17 +899,16 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		Iterator<DomainClass> dcIter = ecList.iterator();
 
-		output += "<ul id=\"mainmenu\" >\n";
-		output += "<li><a>Main</a><ul>\n";
+		output += "<ul id=\"mainmenu\" class=\"list-group\" >\n";
 		while ( dcIter.hasNext() )
 		{
 			DomainClass dc = dcIter.next();
-			output += "<li><a href=\"<c:url value=\"" + ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ? "/" + dc.getSchema().getUnqualifiedLabel() : "" ) + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a></li>";
+			output += "<li  class=\"list-group-item\"><a href=\"<c:url value=\"" + ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ? "/" + dc.getSchema().getUnqualifiedLabel() : "" ) + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a></li>";
 			output += lines( 1 );
 
 		}
 		lines( 1 );
-		output += "</ul></li></ul>\n";
+		output += "</ul>\n";
 
 		File file = new File( jspFile );
 		FileWriter fstream = new FileWriter( file );

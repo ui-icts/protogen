@@ -96,10 +96,10 @@ public class BaseTestCodeGenerator extends AbstractSpringHibernateCodeGenerator 
 		out.write( "@Autowired\n" );
 		spaces( out, 4 );
 		out.write( "private " + daoClassName + " " + daoServiceName + ";\n" );
-		lines( out, 1 );
-		out.write( createGetter( daoClassName, daoServiceName, 4 ) );
-		lines( out, 1 );
-		out.write( createSetter( daoClassName, daoServiceName, 4 ) );
+//		lines( out, 1 );
+//		out.write( createGetter( daoClassName, daoServiceName, 4 ) );
+//		lines( out, 1 );
+//		out.write( createSetter( daoClassName, daoServiceName, 4 ) );
 
 		lines( out, 1 );
 		String methodTemplates = ""

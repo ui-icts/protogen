@@ -341,9 +341,9 @@ public class DomainClass {
 		output += "\n";
 		//		output += genConstructorWithId(indent);
 		//		output += "\n";
-		output += genConstructor( indent );
-		output += "\n";
-		output += genConstructorWithArgs( indent );
+	//	output += genConstructor( indent );
+	//	output += "\n";
+		//output += genConstructorWithArgs( indent );
 
 		output += "\n";
 		output += genGettersSetters( indent );

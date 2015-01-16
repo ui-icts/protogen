@@ -38,6 +38,7 @@
 
   #if ( $classVariable.isPrimary() ) 
 	<form:hidden path="${path}" />
+  #elseif ($classVariable.getAttribType() == "CHILD")	
   #else
     <spring:bind path="${path}">        
 	     <div class="form-group ${esc.d}{status.error ? 'has-error' : ''}">
