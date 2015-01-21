@@ -92,11 +92,12 @@ ${datatableColumnForEach}
 				for ( StackTraceElement ste : e.getStackTrace() ) {
 					stackTrace += ste.toString() + String.valueOf( '\n' );
 				}
-				ob = new JSONObject();
-				ob.put( "draw", draw );
-				ob.put( "recordsFiltered", 0 );
-				ob.put( "recordsTotal", 0 );
-				ob.put( "error", stackTrace );
+				JSONObject error = new JSONObject();
+				error.put( "draw", draw );
+				error.put( "recordsFiltered", 0 );
+				error.put( "recordsTotal", 0 );
+				error.put( "error", stackTrace );
+				return error.toString();
 			} catch ( JSONException je ) {
 				log.error( "error building json error object for ${domainName}", je );
 			}
