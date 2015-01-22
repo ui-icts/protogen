@@ -1,6 +1,7 @@
 package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -9,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
+import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -298,7 +300,20 @@ public class ControllerMvcTestGeneratorTest {
 		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.recordsTotal\", is(aptamerDaoService.getJobTypeService().list().size())))"));
 		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.recordsFiltered\", is(aptamerDaoService.getJobTypeService().list().size())))"));
 		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.draw\", is(\"1\")))"));
-		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data\", hasSize(is(10))))"));		
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data\", hasSize(is(10))))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data[0][0]\", containsString(\"show?\")))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data[0][0]\", containsString(\"edit?\")))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data[0][0]\", containsString(\"delete?\")))"));		
+		
+		// test datatables bogus column name
+		assertThat(sourceCode, containsString("public void defaultDatatableShouldReturnErrorTextForBogusColumnName() throws Exception {"));
+		assertThat(sourceCode, containsString(".param(\"columns[0][data]\",\"0\").param(\"columns[0][name]\",\"asdfasdf\")"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data[0][0]\", is(\"[error: column asdfasdf not supported]\")))"));
+		
+		// test datatables exception scenario
+		assertThat(sourceCode, containsString("public void defaultDatatableShouldReturnException() throws Exception {"));
+		assertThat(sourceCode, containsString(".param(\"order[0][column]\",\"1\").param(\".order[0][dir]\", \"asc\")"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data\", IsNull.nullValue()))"));
 		
 		// test edit
 		assertThat(sourceCode, containsString("public void editShouldLoadObjectAndDisplayForm() throws Exception {"));

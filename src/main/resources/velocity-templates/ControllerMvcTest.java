@@ -2,6 +2,7 @@ package ${packageName};
 
 #set( $classNameLowerCaseFirstLetter = $display.uncapitalize($className) )
 
+import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -171,10 +173,57 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     	.andExpect(jsonPath("$.draw", is("1")))
     	// max # of returned data rows should be 10 per "length" value
     	.andExpect(jsonPath("$.data", hasSize(is(10))))
+    	.andExpect(jsonPath("$.data[0][0]", containsString("show?")))
+		.andExpect(jsonPath("$.data[0][0]", containsString("edit?")))
+		.andExpect(jsonPath("$.data[0][0]", containsString("delete?")))
         ;
     }
     	  
+    @Test
+    public void defaultDatatableShouldReturnErrorTextForBogusColumnName() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/datatable${pathExtension}")
+			.param("display", "list")
+			.param("search[value]", "")
+			.param("search[regex]", "false")
+			.param("length", "10")
+			.param("start", "1")
+			.param("columnCount", "1")
+			.param("draw", "1")
+			.param("individualSearch", "true")
+			.param("columns[0][data]","0").param("columns[0][name]","asdfasdf").param("columns[0][searchable]","true").param("columns[0][orderable]","true").param("columns[0][search][regex]","false").param("columns[0][search][value]","")
+			.accept(MediaType.APPLICATION_JSON))
+    	.andExpect(status().isOk())
+    	.andExpect(content().contentType("application/json"))
+    	.andExpect(jsonPath("$.recordsTotal", is(${daoServiceName}.get${className}Service().list().size())))
+    	.andExpect(jsonPath("$.recordsFiltered", is(${daoServiceName}.get${className}Service().list().size())))
+    	.andExpect(jsonPath("$.draw", is("1")))
+    	.andExpect(jsonPath("$.data", hasSize(is(10))))
+    	.andExpect(jsonPath("$.data[0][0]", is("[error: column asdfasdf not supported]")))
+    	;
+    }    
     	  
+    @Test
+    public void defaultDatatableShouldReturnException() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/datatable${pathExtension}")
+			.param("display", "list")
+			.param("search[value]", "")
+			.param("search[regex]", "false")
+			.param("length", "10")
+			.param("start", "1")
+			.param("columnCount", "1")
+			.param("draw", "1")
+			.param("individualSearch", "true")
+			.param("order[0][column]","1").param(".order[0][dir]", "asc")
+			.accept(MediaType.APPLICATION_JSON)).andDo(print())
+    	.andExpect(status().isOk())
+    	.andExpect(content().contentType("application/json"))
+    	.andExpect(jsonPath("$.recordsTotal", is(0)))
+    	.andExpect(jsonPath("$.recordsFiltered", is(0)))
+    	.andExpect(jsonPath("$.draw", is("1")))
+    	.andExpect(jsonPath("$.data", IsNull.nullValue()))
+    //	.andExpect(jsonPath("$.error", is("")))
+    	;
+    }      
       #end
     
     
