@@ -214,7 +214,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
 			.param("draw", "1")
 			.param("individualSearch", "true")
 			.param("order[0][column]","1").param(".order[0][dir]", "asc")
-			.accept(MediaType.APPLICATION_JSON)).andDo(print())
+			.accept(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())
     	.andExpect(content().contentType("application/json"))
     	.andExpect(jsonPath("$.recordsTotal", is(0)))
