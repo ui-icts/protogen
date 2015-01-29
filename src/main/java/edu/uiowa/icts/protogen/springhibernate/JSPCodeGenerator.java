@@ -1,9 +1,3 @@
-/*
- * Created on May 12, 2008
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package edu.uiowa.icts.protogen.springhibernate;
 
 import java.io.BufferedWriter;
@@ -23,7 +17,14 @@ import edu.uiowa.icts.protogen.springhibernate.ClassVariable.RelationshipType;
 import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityEditJspGenerator;
 import edu.uiowa.webapp.Attribute;
 
+/**
+ * @since May 12, 2008
+ */
 public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
+
+	private static final Log log = LogFactory.getLog( JSPCodeGenerator.class );
+	public String jspRoot;
+	private Properties properties;
 
 	/**
 	 * @param model
@@ -33,12 +34,8 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	public JSPCodeGenerator( SpringHibernateModel model, String pathBase, String packageRoot, Properties properties ) {
 		super( model, pathBase, packageRoot );
 		this.properties = properties;
-		jspRoot = pathBase;
+		this.jspRoot = pathBase;
 	}
-
-	private static final Log log = LogFactory.getLog( JSPCodeGenerator.class );
-	public String jspRoot;
-	private Properties properties;
 
 	public void generate() throws IOException {
 		generateAllJSP( model.getDomainClassList() );
@@ -712,143 +709,143 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		String jspFile = directory + "/edit.jsp";
 
-//		int indent = 0;
-//
-//		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
-//
-//		Iterator<ClassVariable> cvIter = ec.getPrimaryKeys().iterator();
-//		output += lines( 1 );
-//		output += lines( 1 );
-//		while ( cvIter.hasNext() ) {
-//			ClassVariable cv = cvIter.next();
-//			if ( ec.isUsesCompositeKey() && cv.isPrimary() ) {
-//				output += "";
-//			} else {
-//				// output += "<h2>${"+ec.getLowerIdentifier() +"."+ cv.getIdentifier()+"}</h2>";
-//				output += "";
-//			}
-//			output += lines( 1 );
-//		}
-//
-//		output += "<form:form method=\"post\" commandName=\"" + ec.getLowerIdentifier() + "\" action=\"save" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" >";
-//		output += lines( 1 );
-//		indent += 4;
-//
-//		output += spaces( indent ) + "<fieldset>";
-//		output += lines( 1 );
-//		indent += 4;
-//
-//		output += spaces( indent ) + "<legend>" + ec.getIdentifier() + "</legend>";
-//
-//		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
-//
-//		cvIter = ec.listAllIter();
-//		;
-//		while ( cvIter.hasNext() ) {
-//
-//			output += lines( 1 );
-//			ClassVariable cv = cvIter.next();
-//			if ( ec.isUsesCompositeKey() && cv.isPrimary() ) {
-//				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
-//					if ( !a.isForeign() ) {
-//						String label = a.getLowerLabel();
-//						if ( deOb ) {
-//							label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + a.getSqlLabel() + "') }";
-//						}
-//						output += lines( 1 );
-//						output += spaces( indent ) + "<label for=\"id." + a.getLowerLabel() + "\">" + label + "</label>";
-//						output += lines( 1 );
-//						output += spaces( indent ) + "<form:input path=\"id." + a.getLowerLabel() + "\" /><br/>";
-//						output += lines( 1 );
-//					}
-//				}
-//			} else if ( cv.getAttribType() == AttributeType.CHILD ) {
-//				//output += spaces(indent) +"<th></th>";
-//				//output += lines(1);
-//				//output += spaces(indent) +"<td></td>";
-//			} else if ( cv.getAttribType() == AttributeType.FOREIGNATTRIBUTE ) {
-//				if ( cv.isPrimary() && cv.getDomainClass().isUsesCompositeKey() ) {
-//					for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
-//
-//						String label = cv.getUpperIdentifier();
-//						if ( deOb ) {
-//							label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
-//						}
-//
-//						String elementId = "id." + a.getLowerLabel();
-//						output += spaces( indent ) + "<label for=\"" + elementId + "\">" + label + "</label>";
-//						output += lines( 1 );
-//						output += spaces( indent ) + "<form:select path=\"" + elementId + "\" items=\"${" + cv.getDomainClass().getLowerIdentifier() + "List}\" itemValue=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\" itemLabel=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\"/>";
-//						output += lines( 1 );
-//						output += "<br/>";
-//					}
-//				} else {
-//
-//					String label = cv.getUpperIdentifier();
-//					if ( deOb ) {
-//						label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
-//					}
-//
-//					String elementId = cv.getIdentifier() + "." + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier();
-//					output += spaces( indent ) + "<label for=\"" + elementId + "\">" + label + "</label>";
-//					output += lines( 1 );
-//					output += spaces( indent ) + "<form:select path=\"" + elementId + "\" items=\"${" + cv.getDomainClass().getLowerIdentifier() + "List}\" itemValue=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\" itemLabel=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\"/>";
-//					output += lines( 1 );
-//					output += spaces( indent ) + "<br/>";
-//					//				output += spaces(indent) + "<c:forEach items=\"${" + cv.getDomainClass().getLowerIdentifier()+ "List}\" var=\"item\" >";
-//					//				String selected="";
-//					//				if( cv.getDomainClass().getPrimaryKeys().size()>0 && cv.getAttribute().getReferencedEntity().getDomainClass().getPrimaryKeys().size()>0)
-//					//				{
-//					//					log.debug("creating select");
-//					//				selected += "<c:if test=\"${";
-//					//				selected += ec.getLowerIdentifier()+"."+cv.getIdentifier()+"." + cv.getDomainClass().getPrimaryKeys().iterator().next().getIdentifier(); 
-//					//				selected += "== item."+ cv.getDomainClass().getPrimaryKeys().iterator().next().getIdentifier() +"}\">selected=\"true\"</c:if>";
-//					//				output += spaces(indent) + "<option "+selected+" value=\"${item."+cv.getAttribute().getReferencedEntity().getDomainClass().getPrimaryKeys().iterator().next().getIdentifier() +"}\" >"+ cv.getAttribute().getReferencedEntity().getDomainClass().getSelectBoxLabel()+"</option>";
-//					//				}
-//					//				output += spaces(indent) + "</c:forEach>";
-//					//				output += lines(1);
-//					//				output += spaces(indent) + "</select></td>";
-//					output += lines( 1 );
-//				}
-//			} else {
-//				if ( cv.isPrimary() ) {
-//					output += spaces( indent ) + "";
-//					output += lines( 1 );
-//					output += spaces( indent ) + "<form:hidden path=\"" + cv.getIdentifier() + "\" />";
-//				} else {
-//
-//					String label = cv.getUpperIdentifier();
-//					if ( deOb ) {
-//						label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
-//					}
-//
-//					String cssClass = null;
-//					if ( cv.getType().equalsIgnoreCase( "date" ) ) {
-//						cssClass = "cssClass=\"dateInput\"";
-//					}
-//					output += spaces( indent ) + "<label for=\"" + cv.getIdentifier() + "\">" + label + "</label>";
-//					output += lines( 1 );
-//					output += spaces( indent ) + "<form:input path=\"" + cv.getIdentifier() + "\" " + ( cssClass != null ? cssClass : "" ) + " />";
-//					output += lines( 1 );
-//					output += spaces( indent ) + "<br/>";
-//				}
-//			}
-//			output += lines( 1 );
-//			output += spaces( indent ) + "";
-//		}
-//
-//		output += lines( 1 );
-//		output += spaces( indent ) + "<input type=\"submit\" value=\"Save\" class=\"btn btn-primary\" />";
-//		output += lines( 1 );
-//		output += spaces( indent ) + "<a class=\"btn btn-default\" href=\"list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\">Cancel</a>";
-//		output += lines( 1 );
-//		indent -= 4;
-//		output += spaces( indent ) + "</fieldset>";
-//		indent -= 4;
-//		output += lines( 1 );
-//		output += "</form:form>";
+		//		int indent = 0;
+		//
+		//		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
+		//
+		//		Iterator<ClassVariable> cvIter = ec.getPrimaryKeys().iterator();
+		//		output += lines( 1 );
+		//		output += lines( 1 );
+		//		while ( cvIter.hasNext() ) {
+		//			ClassVariable cv = cvIter.next();
+		//			if ( ec.isUsesCompositeKey() && cv.isPrimary() ) {
+		//				output += "";
+		//			} else {
+		//				// output += "<h2>${"+ec.getLowerIdentifier() +"."+ cv.getIdentifier()+"}</h2>";
+		//				output += "";
+		//			}
+		//			output += lines( 1 );
+		//		}
+		//
+		//		output += "<form:form method=\"post\" commandName=\"" + ec.getLowerIdentifier() + "\" action=\"save" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" >";
+		//		output += lines( 1 );
+		//		indent += 4;
+		//
+		//		output += spaces( indent ) + "<fieldset>";
+		//		output += lines( 1 );
+		//		indent += 4;
+		//
+		//		output += spaces( indent ) + "<legend>" + ec.getIdentifier() + "</legend>";
+		//
+		//		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
+		//
+		//		cvIter = ec.listAllIter();
+		//		;
+		//		while ( cvIter.hasNext() ) {
+		//
+		//			output += lines( 1 );
+		//			ClassVariable cv = cvIter.next();
+		//			if ( ec.isUsesCompositeKey() && cv.isPrimary() ) {
+		//				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
+		//					if ( !a.isForeign() ) {
+		//						String label = a.getLowerLabel();
+		//						if ( deOb ) {
+		//							label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + a.getSqlLabel() + "') }";
+		//						}
+		//						output += lines( 1 );
+		//						output += spaces( indent ) + "<label for=\"id." + a.getLowerLabel() + "\">" + label + "</label>";
+		//						output += lines( 1 );
+		//						output += spaces( indent ) + "<form:input path=\"id." + a.getLowerLabel() + "\" /><br/>";
+		//						output += lines( 1 );
+		//					}
+		//				}
+		//			} else if ( cv.getAttribType() == AttributeType.CHILD ) {
+		//				//output += spaces(indent) +"<th></th>";
+		//				//output += lines(1);
+		//				//output += spaces(indent) +"<td></td>";
+		//			} else if ( cv.getAttribType() == AttributeType.FOREIGNATTRIBUTE ) {
+		//				if ( cv.isPrimary() && cv.getDomainClass().isUsesCompositeKey() ) {
+		//					for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
+		//
+		//						String label = cv.getUpperIdentifier();
+		//						if ( deOb ) {
+		//							label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
+		//						}
+		//
+		//						String elementId = "id." + a.getLowerLabel();
+		//						output += spaces( indent ) + "<label for=\"" + elementId + "\">" + label + "</label>";
+		//						output += lines( 1 );
+		//						output += spaces( indent ) + "<form:select path=\"" + elementId + "\" items=\"${" + cv.getDomainClass().getLowerIdentifier() + "List}\" itemValue=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\" itemLabel=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\"/>";
+		//						output += lines( 1 );
+		//						output += "<br/>";
+		//					}
+		//				} else {
+		//
+		//					String label = cv.getUpperIdentifier();
+		//					if ( deOb ) {
+		//						label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
+		//					}
+		//
+		//					String elementId = cv.getIdentifier() + "." + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier();
+		//					output += spaces( indent ) + "<label for=\"" + elementId + "\">" + label + "</label>";
+		//					output += lines( 1 );
+		//					output += spaces( indent ) + "<form:select path=\"" + elementId + "\" items=\"${" + cv.getDomainClass().getLowerIdentifier() + "List}\" itemValue=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\" itemLabel=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\"/>";
+		//					output += lines( 1 );
+		//					output += spaces( indent ) + "<br/>";
+		//					//				output += spaces(indent) + "<c:forEach items=\"${" + cv.getDomainClass().getLowerIdentifier()+ "List}\" var=\"item\" >";
+		//					//				String selected="";
+		//					//				if( cv.getDomainClass().getPrimaryKeys().size()>0 && cv.getAttribute().getReferencedEntity().getDomainClass().getPrimaryKeys().size()>0)
+		//					//				{
+		//					//					log.debug("creating select");
+		//					//				selected += "<c:if test=\"${";
+		//					//				selected += ec.getLowerIdentifier()+"."+cv.getIdentifier()+"." + cv.getDomainClass().getPrimaryKeys().iterator().next().getIdentifier(); 
+		//					//				selected += "== item."+ cv.getDomainClass().getPrimaryKeys().iterator().next().getIdentifier() +"}\">selected=\"true\"</c:if>";
+		//					//				output += spaces(indent) + "<option "+selected+" value=\"${item."+cv.getAttribute().getReferencedEntity().getDomainClass().getPrimaryKeys().iterator().next().getIdentifier() +"}\" >"+ cv.getAttribute().getReferencedEntity().getDomainClass().getSelectBoxLabel()+"</option>";
+		//					//				}
+		//					//				output += spaces(indent) + "</c:forEach>";
+		//					//				output += lines(1);
+		//					//				output += spaces(indent) + "</select></td>";
+		//					output += lines( 1 );
+		//				}
+		//			} else {
+		//				if ( cv.isPrimary() ) {
+		//					output += spaces( indent ) + "";
+		//					output += lines( 1 );
+		//					output += spaces( indent ) + "<form:hidden path=\"" + cv.getIdentifier() + "\" />";
+		//				} else {
+		//
+		//					String label = cv.getUpperIdentifier();
+		//					if ( deOb ) {
+		//						label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
+		//					}
+		//
+		//					String cssClass = null;
+		//					if ( cv.getType().equalsIgnoreCase( "date" ) ) {
+		//						cssClass = "cssClass=\"dateInput\"";
+		//					}
+		//					output += spaces( indent ) + "<label for=\"" + cv.getIdentifier() + "\">" + label + "</label>";
+		//					output += lines( 1 );
+		//					output += spaces( indent ) + "<form:input path=\"" + cv.getIdentifier() + "\" " + ( cssClass != null ? cssClass : "" ) + " />";
+		//					output += lines( 1 );
+		//					output += spaces( indent ) + "<br/>";
+		//				}
+		//			}
+		//			output += lines( 1 );
+		//			output += spaces( indent ) + "";
+		//		}
+		//
+		//		output += lines( 1 );
+		//		output += spaces( indent ) + "<input type=\"submit\" value=\"Save\" class=\"btn btn-primary\" />";
+		//		output += lines( 1 );
+		//		output += spaces( indent ) + "<a class=\"btn btn-default\" href=\"list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\">Cancel</a>";
+		//		output += lines( 1 );
+		//		indent -= 4;
+		//		output += spaces( indent ) + "</fieldset>";
+		//		indent -= 4;
+		//		output += lines( 1 );
+		//		output += "</form:form>";
 
-		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,ec,properties);
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator( packageRoot, ec, properties );
 		String sourceCode = generator.javaSourceCode();
 
 		File file = new File( jspFile );
@@ -870,14 +867,12 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		Iterator<DomainClass> dcIter = ecList.iterator();
 		output += "<h2>Menu</h2>";
 		output += lines( 1 );
-		while ( dcIter.hasNext() )
-		{
+		while ( dcIter.hasNext() ) {
 			DomainClass dc = dcIter.next();
 			output += "<a href=\"<c:url value=\"/" + dc.getSchema().getUnqualifiedLabel() + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a><br/>";
 			output += lines( 1 );
-
 		}
-		lines( 1 );
+		output += lines( 1 );
 
 		File file = new File( jspFile );
 		FileWriter fstream = new FileWriter( file );
@@ -890,7 +885,10 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		( new File( jspRoot ) ).mkdirs();
 
-		String jspFile = jspRoot + "/menu.jsp";
+		File file = new File( jspRoot + "/menu.jsp" );
+		if ( file.exists() ) {
+			file = new File( jspRoot + "/menu-generated.jsp" );
+		}
 
 		int indent = 0;
 
@@ -899,22 +897,30 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		Iterator<DomainClass> dcIter = ecList.iterator();
 
-		output += "<ul id=\"mainmenu\" class=\"list-group\" >\n";
-		while ( dcIter.hasNext() )
-		{
+		output += "<div id=\"mainmenu\" class=\"list-group\">";
+		output += lines( 1 );
+		while ( dcIter.hasNext() ) {
 			DomainClass dc = dcIter.next();
-			output += "<li  class=\"list-group-item\"><a href=\"<c:url value=\"" + ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ? "/" + dc.getSchema().getUnqualifiedLabel() : "" ) + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a></li>";
+			output += tabs( 1 );
+			output += "<a class=\"list-group-item\" href=\"<c:url value=\"" + ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ? "/" + dc.getSchema().getUnqualifiedLabel() : "" ) + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a>";
 			output += lines( 1 );
-
 		}
-		lines( 1 );
-		output += "</ul>\n";
+		output += "</div>";
+		output += lines( 1 );
 
-		File file = new File( jspFile );
 		FileWriter fstream = new FileWriter( file );
 		BufferedWriter out = new BufferedWriter( fstream );
 		out.write( output );
 		out.close();
+
+	}
+
+	private String tabs( int num ) {
+		String out = "";
+		for ( int i = 0; i < num; i++ ) {
+			out += "\t";
+		}
+		return out;
 	}
 
 	private String lines( int num ) {
