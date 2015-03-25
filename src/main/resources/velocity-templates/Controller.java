@@ -84,9 +84,10 @@ ${compositeKey}
 ${newCompositeKey}
 ${foreignClassSetters}
 ${compositeKeySetter}
-		if (result.hasErrors()) { return "${jspPath}/edit"; }
-		else {
-			
+		if (result.hasErrors()) { 
+			${addEditListDependencies}
+			return "${jspPath}/edit"; 
+		} else {
 			try {
 				${daoServiceName}.get${domainName}Service().saveOrUpdate( ${lowerDomainName} );
 			} catch (NonUniqueObjectException e) {

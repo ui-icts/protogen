@@ -48,13 +48,19 @@ public abstract class AbstractSpringHibernateCodeGenerator {
 
 	protected void lines( BufferedWriter out, int num ) throws IOException {
 		for ( int i = 0; i < num; i++ ) {
-			out.write( "\n" );
+			out.write( '\n' );
 		}
 	}
 
 	protected void spaces( BufferedWriter out, int num ) throws IOException {
 		for ( int i = 0; i < num; i++ ) {
-			out.write( " " );
+			out.write( ' ' );
+		}
+	}
+
+	protected void tabs( BufferedWriter out, int num ) throws IOException {
+		for ( int i = 0; i < num; i++ ) {
+			out.write( '\t' );
 		}
 	}
 
@@ -113,5 +119,5 @@ public abstract class AbstractSpringHibernateCodeGenerator {
 		BufferedWriter out = new BufferedWriter( fstream );
 		return out;
 	}
-	
+
 }

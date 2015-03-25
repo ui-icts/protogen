@@ -40,7 +40,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	private void generateDao( DomainClass dc ) throws IOException {
 
 		String daoPackageName = model.getPackageRoot() + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + dc.getSchema().getLowerLabel() : "" ) + ".dao";
-		
+
 		String packagePath = pathBase + "/" + daoPackageName.replaceAll( "\\.", "/" );
 
 		String interfaceName = "" + dc.getIdentifier() + interfaceSuffix;
@@ -62,7 +62,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		importList.add( "import java.util.List;" );
 		importList.add( "import edu.uiowa.icts.util.SortColumn;" );
 
-		BufferedWriter out =  createFileInSrcElseTarget(packagePath, className + ".java");
+		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
 		/*
 		 * Print Package
 		 */
@@ -90,7 +90,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		 */
 		out.write( "public interface " + className + " extends GenericDaoInterface<" + dc.getIdentifier() + "> {\n\n" );
 
-		spaces( out, 4 );
+		tabs( out, 1 );
 
 		if ( dc.isUsesCompositeKey() ) {
 			out.write( "public " + dc.getIdentifier() + " findById( " + dc.getIdentifier() + "Id id );\n" );
@@ -104,20 +104,20 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		if ( Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) ) ) {
 			String table = properties.getProperty( "dictionary.table.name" );
 			if ( table != null && dc.getEntity().getSqlLabel().equals( table ) ) {
-				spaces( out, 4 );
+				tabs( out, 1 );
 				out.write( "public String getAlternateColumnName( String tableName, String columnName );\n" );
 			}
 		}
 
 		if ( "SystemSetting".equals( dc.getIdentifier() ) ) {
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public String getValue( String name, String defaultVal );\n" );
 		} else if ( "Message".equals( dc.getIdentifier() ) ) {
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public Integer getCurrentMessageId( String messageName );\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public String getCurrentMessageText( String messageName );\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public Message getCurrentMessage( String messageName );\n" );
 		}
 
@@ -135,7 +135,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		importList.add( "import org.apache.commons.logging.Log;" );
 		importList.add( "import org.springframework.stereotype.Repository;" );
 		importList.add( "import org.springframework.transaction.annotation.Transactional;" );
-		
+
 		// importList.add( "import java.util.ArrayList;" );
 		// importList.add( "import java.util.List;" );
 		// importList.add( "import org.hibernate.Criteria;" );
@@ -143,7 +143,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		// importList.add( "import edu.uiowa.icts.util.SortColumn;" );
 		// importList.add( "import org.hibernate.criterion.Restrictions;" );
 
-		BufferedWriter out =  createFileInSrcElseTarget(packagePath, className + ".java");
+		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
 
 		/*
 		 * Print Package
@@ -174,17 +174,17 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		out.write( "@Transactional\n" );
 		out.write( "public class " + className + " extends GenericDao<" + dc.getIdentifier() + "> implements " + interfaceName + " {\n\n" );
 
-		spaces( out, 4 );
+		tabs( out, 1 );
 		out.write( "private static final Log log = LogFactory.getLog( " + className + ".class );\n\n" );
 
-		spaces( out, 4 );
+		tabs( out, 1 );
 		out.write( "public " + className + "() {\n" );
-		spaces( out, 8 );
+		tabs( out, 2 );
 		out.write( "setDomainName( \"" + dc.getPackageName() + "." + dc.getIdentifier() + "\" );\n" );
-		spaces( out, 4 );
+		tabs( out, 1 );
 		out.write( "}\n\n" );
 
-		spaces( out, 4 );
+		tabs( out, 1 );
 		if ( dc.isUsesCompositeKey() ) {
 			out.write( "public " + dc.getIdentifier() + " findById( " + dc.getIdentifier() + "Id id ) {\n" );
 		} else {
@@ -200,9 +200,9 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			}
 		}
 
-		spaces( out, 8 );
+		tabs( out, 2 );
 		out.write( "return (" + dc.getIdentifier() + ") this.sessionFactory.getCurrentSession().get( " + dc.getIdentifier() + ".class, id );\n" );
-		spaces( out, 4 );
+		tabs( out, 1 );
 		out.write( "}\n\n" );
 
 		if ( Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) ) ) {
@@ -213,106 +213,106 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			log.debug( table );
 
 			if ( table != null && dc.getEntity().getSqlLabel().equals( table ) ) {
-				spaces( out, 4 );
+				tabs( out, 1 );
 				out.write( "public String getAlternateColumnName( String tableName, String columnName ){\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( "Criteria c = this.sessionFactory.getCurrentSession().createCriteria( " + dc.getIdentifier() + ".class );\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( "c.add( Restrictions.eq( \"" + stringUtils.relabel( (String) properties.get( "dictionary.table.columnname" ), false ) + "\", tableName ) );\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( "c.add( Restrictions.eq( \"" + stringUtils.relabel( (String) properties.get( "dictionary.column.columnname" ), false ) + "\", columnName ) );\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( "c.setMaxResults( 1 );\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( dc.getIdentifier() + " dict = (" + dc.getIdentifier() + ") c.uniqueResult();\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( "if( dict != null ){\n" );
-				spaces( out, 12 );
+				tabs( out, 3 );
 				out.write( "return dict.get" + stringUtils.relabel( (String) properties.get( "dictionary.deobfuscated.columnname" ), true ) + "();\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( "}\n" );
-				spaces( out, 8 );
+				tabs( out, 2 );
 				out.write( "return null;\n" );
-				spaces( out, 4 );
+				tabs( out, 1 );
 				out.write( "}\n\n" );
 			}
 		}
 
 		if ( "SystemSetting".equals( dc.getIdentifier() ) ) {
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public String getValue(String name, String defaultVal){\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(SystemSetting.class);\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "criteria.add(Restrictions.eq(\"name\", name));\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "SystemSetting set = (SystemSetting) criteria.uniqueResult();\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "if (set != null) {\n" );
-			spaces( out, 12 );
+			tabs( out, 3 );
 			out.write( "return set.getValue();\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "} else {\n" );
-			spaces( out, 12 );
+			tabs( out, 3 );
 			out.write( "return defaultVal;\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "}\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "}\n" );
 		} else if ( "Message".equals( dc.getIdentifier() ) ) {
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "@Override\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public Message getCurrentMessage(String messageName) {\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Message.class);\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "criteria.add(Restrictions.eq(\"messageName\", messageName));\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "criteria.addOrder(Order.desc(\"version\"));\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "criteria.setMaxResults(1);\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "return (Message) criteria.uniqueResult();\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "}\n\n" );
 
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "@Override\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public Integer getCurrentMessageId(String messageName) {\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "Integer id = null;\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "Message m = getCurrentMessage(messageName);\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "if( m != null ){\n" );
-			spaces( out, 12 );
+			tabs( out, 3 );
 			out.write( "id = m.get" + dc.getPrimaryKey().getUpperIdentifier() + "();\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "}\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "return id;\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "}\n\n" );
 
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "@Override\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "public String getCurrentMessageText(String messageName) {\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "String text = null;\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "Message m = getCurrentMessage(messageName);\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "if( m != null ){\n" );
-			spaces( out, 12 );
+			tabs( out, 3 );
 			out.write( "text = m.getMessageText();\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "}\n" );
-			spaces( out, 8 );
+			tabs( out, 2 );
 			out.write( "return text;\n" );
-			spaces( out, 4 );
+			tabs( out, 1 );
 			out.write( "}\n" );
 		}
 		out.write( "}" );
@@ -331,7 +331,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				String daoPackageName = model.getPackageRoot() + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + schema.getLowerLabel() : "" ) + ".dao";
 				String packagePath = pathBase + "/" + daoPackageName.replaceAll( "\\.", "/" );
 				String className = properties.getProperty( schema.getUpperLabel().toLowerCase() + ".master.dao.service.name" );
-				if( className == null || "".equals( className.trim() ) ){
+				if ( className == null || "".equals( className.trim() ) ) {
 					className = schema.getUpperLabel() + "DaoService";
 				}
 				generateDaoMasterService( model.getSchemaMap().get( schema ), className, daoPackageName, packagePath );
@@ -349,7 +349,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		List<String> importList = new ArrayList<String>();
 		importList.add( "import org.springframework.beans.factory.annotation.Autowired;" );
 		importList.add( "import org.springframework.stereotype.Component;" );
-		
+
 		// importList.add( "import edu.uiowa.icts.spring.*;" );
 		// importList.add( "import " + daoPackageName + ".*;" );
 
@@ -383,19 +383,19 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			String type = "" + dc.getIdentifier() + interfaceSuffix;
 			String variableName = dc.getLowerIdentifier() + interfaceSuffix;
 			lines( out, 1 );
-		//	spaces( out, 4 );
-		//	out.write( "/*********** " + variableName + " ****************/\n" );
-			spaces( out, 4 );
+			//	tabs( out, 1 );
+			//	out.write( "/*********** " + variableName + " ****************/\n" );
+			tabs( out, 1 );
 			out.write( "@Autowired" );
-			lines( out,  1);
-			spaces( out, 4 );
+			lines( out, 1 );
+			tabs( out, 1 );
 			out.write( "private " + type + " " + variableName + ";\n" );
 			lines( out, 1 );
 			out.write( createGetter( type, variableName, 4 ) );
-//			lines( out, 2 );
-	//		spaces( out, 4 );
-	//		out.write( createSetter( type, variableName, 4 ) );
-	//		lines( out, 1 );
+			//			lines( out, 2 );
+			//		tabs( out, 1 );
+			//		out.write( createSetter( type, variableName, 4 ) );
+			//		lines( out, 1 );
 
 		}
 
