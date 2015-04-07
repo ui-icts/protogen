@@ -2,10 +2,8 @@ package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -25,12 +23,10 @@ import edu.uiowa.webapp.Attribute;
  */
 public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
-	private static final String INTERFACE_SUFFIX = "Service";
-
 	public VelocityControllerGenerator( String packageRoot, DomainClass domainClass, Properties properties ) {
 		super( packageRoot, domainClass, properties );
 	}
-    
+
 	public String javaSourceCode() {
 
 		SimpleDateFormat sdf = new SimpleDateFormat( "MM/dd/yyyy HH:mm:ss z", Locale.US );
@@ -38,36 +34,32 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
+		context.put( "domainClass", domainClass );
 		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
-		context.put( "packageName", this.getPackageName() );
+		context.put( "packageName", getPackageName() );
 		context.put( "className", domainClass.getIdentifier() + "Controller" );
-		context.put( "pathPrefix", this.getPathPrefix() );
-		context.put( "jspPath", this.getJspPath() );
-		context.put( "pathExtension", this.getPathExtension());
+		context.put( "pathPrefix", getPathPrefix() );
+		context.put( "jspPath", getJspPath() );
+		context.put( "pathExtension", getPathExtension() );
 		context.put( "domainName", domainClass.getIdentifier() );
 		context.put( "lowerDomainName", domainClass.getLowerIdentifier() );
-		
+
 		String abstractControllerClassName = properties.getProperty( domainClass.getSchema().getLabel().toLowerCase() + ".abstract.controller.name" );
-		if( abstractControllerClassName == null ){
+		if ( abstractControllerClassName == null ) {
 			abstractControllerClassName = "Abstract" + domainClass.getSchema().getUpperLabel() + "Controller";
 		}
 		context.put( "abstractControllerClassName", abstractControllerClassName );
-		
-		String daoServiceName = properties.getProperty( domainClass.getSchema().getUpperLabel().toLowerCase() + ".master.dao.service.name" );
-		if( daoServiceName == null || "".equals( daoServiceName.trim() ) ){
-			daoServiceName = domainClass.getSchema().getLowerLabel() + "DaoService";
-		} else {
-			daoServiceName = StringUtils.substring( daoServiceName, 0, 1 ).toLowerCase() + StringUtils.substring( daoServiceName, 1, daoServiceName.length() );
-		}
-		context.put( "daoServiceName", daoServiceName );
-		
-		context.put( "domainPackageName", this.packageRoot + "." + domainClass.getSchema().getLowerLabel() + ".domain" );
+
+		addDaoServiceNameToVelocityContext( context );
+
+		context.put( "domainPackageName", packageRoot + "." + domainClass.getSchema().getLowerLabel() + ".domain" );
 
 		String dtMethod = datatableMethod( context );
 		context.put( "datatableMethod", dtMethod );
 
 		context.put( "requestParameterIdentifier", requestParameterIdentifier() );
 		context.put( "addEditListDependencies", addEditListDependencies() );
+		context.put( "newCompositeKey", newCompositeKey() );
 		context.put( "compositeKey", compositeKey() );
 		context.put( "compositeKeySetter", compositeKeySetter() );
 		context.put( "foreignClassParameters", foreignClassParameters() );
@@ -80,27 +72,6 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		return writer.toString();
 
-	}
-
-	private String compositeKeySetter() {
-		StringBuilder output = new StringBuilder();
-		if ( domainClass.isUsesCompositeKey() ) {
-			output.append( tab( 2 ) + "" + domainClass.getLowerIdentifier() + ".setId( " + domainClass.getLowerIdentifier() + "Id );" );
-		}
-		return output.toString();
-	}
-
-	private String foreignClassSetters() {
-		StringBuilder output = new StringBuilder();
-		for ( ClassVariable cv : domainClass.getForeignClassVariables() ) {
-			if ( !cv.isPrimary() && !domainClass.isUsesCompositeKey() ) {
-				String getter = domainClass.getSchema().getLowerLabel() + "DaoService.get" + cv.getDomainClass().getIdentifier() + INTERFACE_SUFFIX + "().findById( " + cv.getDomainClass().getLowerIdentifier() + "_" + cv.getDomainClass().getPrimaryKey().getIdentifier() + " )";
-				output.append( tab( 2 ) + domainClass.getLowerIdentifier() + ".set" + cv.getUpperIdentifier() + "( " + getter + " );\n" );
-			} else {
-				output.append( tab( 2 ) + domainClass.getLowerIdentifier() + "Id.set" + cv.getAttribute().getUpperLabel() + "( " + cv.getDomainClass().getLowerIdentifier() + "_" + cv.getDomainClass().getPrimaryKey().getIdentifier() + " );\n" );
-			}
-		}
-		return output.toString();
 	}
 
 	private String foreignClassParameters() {
@@ -200,7 +171,11 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			} else {
 				output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"" + cv.getLowerIdentifier() + "\", headerName ) ){\n" );
 				indent += 1;
-				output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+				if ( cv.getType().contains( "Set<" ) ) {
+					output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
+				} else {
+					output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+				}
 				indent -= 1;
 				count++;
 			}
@@ -231,9 +206,9 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			}
 		}
 
-		output.append( tab( indent ) + "urls += \"<a href=\\\"show"+this.getPathExtension()+"?\"+" + params + "\"\\\">[view]</a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"edit"+this.getPathExtension()+"?\"+" + params + "\"\\\">[edit]</a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"delete"+this.getPathExtension()+"?\"+" + params + "\"\\\">[delete]</a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"show" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"edit" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"delete" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";\n" );
 
 		indent -= 1;
 
@@ -258,14 +233,6 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		output.append( tab( indent ) + "}\n" );
 		output.append( tab( indent ) + "jsonArray.put( tableRow );" );
 
-		return output.toString();
-	}
-
-	private String tab( int tabCount ) {
-		StringBuilder output = new StringBuilder();
-		for ( int i = 0; i < tabCount; i++ ) {
-			output.append( '\t' );
-		}
 		return output.toString();
 	}
 

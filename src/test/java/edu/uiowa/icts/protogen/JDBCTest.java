@@ -55,6 +55,10 @@ public class JDBCTest extends TestCase {
 		props.setProperty( "jsp.file.location", pathPrefix + "/target/jdbc/test/jsp" + "src" );
 		props.setProperty( "test.file.location", pathPrefix + "/target/jdbc/test/javatest" + "src" );
 
+		props.setProperty( "generate.templates.xml", "true" );
+		props.setProperty( "overwrite.templates.xml", "true" );
+		props.setProperty( "templates.xml.file.location", pathPrefix + "/target/jdbc/test/src/main/resources/tiles/" );
+		
 		props.setProperty( "model.source", "jdbc" );
 		props.setProperty( "db.schema", "hero" );
 		props.setProperty( "db.url", "jdbc:postgresql://localhost/test" );

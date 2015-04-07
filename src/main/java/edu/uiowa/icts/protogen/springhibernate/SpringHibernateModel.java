@@ -1,9 +1,3 @@
-/*
- * Created on May 12, 2008
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package edu.uiowa.icts.protogen.springhibernate;
 
 import java.util.ArrayList;
@@ -29,16 +23,18 @@ import edu.uiowa.webapp.Schema;
  * Completes the database model created previously to support Spring and Hibernate code generation
  * ...used by classes that extend AbstractSpringHiberernateCodeGenerator.java 
  * @author bkusenda
+ * @since May 12, 2008
  */
 public class SpringHibernateModel {
+
+	private static final Log log = LogFactory.getLog( SpringHibernateModel.class );
 
 	private String packageRoot = null;
 
 	private List<DomainClass> domainClassList = new ArrayList<DomainClass>();
 	private HashMap<Schema, List<DomainClass>> schemaMap;
 	//private Schema currentSchema;
-	private static final Log log = LogFactory.getLog( SpringHibernateModel.class );
-	
+
 	private Properties properties;
 
 	public List<DomainClass> getDomainClassList() {
@@ -63,7 +59,7 @@ public class SpringHibernateModel {
 		schemaMap = new HashMap<Schema, List<DomainClass>>();
 		for ( Schema schema : theDatabase.getSchemas() ) {
 			schema.populateEntityAttributeForeignReference();
-			if ( !schemaMap.containsKey( schema ) ){
+			if ( !schemaMap.containsKey( schema ) ) {
 				schemaMap.put( schema, new ArrayList<DomainClass>() );
 			}
 			loadSchema( schema );
@@ -71,21 +67,15 @@ public class SpringHibernateModel {
 	}
 
 	private void loadSchema( Schema schema ) {
-
-		for ( int i = 0; i < schema.getEntities().size(); i++ )
-		{
-
+		for ( int i = 0; i < schema.getEntities().size(); i++ ) {
 			DomainClass ec = loadEntity( schema.getEntities().elementAt( i ) );
-			if ( ec != null )
-			{
+			if ( ec != null ) {
 				domainClassList.add( ec );
 				schemaMap.get( schema ).add( ec );
 			}
 			log.debug( "check:" + i + " -" + schema.getEntities().elementAt( i ).getLabel() );
 		}
-
 		connectLinks();
-
 	}
 
 	private DomainClass loadEntity( Entity entity ) {
@@ -130,10 +120,11 @@ public class SpringHibernateModel {
 		importList.add( "javax.persistence.CascadeType" );
 		importList.add( packageRoot + ".*" );
 
-		//If entity's primary key's are composite, create class and attribute for composite ID
-		if ( entity.getPrimaryKeyAttributes().size() > 1 )
-		{
-			//generateCompositeIdClassForEntity(entity);
+		// If entity's primary key's are composite, create class and attribute for composite ID
+		if ( entity.getPrimaryKeyAttributes().size() > 1 ) {
+
+			// generateCompositeIdClassForEntity(entity);
+
 			usesComposite = true;
 
 			ClassVariable v = new ClassVariable( "private", entity.getUnqualifiedLabel() + "Id", entity.getUnqualifiedLowerLabel() + "Id" );
@@ -448,11 +439,12 @@ public class SpringHibernateModel {
 		return hash;
 	}
 
+	@SuppressWarnings( "unused" )
 	private HashMap<String, Attribute> getHashFromAttributesFfPt( Iterator<Attribute> attribIter ) {
 		HashMap<String, Attribute> hash = new HashMap<String, Attribute>();
-		while ( attribIter.hasNext() ){
+		while ( attribIter.hasNext() ) {
 			Attribute attribute = attribIter.next();
-			if ( !attribute.isForeign() && attribute.isPrimary() ){
+			if ( !attribute.isForeign() && attribute.isPrimary() ) {
 				hash.put( attribute.getUnqualifiedLabel(), attribute );
 			}
 		}
@@ -473,14 +465,14 @@ public class SpringHibernateModel {
 		return hash;
 	}
 
-	private HashMap<String, Attribute> getHashFromAttributesFfPf( Iterator<Attribute> attribIter )
-	{
+	@SuppressWarnings( "unused" )
+	private HashMap<String, Attribute> getHashFromAttributesFfPf( Iterator<Attribute> attribIter ) {
 		HashMap<String, Attribute> hash = new HashMap<String, Attribute>();
-		while ( attribIter.hasNext() )
-		{
+		while ( attribIter.hasNext() ) {
 			Attribute attribute = attribIter.next();
-			if ( !attribute.isForeign() && !attribute.isPrimary() )
+			if ( !attribute.isForeign() && !attribute.isPrimary() ) {
 				hash.put( attribute.getUnqualifiedLabel(), attribute );
+			}
 		}
 		return hash;
 	}
@@ -548,8 +540,8 @@ public class SpringHibernateModel {
 		v.setRelationshipType( RelationshipType.MANYTOMANY );
 
 		v.setModifier( "private" );
-		v.getGetterAnnotations().add( "@ManyToMany(cascade = CascadeType.ALL,targetEntity=" + targetEntity + ".class)" );
-		v.getGetterAnnotations().add( "@JoinTable(name = \"" + child.getSchema().getSqlLabel() + "." + child.getSqlLabel() + "\", joinColumns = { @JoinColumn(name = \"" + thisKey + "\")}, inverseJoinColumns = { @ JoinColumn(name = \"" + thatKey + "\")})" );
+		v.getGetterAnnotations().add( "@ManyToMany( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, targetEntity=" + targetEntity + ".class )" );
+		v.getGetterAnnotations().add( "@JoinTable( name = \"" + child.getSchema().getSqlLabel() + "." + child.getSqlLabel() + "\", joinColumns = { @JoinColumn( name = \"" + thisKey + "\")}, inverseJoinColumns = { @ JoinColumn(name = \"" + thatKey + "\") } )" );
 
 		return v;
 

@@ -13,7 +13,7 @@
 		List<DataTableHeader> headers = new ArrayList<DataTableHeader>();
 		for ( int i = 0; i < columnCount; i++ ) {
 			DataTableHeader dth = new DataTableHeader();
-			dth.setData( Integer.valueOf( request.getParameter( "columns[" + i + "][data]" ) ) );
+			dth.setData( request.getParameter( "columns[" + i + "][data]" ) );
 			dth.setName( request.getParameter( "columns[" + i + "][name]" ) );
 			dth.setOrderable( Boolean.valueOf( request.getParameter( "columns[" + i + "][orderable]" ) ) );
 			dth.setSearchable( Boolean.valueOf( request.getParameter( "columns[" + i + "][searchable]" ) ) );
@@ -55,15 +55,17 @@
 				options.setSearch( search );
 				options.setSearchColumns( searchColumns );
 			} else {
-				Map<String, Object> likes = new HashMap<String, Object>();
+				Map<String, List<Object>> likes = new HashMap<String, List<Object>>();
 				for ( DataTableHeader header : headers ) {
 					if ( header.getSearchable() && header.getSearchValue() != null ) {
+						List<Object> values = new ArrayList<Object>();
 						for ( String splitColumnValue : StringUtils.split( header.getSearchValue().trim(), ' ' ) ) {
-							likes.put( header.getName(), splitColumnValue );
+							values.add( splitColumnValue.trim() );
 						}
+						likes.put( header.getName(), values );
 					}
 				}
-				options.setIndividualLikes( likes );
+				options.setLikes( likes );
 			}
 
 			Integer count = ${daoServiceName}.get${domainName}Service().count( options );
@@ -90,11 +92,12 @@ ${datatableColumnForEach}
 				for ( StackTraceElement ste : e.getStackTrace() ) {
 					stackTrace += ste.toString() + String.valueOf( '\n' );
 				}
-				ob = new JSONObject();
-				ob.put( "draw", draw );
-				ob.put( "recordsFiltered", 0 );
-				ob.put( "recordsTotal", 0 );
-				ob.put( "error", stackTrace );
+				JSONObject error = new JSONObject();
+				error.put( "draw", draw );
+				error.put( "recordsFiltered", 0 );
+				error.put( "recordsTotal", 0 );
+				error.put( "error", stackTrace );
+				return error.toString();
 			} catch ( JSONException je ) {
 				log.error( "error building json error object for ${domainName}", je );
 			}

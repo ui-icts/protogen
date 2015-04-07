@@ -7,73 +7,6 @@
 <schema-description/>
 <domain-list/>
 <table-list>
-<table alias="" name="tblaccess" remarks="" uid="54cfb720:13cd45453a4:-7ff8">
-<table-description/>
-<table-figure-bounds height="121" width="164" x="251" y="102"/>
-<column-list>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="PKId" remarks="" uid="54cfb720:13cd45453a4:-7fef">
-<column-description/>
-<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
-<variant type-name-pattern="INT"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="strAccess" remarks="" uid="54cfb720:13cd45453a4:-7fee">
-<column-description/>
-<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
-<variant type-name-pattern="TEXT"/>
-</data-type>
-</column>
-</column-list>
-<primary-key alias="" name="PK_TBLACCESS" remarks="" uid="54cfb720:13cd45453a4:-7ff7">
-<primary-key-description/>
-<primary-key-column name="PKId"/>
-</primary-key>
-<unique-key-list/>
-<foreign-key-list/>
-<index-list/>
-</table>
-<table alias="" name="tblMemberAccess" remarks="" uid="54cfb720:13cd45453a4:-7fed">
-<table-description/>
-<table-figure-bounds height="73" width="232" x="175" y="305"/>
-<column-list>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="PKId" remarks="" uid="54cfb720:13cd45453a4:-7fe9">
-<column-description/>
-<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
-<variant type-name-pattern="INT"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="intFkAccessId" remarks="" uid="54cfb720:13cd45453a4:-7fe8">
-<column-description/>
-<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
-<variant type-name-pattern="INT"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="dateAdd" remarks="" uid="54cfb720:13cd45453a4:-7fd5">
-<column-description/>
-<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME(%p) WITH TIME ZONE">
-<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
-<variant type-name-pattern="TIME"/>
-<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
-<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
-</data-type>
-</column>
-</column-list>
-<primary-key alias="" name="PK_TBLMEMBERACCESS" remarks="" uid="54cfb720:13cd45453a4:-7fec">
-<primary-key-description/>
-<primary-key-column name="PKId"/>
-</primary-key>
-<unique-key-list/>
-<foreign-key-list>
-<foreign-key alias="" name="FK_tblMemberAccess_1" on-delete="" on-update="" referenced-key="PK_TBLACCESS" referenced-table="tblaccess" referenced-table-schema="ryanlorentzen" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="54cfb720:13cd45453a4:-7fdf">
-<foreign-key-description/>
-<foreign-key-figure>
-<fk-fig-bendpoint-list/>
-</foreign-key-figure>
-<foreign-key-column column-name="intFkAccessId" referenced-key-column-name="PKId"/>
-</foreign-key>
-</foreign-key-list>
-<index-list/>
-</table>
 <table alias="" name="foo" remarks="" uid="1bfcee4f:13cd4a94b36:-7fce">
 <table-description/>
 <table-figure-bounds height="52" width="82" x="581" y="93"/>
@@ -284,6 +217,95 @@
 <primary-key alias="" name="PK_BAR_TYPE" remarks="" uid="7ad6bae9:147a6c641ce:-73b9">
 <primary-key-description/>
 <primary-key-column name="bar_type_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="no_key_table" remarks="" uid="160efe6f:14a97bec1d9:-7ff1">
+<table-description/>
+<table-figure-bounds height="74" width="146" x="1060" y="222"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="col_one" remarks="" uid="160efe6f:14a97bec1d9:-7fed">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="col_two" remarks="" uid="160efe6f:14a97bec1d9:-7fec">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_NO_KEY_TABLE" remarks="" uid="160efe6f:14a97bec1d9:-7ff0">
+<primary-key-description/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+</table-list>
+</schema>
+<schema alias="" name="secondschema" remarks="" uid="5dc0dabc:148f66559ac:-7ff8">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="tblaccess" remarks="" uid="54cfb720:13cd45453a4:-7ff8">
+<table-description/>
+<table-figure-bounds height="121" width="164" x="251" y="102"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="PKId" remarks="" uid="54cfb720:13cd45453a4:-7fef">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="strAccess" remarks="" uid="54cfb720:13cd45453a4:-7fee">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TBLACCESS" remarks="" uid="54cfb720:13cd45453a4:-7ff7">
+<primary-key-description/>
+<primary-key-column name="PKId"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="tblMemberAccess" remarks="" uid="54cfb720:13cd45453a4:-7fed">
+<table-description/>
+<table-figure-bounds height="73" width="232" x="175" y="305"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="PKId" remarks="" uid="54cfb720:13cd45453a4:-7fe9">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="intFkAccessId" remarks="" uid="54cfb720:13cd45453a4:-7fe8">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="dateAdd" remarks="" uid="54cfb720:13cd45453a4:-7fd5">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME(%p) WITH TIME ZONE">
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TBLMEMBERACCESS" remarks="" uid="54cfb720:13cd45453a4:-7fec">
+<primary-key-description/>
+<primary-key-column name="PKId"/>
 </primary-key>
 <unique-key-list/>
 <foreign-key-list/>

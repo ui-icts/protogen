@@ -144,6 +144,16 @@ public class DomainClass {
 		this.importList = importList;
 	}
 
+	public List<ClassVariable> listAll()
+	{
+		List<ClassVariable> listAllSym = new ArrayList<ClassVariable>();
+
+		listAllSym.addAll( getPrimaryKeys() );
+		listAllSym.addAll( getNonKeys() );
+
+		return listAllSym;
+	}
+	
 	public Iterator<ClassVariable> listAllIter()
 	{
 		List<ClassVariable> listAllSym = new ArrayList<ClassVariable>();
@@ -331,9 +341,9 @@ public class DomainClass {
 		output += "\n";
 		//		output += genConstructorWithId(indent);
 		//		output += "\n";
-		output += genConstructor( indent );
-		output += "\n";
-		output += genConstructorWithArgs( indent );
+	//	output += genConstructor( indent );
+	//	output += "\n";
+		//output += genConstructorWithArgs( indent );
 
 		output += "\n";
 		output += genGettersSetters( indent );

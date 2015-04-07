@@ -6,12 +6,7 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public abstract class PropertyLoader {
-	
-	private static final Log log = LogFactory.getLog(PropertyLoader.class);
 	
     /**
      * Looks up a resource named 'name' in the classpath. The resource must map
@@ -63,7 +58,7 @@ public abstract class PropertyLoader {
                     Locale.getDefault (), loader);
                 
                 result = new Properties ();
-                for (Enumeration keys = rb.getKeys (); keys.hasMoreElements ();)
+                for (Enumeration<String> keys = rb.getKeys (); keys.hasMoreElements ();)
                 {
                     final String key = (String) keys.nextElement ();
                     final String value = rb.getString (key);
