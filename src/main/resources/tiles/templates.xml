@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+
+	<definition name="baseTemplateWide" template="/WEB-INF/template/baseTemplateWide.jsp">
+		<put-attribute name="head" value="/WEB-INF/template/head.jsp" />
+		<put-attribute name="roof" value="/WEB-INF/template/roof.jsp" />
+		<put-attribute name="branding" value="/WEB-INF/template/branding.jsp" />
+		<put-attribute name="nav" value="/WEB-INF/template/nav.jsp" />
+		<put-attribute name="roof" value="/WEB-INF/template/roof.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/template/blank.jsp" />
+	</definition>
+	
+	<definition name="baseTemplate" template="/WEB-INF/template/baseTemplate.jsp">
+		<put-attribute name="head" value="/WEB-INF/template/head.jsp" />
+		<put-attribute name="roof" value="/WEB-INF/template/roof.jsp" />
+		<put-attribute name="branding" value="/WEB-INF/template/branding.jsp" />
+		<put-attribute name="nav" value="/WEB-INF/template/nav.jsp" />
+		<put-attribute name="roof" value="/WEB-INF/template/roof.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/template/footer.jsp" />
+		<put-attribute name="menu"   value="/WEB-INF/jsp/menu.jsp"/>   
+	</definition>
+
+	<definition name="/hero/*/*" extends="baseTemplate">
+		<put-attribute name="body" value="/WEB-INF/jsp/hero/{1}/{2}.jsp" />
+	</definition>
+
+	<definition name="/hero/*/partial/*" extends="baseTemplateBodyOnly.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/hero/{1}/partial/{2}.jsp" />
+	</definition>
+
+	<definition name="login" extends="baseTemplateWide">
+   		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="*" extends="baseTemplate">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+ 	
+</tiles-definitions>

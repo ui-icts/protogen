@@ -198,7 +198,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     	.andExpect(jsonPath("$.recordsFiltered", is(${daoServiceName}.get${className}Service().list().size())))
     	.andExpect(jsonPath("$.draw", is("1")))
     	.andExpect(jsonPath("$.data", hasSize(is(10))))
-    	.andExpect(jsonPath("$.data[0][0]", is("[error: column asdfasdf not supported]")))
+    	.andExpect(jsonPath("$.data[0].error", is("[error: column asdfasdf not supported]")))
     	;
     }    
     	  

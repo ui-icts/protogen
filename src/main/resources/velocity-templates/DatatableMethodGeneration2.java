@@ -83,8 +83,8 @@
             dt.setRecordsFiltered(count);
 			//ob.put( "recordsTotal", count );
             dt.setRecordsTotal(count);
-            List<List<String>> data = new ArrayList<List<String>>();
-  
+			List<LinkedHashMap<String, String>> data = new ArrayList<LinkedHashMap<String, String>>();
+
 			for( ${domainName} ${lowerDomainName} : ${lowerDomainName}List ){
 ${datatableColumnForEach}
 			}
@@ -104,7 +104,7 @@ ${datatableColumnForEach}
 				error.setRecordsFiltered( 0 );
 				error.setRecordsTotal( 0 );
 				error.setError( stackTrace );
-				return dt;
+				return error;
 			} catch ( JSONException je ) {
 				log.error( "error building json error object for ${domainName}", je );
 			}

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -148,12 +149,13 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		int indent = 4;
 
 		//output.append( tab( indent ) + "JSONArray tableRow = new JSONArray();\n" );
-		output.append( tab( indent ) + "List<String> row = new ArrayList<String>();\n");
+		output.append( tab( indent ) + "LinkedHashMap<String, String> tableRow = new LinkedHashMap<String, String>();\n");
 
 		if ( StringUtils.equals( properties.getProperty( "datatables.generation", "1" ), "2" ) ) {
 			output.append( tab( indent ) + "for ( DataTableHeader header : headers ) {\n" );
 			indent += 1;
 			output.append( tab( indent ) + "String headerName = header.getName();\n" );
+			output.append( tab( indent ) + "String dataName = header.getData();\n" );
 		} else {
 			output.append( tab( indent ) + "for( String headerName : colArr ){\n" );
 			indent += 1;
@@ -168,7 +170,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 					output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"id." + a.getLowerLabel() + "\", headerName ) ){\n" );
 					indent += 1;
 					//output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".getId().get" + a.getUpperLabel() + "() );\n" );
-					output.append( tab( indent ) + "row.add(\"\"+ " + domainClass.getLowerIdentifier() + ".getId().get" + a.getUpperLabel() + "() );\n" );
+					output.append( tab( indent ) + "tableRow.put(dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".getId().get" + a.getUpperLabel() + "() );\n" );
 					indent -= 1;
 					count++;
 				}
@@ -177,10 +179,10 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 				indent += 1;
 				if ( cv.getType().contains( "Set<" ) ) {
 					//output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
-					output.append( tab( indent ) + "row.add(\"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
+					output.append( tab( indent ) + "tableRow.put(dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
 				} else {
 					//output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
-					output.append( tab( indent ) + "row.add(\"\"+ "+ domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+					output.append( tab( indent ) + "tableRow.put(dataName, \"\"+ "+ domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
 					
 				}
 				indent -= 1;
@@ -222,7 +224,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		output.append( tab( indent ) + "} else {\n\n" );
 		output.append( tab( indent ) + "}\n" );
 		//output.append( tab( indent ) + "tableRow.put( urls );\n" );
-		output.append( tab( indent ) + "row.add( urls );\n" );
+		output.append( tab( indent ) + "tableRow.put(dataName, urls );\n" );
 
 		indent -= 1;
 
@@ -231,7 +233,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		indent += 1;
 
 		//output.append( tab( indent ) + "tableRow.put( \"[error: column \" + headerName + \" not supported]\" );\n" );
-		output.append( tab( indent ) + "row.add( \"[error: column \" + headerName + \" not supported]\" );\n" );
+		output.append( tab( indent ) + "tableRow.put(\"error\", \"[error: column \" + headerName + \" not supported]\" );\n" );
 
 		indent -= 1;
 
@@ -241,7 +243,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		output.append( tab( indent ) + "}\n" );
 		//output.append( tab( indent ) + "jsonArray.put( tableRow );" );
-		output.append( tab( indent ) + "				data.add(row);" );
+		output.append( tab( indent ) + "				data.add(tableRow);" );
 
 		return output.toString();
 	}

@@ -138,10 +138,10 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		// importList.add( "import java.util.ArrayList;" );
 		// importList.add( "import java.util.List;" );
-		// importList.add( "import org.hibernate.Criteria;" );
-		// importList.add( "import org.hibernate.criterion.Order;" );
+		importList.add( "import org.hibernate.Criteria;" );
+		importList.add( "import org.hibernate.criterion.Order;" );
 		// importList.add( "import edu.uiowa.icts.util.SortColumn;" );
-		// importList.add( "import org.hibernate.criterion.Restrictions;" );
+		importList.add( "import org.hibernate.criterion.Restrictions;" );
 
 		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
 
