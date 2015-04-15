@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/include.jsp"  %>
 <div class="row">
-  <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+  <div class="col-xs-12 col-sm-8 col-md-5 col-lg-4">
 <form:form method="post" commandName="${domainClass.getLowerIdentifier()}" action="save${pathExtension}" role="form">
     <fieldset>
     <legend>${domainClass.getIdentifier()}</legend>
