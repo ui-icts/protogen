@@ -7,298 +7,283 @@ import java.util.List;
 import edu.uiowa.webapp.Attribute;
 
 public class ClassVariable
-	{
+{
 	public enum RelationshipType {
-	    ONETOMANY, ONETOONE, MANYTOONE, MANYTOMANY, NONE
+		ONETOMANY, ONETOONE, MANYTOONE, MANYTOMANY, NONE
 	}
-	
+
 	public enum AttributeType {
-	    COMPOSITEKEY, PRIMARYKEY, FOREIGNPRIMARYKEY, LOCALATTRIBUTE, FOREIGNATTRIBUTE, CHILD
+		COMPOSITEKEY, PRIMARYKEY, FOREIGNPRIMARYKEY, LOCALATTRIBUTE, FOREIGNATTRIBUTE, CHILD
 	}
-		private String modifier="";
-		private String type="";
-		private String identifier="";
-		private String initializer="";
-		private List<String> getterAnnotations= new ArrayList<String>();
-		private String comment="";
-		private AttributeType attribType;
-		private RelationshipType relationshipType;
-		private Attribute attribute=null;
-		private ClassVariable referenedClassVariable;
-		private DomainClass domainClass = null;
-		private String targetEntityClassLabel ;
-		private String mappedByVariableLabel ;
-		private String joinColumnLabel ;
-		
-		
-		public String getTargetEntityClassLabel() {
-			return targetEntityClassLabel;
-		}
 
-		public void setTargetEntityClassLabel(String targetEntityClassLabel) {
-			this.targetEntityClassLabel = targetEntityClassLabel;
-		}
+	private String modifier = "";
+	private String type = "";
+	private String identifier = "";
+	private String initializer = "";
+	private List<String> getterAnnotations = new ArrayList<String>();
+	private String comment = "";
+	private AttributeType attribType;
+	private RelationshipType relationshipType;
+	private Attribute attribute = null;
+	private ClassVariable referenedClassVariable;
+	private DomainClass domainClass = null;
+	private String targetEntityClassLabel;
+	private String mappedByVariableLabel;
+	private String joinColumnLabel;
 
-		public String getMappedByVariableLabel() {
-			return mappedByVariableLabel;
-		}
+	public String getTargetEntityClassLabel() {
+		return targetEntityClassLabel;
+	}
 
-		public void setMappedByVariableLabel(String mappedByVariableLabel) {
-			this.mappedByVariableLabel = mappedByVariableLabel;
-		}
+	public void setTargetEntityClassLabel( String targetEntityClassLabel ) {
+		this.targetEntityClassLabel = targetEntityClassLabel;
+	}
 
-		public String getJoinColumnLabel() {
-			return joinColumnLabel;
-		}
+	public String getMappedByVariableLabel() {
+		return mappedByVariableLabel;
+	}
 
-		public void setJoinColumnLabel(String joinColumnLabel) {
-			this.joinColumnLabel = joinColumnLabel;
-		}
+	public void setMappedByVariableLabel( String mappedByVariableLabel ) {
+		this.mappedByVariableLabel = mappedByVariableLabel;
+	}
 
-		public ClassVariable getReferenedClassVariable() {
-			return referenedClassVariable;
-		}
+	public String getJoinColumnLabel() {
+		return joinColumnLabel;
+	}
 
-		public void setReferenedClassVariable(ClassVariable referenedClassVariable) {
-			this.referenedClassVariable = referenedClassVariable;
-		}
+	public void setJoinColumnLabel( String joinColumnLabel ) {
+		this.joinColumnLabel = joinColumnLabel;
+	}
 
-		public Attribute getAttribute() {
-			return attribute;
-		}
+	public ClassVariable getReferenedClassVariable() {
+		return referenedClassVariable;
+	}
 
-		public void setAttribute(Attribute attribute) {
-			this.attribute = attribute;
-		}
+	public void setReferenedClassVariable( ClassVariable referenedClassVariable ) {
+		this.referenedClassVariable = referenedClassVariable;
+	}
 
-		
-		
+	public Attribute getAttribute() {
+		return attribute;
+	}
 
-		public ClassVariable()
+	public void setAttribute( Attribute attribute ) {
+		this.attribute = attribute;
+	}
+
+	public ClassVariable()
+	{
+		this.modifier = "";
+		this.type = "";
+		this.identifier = "";
+		this.initializer = "";
+
+	}
+
+	public ClassVariable( String modifier, String type, String identifier, String initializer )
+	{
+		this.modifier = modifier;
+		setType( type );
+		this.identifier = identifier;
+		this.initializer = initializer;
+
+	}
+
+	public ClassVariable( String modifier, String type, String identifier )
+	{
+		this.modifier = modifier;
+		setType( type );
+		this.identifier = identifier;
+		this.initializer = "";
+	}
+
+	public String getModifier() {
+		return modifier;
+	}
+
+	public void setModifier( String modifier ) {
+		this.modifier = modifier;
+	}
+
+	public String getType() {
+		if ( type.equals( "Object" ) )
+			return "byte[]";
+
+		if ( domainClass != null && domainClass.isNullablePrimitives() )
 		{
-			this.modifier = "";
-			this.type = "";
-			this.identifier = "";
-			this.initializer = "";
-
+			if ( type.equalsIgnoreCase( "int" ) )
+				return "Integer";
+			else if ( type.equalsIgnoreCase( "boolean" ) )
+				return "Boolean";
+			else if ( type.equalsIgnoreCase( "float" ) )
+				return "Float";
+			else if ( type.equalsIgnoreCase( "double" ) )
+				return "Double";
+			else if ( type.equalsIgnoreCase( "long" ) )
+				return "Long";
 		}
 
-		public ClassVariable(String modifier, String type, String identifier, String initializer)
-		{
-			this.modifier = modifier;
-			setType(type);
-			this.identifier = identifier;
-			this.initializer = initializer;
+		return type;
+	}
 
-		}
+	public void setType( String type ) {
+		if ( type.equals( "Object" ) )
+			this.type = "byte[]";
+		else
+			this.type = type;
+	}
 
-		public ClassVariable(String modifier, String type, String identifier)
-		{
-			this.modifier = modifier;
-			setType(type);
-			this.identifier = identifier;
-			this.initializer = "";
-		}
+	public String getIdentifier() {
 
-		public String getModifier() {
-			return modifier;
-		}
+		return identifier;
+	}
 
-		public void setModifier(String modifier) {
-			this.modifier = modifier;
-		}
+	public void setIdentifier( String identifier ) {
+		this.identifier = identifier;
+	}
 
-		public String getType() {
-			if(type.equals("Object"))
-				return "byte[]";
-			
-			
-			if(domainClass !=null && domainClass.isNullablePrimitives())
-			{
-				if(type.equalsIgnoreCase("int"))
-					return "Integer";
-				else if(type.equalsIgnoreCase("boolean"))
-					return "Boolean";
-				else if(type.equalsIgnoreCase("float"))
-					return "Float";
-				else if(type.equalsIgnoreCase("double"))
-					return "Double";
-				else if(type.equalsIgnoreCase("long"))
-					return "Long";
-			}
-			
-			return type;
-		}
+	public String getInitializer() {
+		return initializer;
+	}
 
-		public void setType(String type) {
-			if(type.equals("Object"))
-				this.type = "byte[]";
-			else this.type = type;
-		}
+	public boolean isPrimary()
+	{
+		return attribType == AttributeType.COMPOSITEKEY || attribType == AttributeType.PRIMARYKEY || attribType == AttributeType.FOREIGNPRIMARYKEY;
+	}
 
-		public String getIdentifier() {
-			
-			return identifier;
-		}
+	public void setInitializer( String initializer ) {
+		this.initializer = initializer;
+	}
 
-		public void setIdentifier(String identifier) {
-			this.identifier = identifier;
-		}
+	public List<String> getGetterAnnotations() {
+		return getterAnnotations;
+	}
 
-		public String getInitializer() {
-			return initializer;
-		}
-		
-		public boolean isPrimary()
-		{
-			return attribType == AttributeType.COMPOSITEKEY || attribType == AttributeType.PRIMARYKEY || attribType == AttributeType.FOREIGNPRIMARYKEY;
-		}
+	public void setGetterAnnotations( List<String> getterAnnotations ) {
+		this.getterAnnotations = getterAnnotations;
+	}
 
-		public void setInitializer(String initializer) {
-			this.initializer = initializer;
-		}
+	public String getComment() {
+		return comment;
+	}
 
-		public List<String> getGetterAnnotations() {
-			return getterAnnotations;
-		}
+	public void setComment( String comment ) {
+		this.comment = comment;
+	}
 
-		public void setGetterAnnotations(List<String> getterAnnotations) {
-			this.getterAnnotations = getterAnnotations;
-		}
+	public AttributeType getAttribType() {
+		return attribType;
+	}
 
-		public String getComment() {
-			return comment;
-		}
+	public void setAttribType( AttributeType attribType ) {
+		this.attribType = attribType;
+	}
 
-		public void setComment(String comment) {
-			this.comment = comment;
-		}
+	public RelationshipType getRelationshipType() {
+		return relationshipType;
+	}
 
-		public AttributeType getAttribType() {
-			return attribType;
-		}
+	public void setRelationshipType( RelationshipType relationshipType ) {
+		this.relationshipType = relationshipType;
+	}
 
-		public void setAttribType(AttributeType attribType) {
-			this.attribType = attribType;
-		}
+	public DomainClass getDomainClass() {
+		return domainClass;
+	}
 
-		public RelationshipType getRelationshipType() {
-			return relationshipType;
-		}
+	public void setDomainClass( DomainClass domainClass ) {
+		this.domainClass = domainClass;
+	}
 
-		public void setRelationshipType(RelationshipType relationshipType) {
-			this.relationshipType = relationshipType;
-		}
+	public String getUpperIdentifier()
+	{
+		return identifier.substring( 0, 1 ).toUpperCase() + identifier.substring( 1 );
+	}
 
-		public DomainClass getDomainClass() {
-			return domainClass;
-		}
+	public String getLowerIdentifier()
+	{
+		return identifier.substring( 0, 1 ).toLowerCase() + identifier.substring( 1 );
+	}
 
-		public void setDomainClass(DomainClass domainClass) {
-			this.domainClass = domainClass;
-		}
+	public String toDeclaration()
+	{
 
-		public String getUpperIdentifier()
-		{
-			return identifier.substring(0, 1).toUpperCase() + identifier.substring(1);
-		}
-		public String getLowerIdentifier()
-		{
-			return identifier.substring(0, 1).toLowerCase() + identifier.substring(1);
-		}
+		return modifier + " " + getType() + " " + identifier + initializer + ";\n";
+	}
 
-		public String toDeclaration()
-		{
-			
-			return modifier + " " + getType() + " " + identifier +initializer+";\n";
-		}
-		
-		public String toAnnotationDeclaration()
-		{
-			String annotation = "";
-			if (type.equals("Date")) {
-				annotation = "    @DateTimeFormat(pattern = \"yyyy-MM-dd\")\n";
-				if(attribute !=null)
-				{
-					
-				 if(attribute.getType().equalsIgnoreCase("timestamp"))
-					 annotation = "    @DateTimeFormat(pattern = \"yyyy-MM-dd hh:mm:ss\")\n";
+	public String toAnnotationDeclaration() {
+		String annotation = "";
+		if ( type.equals( "Date" ) ) {
+			annotation = "@DateTimeFormat( pattern = \"yyyy-MM-dd\" )\n";
+			if ( attribute != null ) {
+				if ( attribute.getType().equalsIgnoreCase( "timestamp" ) ) {
+					annotation = " @DateTimeFormat( pattern = \"yyyy-MM-dd hh:mm:ss\" )\n";
 				}
-				
 			}
-			return annotation;
 		}
-		public String getterAnnotationsToString(String indent)
-		{
-			String output = "";
-			Iterator<String> iter = getterAnnotations.iterator();
-			while(iter.hasNext())
-				output += indent + iter.next() + "\n";
-			return output;
+		return annotation;
+	}
 
+	public String getterAnnotationsToString( String indent ) {
+		String output = "";
+		Iterator<String> iter = getterAnnotations.iterator();
+		while ( iter.hasNext() ) {
+			output += indent + iter.next() + "\n";
 		}
+		return output;
+	}
 
-		String toGetter(String indent) 
-		{	
-			String output=""; 
-			if(attribType == AttributeType.CHILD && getReferenedClassVariable()!=null && relationshipType!= RelationshipType.MANYTOMANY)
-			{
-				if(domainClass.getIdentifier().equals(getAttribute().getEntity().getUnqualifiedLabel()))
-//					
-				output = indent+"@OneToMany(fetch = FetchType.LAZY, mappedBy = \""+getReferenedClassVariable().getIdentifier()+"\",targetEntity = "+getAttribute().getEntity().getUnqualifiedLabel()+".class)\n";
-				else
-			//	if(getAttribute().getEntity().getU)
-					output = indent+"@OneToMany(fetch = FetchType.LAZY, mappedBy = \""+getReferenedClassVariable().getDomainClass().getLowerIdentifier()+"\", targetEntity = "+getAttribute().getEntity().getUnqualifiedLabel()+".class)\n";
-					//output = indent+"@OneToMany(fetch = FetchType.LAZY, mappedBy = \""+getReferenedClassVariable().getIdentifier().substring(0, (getReferenedClassVariable().getIdentifier().length()-2))+"\")\n";
-			}
-			else 
-				output = getterAnnotationsToString(indent);
-			
-			if(attribType == AttributeType.COMPOSITEKEY){
-				output += indent +"public " + getType() + " get"+"Id(){\n";
+	String toGetter( String indent ) {
+		String output = "";
+		if ( attribType == AttributeType.CHILD && getReferenedClassVariable() != null && relationshipType != RelationshipType.MANYTOMANY ) {
+			if ( domainClass.getIdentifier().equals( getAttribute().getEntity().getUnqualifiedLabel() ) ) {
+				output = indent + "@OneToMany(fetch = FetchType.LAZY, mappedBy = \"" + getReferenedClassVariable().getIdentifier() + "\",targetEntity = " + getAttribute().getEntity().getUnqualifiedLabel() + ".class)\n";
 			} else {
-				output +=indent +"public " + getType() + " get"+getUpperIdentifier()+"(){\n";
+				output = indent + "@OneToMany(fetch = FetchType.LAZY, mappedBy = \"" + getReferenedClassVariable().getDomainClass().getLowerIdentifier() + "\", targetEntity = " + getAttribute().getEntity().getUnqualifiedLabel() + ".class)\n";
 			}
-			output +=indent + indent+"return " + identifier  + ";\n";
-			output +=indent +"}\n";
-			return output;
+		} else {
+			output = getterAnnotationsToString( indent );
 		}
 
-		String toSetter(String indent)
-		{	
-			String output = "\n";
-			if(attribType == AttributeType.COMPOSITEKEY)
-				output +=indent +"public void setId("+type +" "+ identifier+"){\n";
-			else
-				output += indent+"public void set"+getUpperIdentifier()+"("+getType() +" "+ identifier+"){\n";
-			
-			output +=indent +indent +"this." + identifier  + " = " + identifier + ";\n";
-			output +=indent +"}\n";
-			
-			if(type.equalsIgnoreCase("date"))
-			{
-				output += getDateStringSetter(indent);
-				
-				
-			}
-			return output;
+		if ( attribType == AttributeType.COMPOSITEKEY ) {
+			output += indent + "public " + getType() + " get" + "Id(){\n";
+		} else {
+			output += indent + "public " + getType() + " get" + getUpperIdentifier() + "(){\n";
 		}
-		
-		String getDateStringSetter(String indent)
-		{	
-			String output = "\n";
+		output += indent + indent + "return " + identifier + ";\n";
+		output += indent + "}\n";
+		return output;
+	}
 
-			output += indent+"public void set"+getUpperIdentifier()+"(String "+ identifier+"){\n";
-			output += indent + indent + "try{\n";
-			output += indent + indent + indent + "DateFormat formatter = new SimpleDateFormat(\"MM/dd/yyyy\");\n";
-			output += indent + indent + indent + "formatter.setLenient(true);\n";
-			output += indent + indent + indent + "this." + identifier  + " = formatter.parse(" + identifier + ");\n";
-			output += indent + indent + "} catch (ParseException e) { \n";
-			output += indent + indent + indent +"log.error(\" ParseException setting date for "+getUpperIdentifier()+"\", e);\n";
-			output += indent + indent + "}\n";
-			output += indent +"}\n";
-
-			return output;
+	String toSetter( String indent ) {
+		String output = "\n";
+		if ( attribType == AttributeType.COMPOSITEKEY ) {
+			output += indent + "public void setId( " + type + " " + identifier + " ){\n";
+		} else {
+			output += indent + "public void set" + getUpperIdentifier() + "(" + getType() + " " + identifier + "){\n";
 		}
+
+		output += indent + indent + "this." + identifier + " = " + identifier + ";\n";
+		output += indent + "}\n";
+
+		if ( type.equalsIgnoreCase( "date" ) ) {
+			output += getDateStringSetter( indent );
+		}
+		return output;
+	}
+
+	String getDateStringSetter( String indent ) {
+		String output = "\n";
+		output += indent + "public void set" + getUpperIdentifier() + "( String " + identifier + " ){\n";
+		output += indent + indent + "try{\n";
+		output += indent + indent + indent + "DateFormat formatter = new SimpleDateFormat( \"MM/dd/yyyy\" );\n";
+		output += indent + indent + indent + "formatter.setLenient(true);\n";
+		output += indent + indent + indent + "this." + identifier + " = formatter.parse(" + identifier + ");\n";
+		output += indent + indent + "} catch ( ParseException e ) { \n";
+		output += indent + indent + indent + "log.error( \"ParseException setting date for " + getUpperIdentifier() + "\", e );\n";
+		output += indent + indent + "}\n";
+		output += indent + "}\n";
+		return output;
+	}
 
 }

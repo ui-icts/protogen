@@ -24,7 +24,6 @@
 
 		ArrayList<SortColumn> sorts = new ArrayList<SortColumn>();
 		
-		//JSONObject ob = new JSONObject();
 		DataTable dt = new DataTable();
 
 		try {
@@ -77,20 +76,16 @@
 
             List<${domainName}> ${lowerDomainName}List = ${daoServiceName}.get${domainName}Service().list( options );
 
-			//ob.put( "draw", draw );
-            dt.setDraw(draw);
-			//ob.put( "recordsFiltered", count );
-            dt.setRecordsFiltered(count);
-			//ob.put( "recordsTotal", count );
-            dt.setRecordsTotal(count);
 			List<LinkedHashMap<String, String>> data = new ArrayList<LinkedHashMap<String, String>>();
 
 			for( ${domainName} ${lowerDomainName} : ${lowerDomainName}List ){
 ${datatableColumnForEach}
 			}
-			//ob.put( "data", jsonArray );
-			dt.setData(data);
 
+			dt.setDraw( draw );
+            dt.setRecordsFiltered( count );
+            dt.setRecordsTotal( count );
+			dt.setData( data );
 
 		} catch ( Exception e ) {
 			log.error( "error builing datatable json object for ${domainName}", e );

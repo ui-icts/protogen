@@ -136,11 +136,8 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		importList.add( "import org.springframework.stereotype.Repository;" );
 		importList.add( "import org.springframework.transaction.annotation.Transactional;" );
 
-		// importList.add( "import java.util.ArrayList;" );
-		// importList.add( "import java.util.List;" );
 		importList.add( "import org.hibernate.Criteria;" );
 		importList.add( "import org.hibernate.criterion.Order;" );
-		// importList.add( "import edu.uiowa.icts.util.SortColumn;" );
 		importList.add( "import org.hibernate.criterion.Restrictions;" );
 
 		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
@@ -349,9 +346,6 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		List<String> importList = new ArrayList<String>();
 		importList.add( "import org.springframework.beans.factory.annotation.Autowired;" );
 		importList.add( "import org.springframework.stereotype.Component;" );
-
-		// importList.add( "import edu.uiowa.icts.spring.*;" );
-		// importList.add( "import " + daoPackageName + ".*;" );
 
 		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
 

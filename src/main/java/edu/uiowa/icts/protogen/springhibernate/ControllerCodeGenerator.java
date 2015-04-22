@@ -231,8 +231,6 @@ public class ControllerCodeGenerator extends AbstractSpringHibernateCodeGenerato
 		 */
 		out.write( "public abstract class " + className + " {\n\n" );
 		spaces( out, 4 );
-		out.write( "/*********** " + variableName + " ****************/\n" );
-		spaces( out, 4 );
 		out.write( "protected " + type + " " + variableName + ";\n\n" );
 
 		spaces( out, 4 );
@@ -302,7 +300,7 @@ public class ControllerCodeGenerator extends AbstractSpringHibernateCodeGenerato
 
 		}
 
-		output.append( indent( indent * 2 ) + "@RequestParam(value=\"display\", required=false, defaultValue=\"list\") String display ) {\n\n" );
+		output.append( indent( indent * 2 ) + "@RequestParam( value = \"display\", required = false, defaultValue = \"list\" ) String display ) {\n\n" );
 
 		if ( StringUtils.equals( properties.getProperty( "datatables.generation", "1" ), "2" ) ) {
 

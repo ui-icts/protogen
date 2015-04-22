@@ -164,20 +164,15 @@ public class DomainClass {
 		return listAllSym.iterator();
 	}
 
-	public String symbolsToString( String indent )
-	{
-
+	public String symbolsToString( String indent ) {
 		Iterator<ClassVariable> cvIter = listAllIter();
 		String output = "";
-		while ( cvIter.hasNext() )
-		{
+		while ( cvIter.hasNext() ) {
 			ClassVariable cv = cvIter.next();
 			output += indent + cv.toAnnotationDeclaration();
 			output += indent + cv.toDeclaration();
 		}
-
 		return output;
-
 	}
 
 	public String getSelectBoxLabel()
@@ -198,14 +193,11 @@ public class DomainClass {
 
 	}
 
-	public String genGettersSetters( String indent )
-	{
+	public String genGettersSetters( String indent ) {
 		Iterator<ClassVariable> cvIter = listAllIter();
 		String output = "";
-		while ( cvIter.hasNext() )
-		{
+		while ( cvIter.hasNext() ) {
 			ClassVariable cv = cvIter.next();
-			output += indent + "/*****" + cv.getIdentifier() + "*****/\n";
 			output += cv.toGetter( indent ) + "";
 			output += cv.toSetter( indent ) + "\n";
 		}
@@ -334,16 +326,11 @@ public class DomainClass {
 		output += genAnnotations( indent ) + "\n";
 		output += modifier + " class " + identifier + " { \n\n";
 
-		output += "	private static final Log log = LogFactory.getLog(" + identifier + ".class);\n\n";
+		output += "	private static final Log log = LogFactory.getLog( " + identifier + ".class );\n\n";
 
 		indent = "    ";
 		output += symbolsToString( indent );
 		output += "\n";
-		//		output += genConstructorWithId(indent);
-		//		output += "\n";
-	//	output += genConstructor( indent );
-	//	output += "\n";
-		//output += genConstructorWithArgs( indent );
 
 		output += "\n";
 		output += genGettersSetters( indent );
