@@ -42,7 +42,7 @@ import edu.uiowa.icts.datatable.DataTable;
  * @since ${date}
  */
 @Controller
-@RequestMapping( "${pathPrefix}/*" )
+@RequestMapping( "${pathPrefix}" )
 public class ${className} extends ${abstractControllerClassName} {
 
     private static final Log log = LogFactory.getLog( ${className}.class );
@@ -53,7 +53,7 @@ public class ${className} extends ${abstractControllerClassName} {
         return "${jspPath}/list_alt";
     }
 
-    @RequestMapping(value = {"list${pathExtension}", "", "/"}, method = RequestMethod.GET)
+    @RequestMapping( value = { "list${pathExtension}", "", "/" }, method = RequestMethod.GET )
     public String list() {
         return "${jspPath}/list";
     }
