@@ -1,6 +1,6 @@
 	@ResponseBody
 	@RequestMapping( value = "datatable" , produces = "application/json" )
-	public String datatable( HttpServletRequest request, 
+	public DataTable datatable( HttpServletRequest request, 
 		@RequestParam( value = "length" , required = false ) Integer limit,
 		@RequestParam( value = "start" , required = false ) Integer start,
 		@RequestParam( value = "draw" , required = false ) String draw,
@@ -24,8 +24,9 @@
 
 		ArrayList<SortColumn> sorts = new ArrayList<SortColumn>();
 		
-		JSONObject ob = new JSONObject();
-		
+		//JSONObject ob = new JSONObject();
+		DataTable dt = new DataTable();
+
 		try {
 
 			for ( int i = 0; i < columnCount; i++ ) {
@@ -76,14 +77,20 @@
 
             List<${domainName}> ${lowerDomainName}List = ${daoServiceName}.get${domainName}Service().list( options );
 
-			ob.put( "draw", draw );
-			ob.put( "recordsFiltered", count );
-			ob.put( "recordsTotal", count );
-			JSONArray jsonArray = new JSONArray();
+			//ob.put( "draw", draw );
+            dt.setDraw(draw);
+			//ob.put( "recordsFiltered", count );
+            dt.setRecordsFiltered(count);
+			//ob.put( "recordsTotal", count );
+            dt.setRecordsTotal(count);
+			List<LinkedHashMap<String, String>> data = new ArrayList<LinkedHashMap<String, String>>();
+
 			for( ${domainName} ${lowerDomainName} : ${lowerDomainName}List ){
 ${datatableColumnForEach}
 			}
-			ob.put( "data", jsonArray );
+			//ob.put( "data", jsonArray );
+			dt.setData(data);
+
 
 		} catch ( Exception e ) {
 			log.error( "error builing datatable json object for ${domainName}", e );
@@ -92,16 +99,16 @@ ${datatableColumnForEach}
 				for ( StackTraceElement ste : e.getStackTrace() ) {
 					stackTrace += ste.toString() + String.valueOf( '\n' );
 				}
-				JSONObject error = new JSONObject();
-				error.put( "draw", draw );
-				error.put( "recordsFiltered", 0 );
-				error.put( "recordsTotal", 0 );
-				error.put( "error", stackTrace );
-				return error.toString();
+				DataTable error = new DataTable();
+				error.setDraw( draw );
+				error.setRecordsFiltered( 0 );
+				error.setRecordsTotal( 0 );
+				error.setError( stackTrace );
+				return error;
 			} catch ( JSONException je ) {
 				log.error( "error building json error object for ${domainName}", je );
 			}
 		}
 		
-		return ob.toString();
+		return dt;
 	}

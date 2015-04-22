@@ -308,7 +308,7 @@ public class ControllerMvcTestGeneratorTest {
 		// test datatables bogus column name
 		assertThat(sourceCode, containsString("public void defaultDatatableShouldReturnErrorTextForBogusColumnName() throws Exception {"));
 		assertThat(sourceCode, containsString(".param(\"columns[0][data]\",\"0\").param(\"columns[0][name]\",\"asdfasdf\")"));
-		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data[0][0]\", is(\"[error: column asdfasdf not supported]\")))"));
+		assertThat(sourceCode, containsString(".andExpect(jsonPath(\"$.data[0].error\", is(\"[error: column asdfasdf not supported]\")))"));
 		
 		// test datatables exception scenario
 		assertThat(sourceCode, containsString("public void defaultDatatableShouldReturnException() throws Exception {"));
