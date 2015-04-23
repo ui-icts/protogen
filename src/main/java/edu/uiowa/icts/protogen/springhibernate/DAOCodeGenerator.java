@@ -131,14 +131,31 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		importList.add( "import edu.uiowa.icts.spring.*;" );
 		importList.add( "import " + dc.getPackageName() + ".*;" );
-		importList.add( "import org.apache.commons.logging.LogFactory;" );
-		importList.add( "import org.apache.commons.logging.Log;" );
+
 		importList.add( "import org.springframework.stereotype.Repository;" );
 		importList.add( "import org.springframework.transaction.annotation.Transactional;" );
 
-		importList.add( "import org.hibernate.Criteria;" );
-		importList.add( "import org.hibernate.criterion.Order;" );
-		importList.add( "import org.hibernate.criterion.Restrictions;" );
+		if ( Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) ) ) {
+			String table = properties.getProperty( "dictionary.table.name" );
+			if ( table != null && dc.getEntity().getSqlLabel().equalsIgnoreCase( table ) ) {
+				importList.add( "import org.hibernate.Criteria;" );
+				importList.add( "import org.hibernate.criterion.Restrictions;" );
+			}
+		}
+
+		if ( "SystemSetting".equalsIgnoreCase( dc.getIdentifier() ) ) {
+			importList.add( "import org.hibernate.Criteria;" );
+			importList.add( "import org.hibernate.criterion.Restrictions;" );
+		}
+
+		if ( "Message".equalsIgnoreCase( dc.getIdentifier() ) ) {
+			importList.add( "import org.hibernate.Criteria;" );
+			importList.add( "import org.hibernate.criterion.Order;" );
+			importList.add( "import org.hibernate.criterion.Restrictions;" );
+		}
+
+		// importList.add( "import org.apache.commons.logging.LogFactory;" );
+		// importList.add( "import org.apache.commons.logging.Log;" );
 
 		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
 
@@ -167,12 +184,12 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		/*
 		 * Print class header
 		 */
-		out.write( "@Repository(\"" + daoPackageName.replaceAll( "\\.", "_" ) + "_" + className + "\")\n" );
 		out.write( "@Transactional\n" );
+		out.write( "@Repository( \"" + daoPackageName.replaceAll( "\\.", "_" ) + "_" + className + "\" )\n" );
 		out.write( "public class " + className + " extends GenericDao<" + dc.getIdentifier() + "> implements " + interfaceName + " {\n\n" );
 
-		tabs( out, 1 );
-		out.write( "private static final Log log = LogFactory.getLog( " + className + ".class );\n\n" );
+		// tabs( out, 1 );
+		// out.write( "private static final Log log = LogFactory.getLog( " + className + ".class );\n\n" );
 
 		tabs( out, 1 );
 		out.write( "public " + className + "() {\n" );
@@ -203,11 +220,9 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		out.write( "}\n\n" );
 
 		if ( Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) ) ) {
+
 			IctsStringUtils stringUtils = new IctsStringUtils();
 			String table = properties.getProperty( "dictionary.table.name" );
-
-			log.debug( dc.getEntity().getSqlLabel() );
-			log.debug( table );
 
 			if ( table != null && dc.getEntity().getSqlLabel().equals( table ) ) {
 				tabs( out, 1 );

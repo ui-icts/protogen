@@ -2,11 +2,8 @@ package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -35,12 +32,18 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		SimpleDateFormat sdf = new SimpleDateFormat( "MM/dd/yyyy HH:mm:ss z", Locale.US );
 		sdf.setTimeZone( TimeZone.getDefault() );
 
+		String packageName = getPackageName();
+
+		String className = domainClass.getIdentifier() + "Controller";
+		String controllerName = packageName.replaceAll( "\\.", "_" ) + "_" + domainClass.getIdentifier().toLowerCase() + "_controller";
+
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
 		context.put( "domainClass", domainClass );
+		context.put( "controllerName", controllerName );
 		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
-		context.put( "packageName", getPackageName() );
-		context.put( "className", domainClass.getIdentifier() + "Controller" );
+		context.put( "packageName", packageName );
+		context.put( "className", className );
 		context.put( "pathPrefix", getPathPrefix() );
 		context.put( "jspPath", getJspPath() );
 		context.put( "pathExtension", getPathExtension() );
@@ -149,7 +152,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		int indent = 4;
 
 		//output.append( tab( indent ) + "JSONArray tableRow = new JSONArray();\n" );
-		output.append( tab( indent ) + "LinkedHashMap<String, String> tableRow = new LinkedHashMap<String, String>();\n");
+		output.append( tab( indent ) + "LinkedHashMap<String, String> tableRow = new LinkedHashMap<String, String>();\n" );
 
 		if ( StringUtils.equals( properties.getProperty( "datatables.generation", "1" ), "2" ) ) {
 			output.append( tab( indent ) + "for ( DataTableHeader header : headers ) {\n" );
@@ -182,8 +185,8 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 					output.append( tab( indent ) + "tableRow.put(dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
 				} else {
 					//output.append( tab( indent ) + "tableRow.put( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
-					output.append( tab( indent ) + "tableRow.put(dataName, \"\"+ "+ domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
-					
+					output.append( tab( indent ) + "tableRow.put(dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+
 				}
 				indent -= 1;
 				count++;

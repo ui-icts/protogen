@@ -249,7 +249,7 @@ public class VelocityControllerGeneratorTest {
 
 		SimpleDateFormat ft = new SimpleDateFormat( "MM/dd/yyyy" );
 		assertThat( sourceCode, containsString( ft.format( new Date() ) ) );
-		assertThat( sourceCode, containsString( "@RequestMapping( \"/ictssysadmin/clinicaldocument/*\" )" ) );
+		assertThat( sourceCode, containsString( "@RequestMapping( \"/ictssysadmin/clinicaldocument\" )" ) );
 		assertThat( sourceCode, containsString( "ClinicalDocumentController extends AbstractIctssysadminController" ) );
 		assertThat( sourceCode, containsString( "private static final Log log = LogFactory.getLog( ClinicalDocumentController.class );" ) );
 
@@ -258,7 +258,7 @@ public class VelocityControllerGeneratorTest {
 		assertThat( sourceCode, containsString( "model.addAttribute( \"clinicalDocumentList\", ictssysadminDaoService.getClinicalDocumentService().list() );" ) );
 		assertThat( sourceCode, containsString( "return \"/ictssysadmin/clinicaldocument/list_alt\";" ) );
 		// test list
-		assertThat( sourceCode, containsString( "@RequestMapping(value = {\"list\", \"\", \"/\"}, method = RequestMethod.GET)" ) );
+		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"list\", \"\", \"/\" }, method = RequestMethod.GET )" ) );
 		assertThat( sourceCode, containsString( "public String list() {" ) );
 		assertThat( sourceCode, containsString( "return \"/ictssysadmin/clinicaldocument/list\";" ) );
 	}
@@ -288,7 +288,7 @@ public class VelocityControllerGeneratorTest {
 
 		SimpleDateFormat ft = new SimpleDateFormat( "MM/dd/yyyy" );
 		assertThat( sourceCode, containsString( ft.format( new Date() ) ) );
-		assertThat( sourceCode, containsString( "@RequestMapping( \"/clinicaldocument/*\" )" ) );
+		assertThat( sourceCode, containsString( "@RequestMapping( \"/clinicaldocument\" )" ) );
 		assertThat( sourceCode, containsString( "ClinicalDocumentController extends AbstractIctssysadminController" ) );
 		assertThat( sourceCode, containsString( "private static final Log log = LogFactory.getLog( ClinicalDocumentController.class );" ) );
 
@@ -319,7 +319,7 @@ public class VelocityControllerGeneratorTest {
 
 		String sourceCode = generator.javaSourceCode();
 
-		assertThat( sourceCode, containsString( "@RequestMapping(value = {\"list\", \"\", \"/\"}, method = RequestMethod.GET)" ) );
+		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"list\", \"\", \"/\" }, method = RequestMethod.GET )" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"list_alt\", method = RequestMethod.GET )" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"add\", method = RequestMethod.GET )" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"edit\", method = RequestMethod.GET )" ) );
@@ -352,7 +352,7 @@ public class VelocityControllerGeneratorTest {
 
 		String sourceCode = generator.javaSourceCode();
 
-		assertThat( sourceCode, containsString( "@RequestMapping(value = {\"list.html\", \"\", \"/\"}, method = RequestMethod.GET)" ) );
+		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"list.html\", \"\", \"/\" }, method = RequestMethod.GET )" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"list_alt.html\", method = RequestMethod.GET )" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"add.html\", method = RequestMethod.GET )" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"edit.html\", method = RequestMethod.GET )" ) );

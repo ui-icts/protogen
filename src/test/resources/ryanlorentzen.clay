@@ -246,6 +246,68 @@
 <foreign-key-list/>
 <index-list/>
 </table>
+<table alias="" name="system_setting" remarks="" uid="68685279:14ce6911831:-7ff7">
+<table-description/>
+<table-figure-bounds height="61" width="132" x="101" y="597"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="name" remarks="" uid="68685279:14ce6911831:-7ff3">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="value" remarks="" uid="68685279:14ce6911831:-7ff2">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_SYSTEM_SETTING" remarks="" uid="68685279:14ce6911831:-7ff6">
+<primary-key-description/>
+<primary-key-column name="name"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="message" remarks="" uid="68685279:14ce6911831:-7fef">
+<table-description/>
+<table-figure-bounds height="81" width="130" x="281" y="637"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="message_id" remarks="" uid="68685279:14ce6911831:-7feb">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="message_name" remarks="" uid="68685279:14ce6911831:-7fea">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="message" remarks="" uid="68685279:14ce6911831:-7fe9">
+<column-description/>
+<data-type jdbc-type="-1" literal-prefix="'" literal-suffix="'" name="TEXT" selected-variant-pattern="TEXT">
+<variant type-name-pattern="TEXT"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="1" mandatory="false" name="version" remarks="" uid="68685279:14ce6911831:-7fe8">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_MESSAGE" remarks="" uid="68685279:14ce6911831:-7fee">
+<primary-key-description/>
+<primary-key-column name="message_id"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
 </table-list>
 </schema>
 <schema alias="" name="secondschema" remarks="" uid="5dc0dabc:148f66559ac:-7ff8">
