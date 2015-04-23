@@ -89,20 +89,16 @@ ${datatableColumnForEach}
 
 		} catch ( Exception e ) {
 			log.error( "error builing datatable json object for ${domainName}", e );
-			try {
-				String stackTrace = e.getMessage() + String.valueOf( '\n' );
-				for ( StackTraceElement ste : e.getStackTrace() ) {
-					stackTrace += ste.toString() + String.valueOf( '\n' );
-				}
-				DataTable error = new DataTable();
-				error.setDraw( draw );
-				error.setRecordsFiltered( 0 );
-				error.setRecordsTotal( 0 );
-				error.setError( stackTrace );
-				return error;
-			} catch ( JSONException je ) {
-				log.error( "error building json error object for ${domainName}", je );
+			String stackTrace = e.getMessage() + String.valueOf( '\n' );
+			for ( StackTraceElement ste : e.getStackTrace() ) {
+				stackTrace += ste.toString() + String.valueOf( '\n' );
 			}
+			DataTable error = new DataTable();
+			error.setDraw( draw );
+			error.setRecordsFiltered( 0 );
+			error.setRecordsTotal( 0 );
+			error.setError( stackTrace );
+			return error;
 		}
 		
 		return dt;

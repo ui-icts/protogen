@@ -58,9 +58,6 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		importList.add( "import edu.uiowa.icts.spring.*;" );
 		importList.add( "import " + dc.getPackageName() + ".*;" );
-		importList.add( "import java.util.ArrayList;" );
-		importList.add( "import java.util.List;" );
-		importList.add( "import edu.uiowa.icts.util.SortColumn;" );
 
 		BufferedWriter out = createFileInSrcElseTarget( packagePath, className + ".java" );
 		/*
@@ -93,7 +90,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		tabs( out, 1 );
 
 		if ( dc.isUsesCompositeKey() ) {
-			out.write( "public " + dc.getIdentifier() + " findById( " + dc.getIdentifier() + "Id id );\n" );
+			out.write( "public " + dc.getIdentifier() + " findById( " + dc.getIdentifier() + "Id id );\n\n" );
 		} else {
 			ClassVariable p_key = dc.getPrimaryKey();
 			if ( p_key != null ) {
@@ -105,20 +102,20 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			String table = properties.getProperty( "dictionary.table.name" );
 			if ( table != null && dc.getEntity().getSqlLabel().equals( table ) ) {
 				tabs( out, 1 );
-				out.write( "public String getAlternateColumnName( String tableName, String columnName );\n" );
+				out.write( "public String getAlternateColumnName( String tableName, String columnName );\n\n" );
 			}
 		}
 
 		if ( "SystemSetting".equals( dc.getIdentifier() ) ) {
 			tabs( out, 1 );
-			out.write( "public String getValue( String name, String defaultVal );\n" );
+			out.write( "public String getValue( String name, String defaultVal );\n\n" );
 		} else if ( "Message".equals( dc.getIdentifier() ) ) {
 			tabs( out, 1 );
-			out.write( "public Integer getCurrentMessageId( String messageName );\n" );
+			out.write( "public Integer getCurrentMessageId( String messageName );\n\n" );
 			tabs( out, 1 );
-			out.write( "public String getCurrentMessageText( String messageName );\n" );
+			out.write( "public String getCurrentMessageText( String messageName );\n\n" );
 			tabs( out, 1 );
-			out.write( "public Message getCurrentMessage( String messageName );\n" );
+			out.write( "public Message getCurrentMessage( String messageName );\n\n" );
 		}
 
 		out.write( "}" );

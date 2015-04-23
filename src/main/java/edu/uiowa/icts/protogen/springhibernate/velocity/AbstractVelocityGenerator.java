@@ -8,42 +8,67 @@ import org.apache.velocity.app.Velocity;
 
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable;
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
+import edu.uiowa.webapp.Schema;
 
 public abstract class AbstractVelocityGenerator {
-	
+
 	protected static final String INTERFACE_SUFFIX = "Service";
 
+	protected Schema schema;
 	protected DomainClass domainClass;
 	protected String packageRoot;
 	protected Properties properties;
+
+	public AbstractVelocityGenerator( Schema schema, String packageRoot, Properties properties ) {
+		this.packageRoot = packageRoot;
+		this.schema = schema;
+		this.properties = properties;
+		init();
+	}
 
 	public AbstractVelocityGenerator( String packageRoot, DomainClass domainClass, Properties properties ) {
 		this.packageRoot = packageRoot;
 		this.domainClass = domainClass;
 		this.properties = properties;
-		/* 
-		 * init the runtime engine, which only takes affect with first call to .init(p) 
+		this.schema = domainClass.getSchema();
+		init();
+	}
+
+	private void init() {
+		/** 
+		 * initialize the velocity runtime engine, which only takes affect with first call to .init( properties ) 
 		 * subsequent calls to init are ignored.
-		 * */
-		Properties p = new Properties();
-		p.setProperty( "resource.loader", "class" );
-		p.setProperty( "class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader" );
-		p.setProperty( "class.resource.loader.cache", "true" );
-		p.setProperty( "runtime.log.logsystem.log4j.logger", "Apache Velocity" );
-		Velocity.init( p );
+		 */
+		Properties properties = new Properties();
+		properties.setProperty( "resource.loader", "class" );
+		properties.setProperty( "class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader" );
+		properties.setProperty( "class.resource.loader.cache", "true" );
+		properties.setProperty( "runtime.log.logsystem.log4j.logger", "Apache Velocity" );
+		Velocity.init( properties );
 	}
 
 	public String getBasePackageName() {
-		return this.packageRoot + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + domainClass.getSchema().getLowerLabel() : "" );
+		if ( this.schema != null ) {
+			return this.packageRoot + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + this.schema.getLowerLabel() : "" );
+		}
+		return null;
 	}
 
-	public String getPackageName() {
-		return this.packageRoot + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + domainClass.getSchema().getLowerLabel() : "" ) + ".controller";
+	public String getDomainPackageName() {
+		return getBasePackageName() + ".domain";
+	}
+
+	public String getDaoPackageName() {
+		return getBasePackageName() + ".dao";
+	}
+
+	public String getControllerPackageName() {
+		return getBasePackageName() + ".controller";
 	}
 
 	public String getPathPrefix() {
 		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ) {
-			return "/" + domainClass.getSchema().getLowerLabel() + "/" + domainClass.getLowerIdentifier().toLowerCase();
+			return "/" + this.schema.getLowerLabel() + "/" + domainClass.getLowerIdentifier().toLowerCase();
 		} else {
 			return "/" + domainClass.getLowerIdentifier().toLowerCase();
 		}
@@ -51,7 +76,7 @@ public abstract class AbstractVelocityGenerator {
 
 	public String getJspPath() {
 		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
-			return "/" + domainClass.getSchema().getLowerLabel() + "/" + domainClass.getLowerIdentifier().toLowerCase();
+			return "/" + this.schema.getLowerLabel() + "/" + domainClass.getLowerIdentifier().toLowerCase();
 		} else {
 			return "/" + domainClass.getLowerIdentifier().toLowerCase();
 		}
@@ -62,13 +87,16 @@ public abstract class AbstractVelocityGenerator {
 	}
 
 	protected void addDaoServiceNameToVelocityContext( VelocityContext context ) {
-		String daoServiceName = properties.getProperty( domainClass.getSchema().getUpperLabel().toLowerCase() + ".master.dao.service.name" );
+		String daoServiceClassName = getDaoServiceClassName();
+		context.put( "daoServiceName", StringUtils.substring( daoServiceClassName, 0, 1 ).toLowerCase() + StringUtils.substring( daoServiceClassName, 1, daoServiceClassName.length() ) );
+	}
+
+	protected String getDaoServiceClassName() {
+		String daoServiceName = properties.getProperty( this.schema.getLowerLabel() + ".master.dao.service.name" );
 		if ( daoServiceName == null || "".equals( daoServiceName.trim() ) ) {
-			daoServiceName = domainClass.getSchema().getLowerLabel() + "DaoService";
-		} else {
-			daoServiceName = StringUtils.substring( daoServiceName, 0, 1 ).toLowerCase() + StringUtils.substring( daoServiceName, 1, daoServiceName.length() );
+			daoServiceName = this.schema.getUpperLabel() + "DaoService";
 		}
-		context.put( "daoServiceName", daoServiceName );
+		return daoServiceName;
 	}
 
 	protected String newCompositeKey() {

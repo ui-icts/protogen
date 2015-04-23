@@ -155,7 +155,7 @@ public class VelocityControllerGeneratorTest {
 		Properties properties = new Properties();
 		//	properties.setProperty( "include.schema.in.package.name", "false" );			
 		VelocityControllerGenerator generator = new VelocityControllerGenerator( packageRoot, domainClass, properties );
-		assertEquals( "edu.uiowa.icts.ictssysadmin.controller", generator.getPackageName() );
+		assertEquals( "edu.uiowa.icts.ictssysadmin.controller", generator.getControllerPackageName() );
 	}
 
 	@Test
@@ -172,7 +172,7 @@ public class VelocityControllerGeneratorTest {
 		Properties properties = new Properties();
 		properties.setProperty( "include.schema.in.package.name", "false" );
 		VelocityControllerGenerator generator = new VelocityControllerGenerator( packageRoot, domainClass, properties );
-		assertEquals( "edu.uiowa.icts.controller", generator.getPackageName() );
+		assertEquals( "edu.uiowa.icts.controller", generator.getControllerPackageName() );
 	}
 
 	@Test
@@ -399,8 +399,8 @@ public class VelocityControllerGeneratorTest {
 		String sourceCode = generator.javaSourceCode();
 		//	System.out.println(sourceCode);
 
-		assertThat( sourceCode, containsString( "tableRow.put(dataName, \"\"+ jobType.getJobTypeId() );" ) );
-		assertThat( sourceCode, containsString( "tableRow.put(dataName, \"\"+ jobType.getParameters() );" ) );
-		assertThat( sourceCode, containsString( "tableRow.put(dataName, \"\"+ jobType.getJobs().size() );" ) );
+		assertThat( sourceCode, containsString( "tableRow.put( dataName, \"\"+ jobType.getJobTypeId() );" ) );
+		assertThat( sourceCode, containsString( "tableRow.put( dataName, \"\"+ jobType.getParameters() );" ) );
+		assertThat( sourceCode, containsString( "tableRow.put( dataName, \"\"+ jobType.getJobs().size() );" ) );
 	}
 }

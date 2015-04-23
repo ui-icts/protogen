@@ -1,7 +1,5 @@
 package ${packageName};
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -10,17 +8,12 @@ import java.util.LinkedHashMap;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.NonUniqueObjectException;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -97,8 +90,8 @@ ${compositeKeySetter}
 				log.debug("Merging Results");
 				${daoServiceName}.get${domainName}Service().merge( ${lowerDomainName} );
 			}
-	        return "redirect:${pathPrefix}/list${pathExtension}";
 		}
+		return "redirect:${pathPrefix}/list${pathExtension}";
     }
 
     @RequestMapping( value = "delete${pathExtension}", method = RequestMethod.GET )

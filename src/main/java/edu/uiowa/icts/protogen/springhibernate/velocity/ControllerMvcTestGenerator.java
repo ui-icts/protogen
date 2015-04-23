@@ -25,7 +25,7 @@ public class ControllerMvcTestGenerator extends AbstractVelocityGenerator {
 		VelocityContext context = new VelocityContext();
 		context.put( "display", new org.apache.velocity.tools.generic.DisplayTool() );
 		context.put( "basePackageName", getBasePackageName() );
-		context.put( "packageName", getPackageName() );
+		context.put( "packageName", getControllerPackageName() );
 		context.put( "date", new Date().toString() ); // can be done with Velocity tools but let's keep it simple to start
 		context.put( "className", domainClass.getIdentifier() );
 		context.put( "pathPrefix", getPathPrefix() );

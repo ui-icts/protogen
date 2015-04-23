@@ -56,17 +56,6 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 	private void generateDeleteJSP( DomainClass ec ) throws IOException {
 
-		String directory;
-		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
-			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
-		} else {
-			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
-		}
-
-		( new File( directory ) ).mkdirs();
-
-		String jspFile = directory + "/delete.jsp";
-
 		int indent = 0;
 
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
@@ -225,27 +214,19 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		indent -= 4;
 		output += spaces( indent ) + "</form>";
 
-		File file = new File( jspFile );
-		FileWriter fstream = new FileWriter( file );
-		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( output );
-		out.close();
-		log.debug( "done creating delete" );
+		String directory = getJspDirectory( ec );
 
+		BufferedWriter out = jspWriter( directory, "delete.jsp" );
+		try {
+			out.write( output );
+			out.flush();
+		} finally {
+			out.close();
+		}
+		log.debug( ".........delete done" );
 	}
 
 	private void generateShowJSP( DomainClass ec ) throws IOException {
-
-		String directory;
-		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
-			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
-		} else {
-			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
-		}
-
-		( new File( directory ) ).mkdirs();
-
-		String jspFile = directory + "/show.jsp";
 
 		int indent = 0;
 
@@ -369,27 +350,20 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		indent -= 4;
 		output += spaces( indent ) + "</table>";
 
-		File file = new File( jspFile );
-		FileWriter fstream = new FileWriter( file );
-		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( output );
-		out.close();
-		log.debug( "done creating show" );
+		String directory = getJspDirectory( ec );
+
+		BufferedWriter out = jspWriter( directory, "show.jsp" );
+		try {
+			out.write( output );
+			out.flush();
+		} finally {
+			out.close();
+		}
+		log.debug( ".........show done" );
 
 	}
 
 	private void generateListJSP( DomainClass ec ) throws IOException {
-
-		String directory;
-		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
-			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
-		} else {
-			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
-		}
-
-		( new File( directory ) ).mkdirs();
-
-		String jspFile = directory + "/list.jsp";
 
 		String nameLabel = "sName";
 		String titleLabel = "sTitle";
@@ -506,26 +480,19 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		indent -= 4;
 		output += spaces( indent ) + "</script>";
 
-		File file = new File( jspFile );
-		FileWriter fstream = new FileWriter( file );
-		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( output );
-		out.close();
-		log.debug( ".........done" );
+		String directory = getJspDirectory( ec );
+
+		BufferedWriter out = jspWriter( directory, "list.jsp" );
+		try {
+			out.write( output );
+			out.flush();
+		} finally {
+			out.close();
+		}
+		log.debug( ".........list done" );
 	}
 
 	private void generateListAltJSP( DomainClass ec ) throws IOException {
-
-		String directory;
-		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
-			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
-		} else {
-			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
-		}
-
-		( new File( directory ) ).mkdirs();
-
-		String jspFile = directory + "/list_alt.jsp";
 
 		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
 
@@ -688,215 +655,65 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		output += spaces( indent ) + "</table>";
 
-		File file = new File( jspFile );
-		FileWriter fstream = new FileWriter( file );
-		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( output );
-		out.close();
-		log.debug( ".........done" );
+		String directory = getJspDirectory( ec );
+
+		BufferedWriter out = jspWriter( directory, "list_alt.jsp" );
+		try {
+			out.write( output );
+			out.flush();
+		} finally {
+			out.close();
+		}
+		log.debug( ".........list_alt done" );
 	}
 
 	private void generateEditJSP( DomainClass ec ) throws IOException {
 
+		VelocityEditJspGenerator generator = new VelocityEditJspGenerator( packageRoot, ec, properties );
+		String sourceCode = generator.javaSourceCode();
+
+		String directory = getJspDirectory( ec );
+
+		BufferedWriter out = jspWriter( directory, "edit.jsp" );
+		try {
+			out.write( sourceCode );
+			out.flush();
+		} finally {
+			out.close();
+		}
+		log.debug( ".........edit done" );
+	}
+
+	private BufferedWriter jspWriter( String directory, String jspFileName ) throws IOException {
+		( new File( directory ) ).mkdirs();
+		File file = new File( directory + "/" + jspFileName );
+		if ( file.exists() ) {
+			log.debug( directory + "/" + jspFileName + " exists, creating in target" );
+			directory = directory.replaceFirst( "src/", "target/src/" );
+			( new File( directory ) ).mkdirs();
+			file = new File( directory + "/" + jspFileName );
+		}
+		return new BufferedWriter( new FileWriter( file ) );
+	}
+
+	private String getJspDirectory( DomainClass ec ) {
 		String directory;
 		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.jsp.path", "true" ) ) ) {
 			directory = jspRoot + "/" + ec.getSchema().getUnqualifiedLabel() + "/" + ec.getIdentifier().toLowerCase();
 		} else {
 			directory = jspRoot + "/" + ec.getIdentifier().toLowerCase();
 		}
-
-		( new File( directory ) ).mkdirs();
-
-		String jspFile = directory + "/edit.jsp";
-
-		//		int indent = 0;
-		//
-		//		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
-		//
-		//		Iterator<ClassVariable> cvIter = ec.getPrimaryKeys().iterator();
-		//		output += lines( 1 );
-		//		output += lines( 1 );
-		//		while ( cvIter.hasNext() ) {
-		//			ClassVariable cv = cvIter.next();
-		//			if ( ec.isUsesCompositeKey() && cv.isPrimary() ) {
-		//				output += "";
-		//			} else {
-		//				// output += "<h2>${"+ec.getLowerIdentifier() +"."+ cv.getIdentifier()+"}</h2>";
-		//				output += "";
-		//			}
-		//			output += lines( 1 );
-		//		}
-		//
-		//		output += "<form:form method=\"post\" commandName=\"" + ec.getLowerIdentifier() + "\" action=\"save" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" >";
-		//		output += lines( 1 );
-		//		indent += 4;
-		//
-		//		output += spaces( indent ) + "<fieldset>";
-		//		output += lines( 1 );
-		//		indent += 4;
-		//
-		//		output += spaces( indent ) + "<legend>" + ec.getIdentifier() + "</legend>";
-		//
-		//		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
-		//
-		//		cvIter = ec.listAllIter();
-		//		;
-		//		while ( cvIter.hasNext() ) {
-		//
-		//			output += lines( 1 );
-		//			ClassVariable cv = cvIter.next();
-		//			if ( ec.isUsesCompositeKey() && cv.isPrimary() ) {
-		//				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
-		//					if ( !a.isForeign() ) {
-		//						String label = a.getLowerLabel();
-		//						if ( deOb ) {
-		//							label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + a.getSqlLabel() + "') }";
-		//						}
-		//						output += lines( 1 );
-		//						output += spaces( indent ) + "<label for=\"id." + a.getLowerLabel() + "\">" + label + "</label>";
-		//						output += lines( 1 );
-		//						output += spaces( indent ) + "<form:input path=\"id." + a.getLowerLabel() + "\" /><br/>";
-		//						output += lines( 1 );
-		//					}
-		//				}
-		//			} else if ( cv.getAttribType() == AttributeType.CHILD ) {
-		//				//output += spaces(indent) +"<th></th>";
-		//				//output += lines(1);
-		//				//output += spaces(indent) +"<td></td>";
-		//			} else if ( cv.getAttribType() == AttributeType.FOREIGNATTRIBUTE ) {
-		//				if ( cv.isPrimary() && cv.getDomainClass().isUsesCompositeKey() ) {
-		//					for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
-		//
-		//						String label = cv.getUpperIdentifier();
-		//						if ( deOb ) {
-		//							label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
-		//						}
-		//
-		//						String elementId = "id." + a.getLowerLabel();
-		//						output += spaces( indent ) + "<label for=\"" + elementId + "\">" + label + "</label>";
-		//						output += lines( 1 );
-		//						output += spaces( indent ) + "<form:select path=\"" + elementId + "\" items=\"${" + cv.getDomainClass().getLowerIdentifier() + "List}\" itemValue=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\" itemLabel=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\"/>";
-		//						output += lines( 1 );
-		//						output += "<br/>";
-		//					}
-		//				} else {
-		//
-		//					String label = cv.getUpperIdentifier();
-		//					if ( deOb ) {
-		//						label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
-		//					}
-		//
-		//					String elementId = cv.getIdentifier() + "." + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier();
-		//					output += spaces( indent ) + "<label for=\"" + elementId + "\">" + label + "</label>";
-		//					output += lines( 1 );
-		//					output += spaces( indent ) + "<form:select path=\"" + elementId + "\" items=\"${" + cv.getDomainClass().getLowerIdentifier() + "List}\" itemValue=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\" itemLabel=\"" + cv.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() + "\"/>";
-		//					output += lines( 1 );
-		//					output += spaces( indent ) + "<br/>";
-		//					//				output += spaces(indent) + "<c:forEach items=\"${" + cv.getDomainClass().getLowerIdentifier()+ "List}\" var=\"item\" >";
-		//					//				String selected="";
-		//					//				if( cv.getDomainClass().getPrimaryKeys().size()>0 && cv.getAttribute().getReferencedEntity().getDomainClass().getPrimaryKeys().size()>0)
-		//					//				{
-		//					//					log.debug("creating select");
-		//					//				selected += "<c:if test=\"${";
-		//					//				selected += ec.getLowerIdentifier()+"."+cv.getIdentifier()+"." + cv.getDomainClass().getPrimaryKeys().iterator().next().getIdentifier(); 
-		//					//				selected += "== item."+ cv.getDomainClass().getPrimaryKeys().iterator().next().getIdentifier() +"}\">selected=\"true\"</c:if>";
-		//					//				output += spaces(indent) + "<option "+selected+" value=\"${item."+cv.getAttribute().getReferencedEntity().getDomainClass().getPrimaryKeys().iterator().next().getIdentifier() +"}\" >"+ cv.getAttribute().getReferencedEntity().getDomainClass().getSelectBoxLabel()+"</option>";
-		//					//				}
-		//					//				output += spaces(indent) + "</c:forEach>";
-		//					//				output += lines(1);
-		//					//				output += spaces(indent) + "</select></td>";
-		//					output += lines( 1 );
-		//				}
-		//			} else {
-		//				if ( cv.isPrimary() ) {
-		//					output += spaces( indent ) + "";
-		//					output += lines( 1 );
-		//					output += spaces( indent ) + "<form:hidden path=\"" + cv.getIdentifier() + "\" />";
-		//				} else {
-		//
-		//					String label = cv.getUpperIdentifier();
-		//					if ( deOb ) {
-		//						label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
-		//					}
-		//
-		//					String cssClass = null;
-		//					if ( cv.getType().equalsIgnoreCase( "date" ) ) {
-		//						cssClass = "cssClass=\"dateInput\"";
-		//					}
-		//					output += spaces( indent ) + "<label for=\"" + cv.getIdentifier() + "\">" + label + "</label>";
-		//					output += lines( 1 );
-		//					output += spaces( indent ) + "<form:input path=\"" + cv.getIdentifier() + "\" " + ( cssClass != null ? cssClass : "" ) + " />";
-		//					output += lines( 1 );
-		//					output += spaces( indent ) + "<br/>";
-		//				}
-		//			}
-		//			output += lines( 1 );
-		//			output += spaces( indent ) + "";
-		//		}
-		//
-		//		output += lines( 1 );
-		//		output += spaces( indent ) + "<input type=\"submit\" value=\"Save\" class=\"btn btn-primary\" />";
-		//		output += lines( 1 );
-		//		output += spaces( indent ) + "<a class=\"btn btn-default\" href=\"list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\">Cancel</a>";
-		//		output += lines( 1 );
-		//		indent -= 4;
-		//		output += spaces( indent ) + "</fieldset>";
-		//		indent -= 4;
-		//		output += lines( 1 );
-		//		output += "</form:form>";
-
-		VelocityEditJspGenerator generator = new VelocityEditJspGenerator( packageRoot, ec, properties );
-		String sourceCode = generator.javaSourceCode();
-
-		File file = new File( jspFile );
-		FileWriter fstream = new FileWriter( file );
-		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( sourceCode );
-		out.close();
-	}
-
-	@SuppressWarnings( "unused" )
-	private void generateIndex( List<DomainClass> ecList ) throws IOException {
-		( new File( jspRoot ) ).mkdirs();
-		String jspFile = jspRoot + "/index.jsp";
-		int indent = 0;
-
-		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
-		output += lines( 2 );
-
-		Iterator<DomainClass> dcIter = ecList.iterator();
-		output += "<h2>Menu</h2>";
-		output += lines( 1 );
-		while ( dcIter.hasNext() ) {
-			DomainClass dc = dcIter.next();
-			output += "<a href=\"<c:url value=\"/" + dc.getSchema().getUnqualifiedLabel() + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a><br/>";
-			output += lines( 1 );
-		}
-		output += lines( 1 );
-
-		File file = new File( jspFile );
-		FileWriter fstream = new FileWriter( file );
-		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( output );
-		out.close();
+		return directory;
 	}
 
 	private void generateMenu( List<DomainClass> ecList ) throws IOException {
 
-		( new File( jspRoot ) ).mkdirs();
-
-		File file = new File( jspRoot + "/menu.jsp" );
-		if ( file.exists() ) {
-			file = new File( jspRoot + "/menu-generated.jsp" );
-		}
-
 		int indent = 0;
-
-		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
-		output += lines( 2 );
 
 		Iterator<DomainClass> dcIter = ecList.iterator();
 
+		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
+		output += lines( 2 );
 		output += "<div id=\"mainmenu\" class=\"list-group\">";
 		output += lines( 1 );
 		while ( dcIter.hasNext() ) {
@@ -908,10 +725,13 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += "</div>";
 		output += lines( 1 );
 
-		FileWriter fstream = new FileWriter( file );
-		BufferedWriter out = new BufferedWriter( fstream );
-		out.write( output );
-		out.close();
+		BufferedWriter out = jspWriter( jspRoot, "menu.jsp" );
+		try {
+			out.write( output );
+			out.flush();
+		} finally {
+			out.close();
+		}
 
 	}
 
