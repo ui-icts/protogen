@@ -87,7 +87,7 @@ public class ControllerCodeGenerator extends AbstractSpringHibernateCodeGenerato
 		String packagePath = pathBase + "/" + packageName.replaceAll( "\\.", "/" );
 
 		// generate abstract controller test
-		AbstractControllerMVCTestsGenerator testGenerator = new AbstractControllerMVCTestsGenerator( packageRoot );
+		AbstractControllerMVCTestsGenerator testGenerator = new AbstractControllerMVCTestsGenerator( schema, packageRoot, properties );
 		BufferedWriter testWriter = createFileInSrcElseTarget( packagePath.replaceFirst( "src/main", "src/test" ), "AbstractControllerMVCTests.java" );
 		testWriter.write( testGenerator.javaSourceCode() );
 		testWriter.close();
