@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
+import edu.uiowa.icts.plugin.protogen.util.GeneratorUtil;
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
 
 /**
@@ -24,6 +25,7 @@ public class VelocityEditJspGenerator extends AbstractVelocityGenerator {
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
 		context.put( "domainClass", this.domainClass );
+		context.put( "domainClassLabel", splitCapitalizedWords( this.domainClass.getIdentifier() ) );
 		context.put( "pathExtension", this.getPathExtension() );
 		context.put( "deOb", Boolean.parseBoolean( this.properties.getProperty( "deobfuscate.column.names", "false" ) ) );
 
@@ -33,6 +35,8 @@ public class VelocityEditJspGenerator extends AbstractVelocityGenerator {
 		} else {
 			context.put( "pathPrefix", "" );
 		}
+
+		context.put( "generatorUtil", new GeneratorUtil() );
 
 		// in the Velocity template, ${esc.d} will get converted to $ 
 		context.put( "esc", new org.apache.velocity.tools.generic.EscapeTool() );

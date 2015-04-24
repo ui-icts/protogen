@@ -70,8 +70,8 @@ public class VelocityEditJspGeneratorTest {
 		String sourceCode = generator.javaSourceCode();
 
         assertThat(sourceCode, containsString("<%@ include file=\"/WEB-INF/include.jsp\"  %>"));
-        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobType\" action=\"${formActionUrl}\" role=\"form\">"));
-        assertThat(sourceCode, containsString("<legend>JobType</legend>"));
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobType\" action=\"${ formActionUrl }\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>Job Type</legend>"));
         assertThat(sourceCode, containsString("<form:hidden path=\"jobTypeId\" />"));
         
          
@@ -92,7 +92,7 @@ public class VelocityEditJspGeneratorTest {
         
         assertThat(sourceCode, containsString("<div class=\"form-group ${status.error ? 'has-error' : ''}\">"));
         
-        assertThat(sourceCode, containsString("<a class=\"btn btn-default\" href=\"${cancelUrl}\">Cancel</a>"));
+        assertThat(sourceCode, containsString("<a class=\"btn btn-default\" href=\"${ cancelUrl }\">Cancel</a>"));
         
         // assert that job child set doesn't have an input box
         assertThat(sourceCode, not(containsString("<form:input path=\"jobs\"  class=\"form-control\"/>")));
@@ -116,8 +116,8 @@ public class VelocityEditJspGeneratorTest {
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFive,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableFive\" action=\"${formActionUrl}\" role=\"form\">"));
-        assertThat(sourceCode, containsString("<legend>TableFive</legend>"));        
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableFive\" action=\"${ formActionUrl }\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>Table Five</legend>"));        
      
         assertThat(sourceCode, containsString("<spring:bind path=\"id.idOne\">"));
         assertThat(sourceCode, containsString("<label for=\"id.idOne\" class=\"control-label\">idOne"));
@@ -171,16 +171,16 @@ public class VelocityEditJspGeneratorTest {
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableThree,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableThree\" action=\"${formActionUrl}\" role=\"form\">"));
-        assertThat(sourceCode, containsString("<legend>TableThree</legend>"));        
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableThree\" action=\"${ formActionUrl }\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>Table Three</legend>"));        
         
         assertThat(sourceCode, containsString("<spring:bind path=\"tableTwo.tableTwoId\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableTwo.tableTwoId\" class=\"control-label\">TableTwo</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableTwo.tableTwoId\" class=\"control-label\">Table Two</label>"));
         assertThat(sourceCode, containsString("<form:select path=\"tableTwo.tableTwoId\" items=\"${tableTwoList}\" itemValue=\"tableTwoId\" itemLabel=\"tableTwoId\" class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"tableTwo.tableTwoId\" class=\"help-block\" element=\"span\" />"));
         
         assertThat(sourceCode, containsString("<spring:bind path=\"tableOne.tableOneId\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableOne.tableOneId\" class=\"control-label\">TableOne</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableOne.tableOneId\" class=\"control-label\">Table One</label>"));
         assertThat(sourceCode, containsString("<form:select path=\"tableOne.tableOneId\" items=\"${tableOneList}\" itemValue=\"tableOneId\" itemLabel=\"tableOneId\" class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"tableOne.tableOneId\" class=\"help-block\" element=\"span\" />")); 
 	}
@@ -225,18 +225,18 @@ public class VelocityEditJspGeneratorTest {
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFour,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableFour\" action=\"${formActionUrl}\" role=\"form\">"));
-        assertThat(sourceCode, containsString("<legend>TableFour</legend>"));        
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"tableFour\" action=\"${ formActionUrl }\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>Table Four</legend>"));        
         
         assertThat(sourceCode, containsString("<form:hidden path=\"tableFourId\" />"));        
         
         assertThat(sourceCode, containsString("<spring:bind path=\"tableFour.tableFourId\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableFour.tableFourId\" class=\"control-label\">TableFour</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableFour.tableFourId\" class=\"control-label\">Table Four</label>"));
         assertThat(sourceCode, containsString("<form:select path=\"tableFour.tableFourId\" items=\"${tableFourList}\" itemValue=\"tableFourId\" itemLabel=\"tableFourId\" class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"tableFour.tableFourId\" class=\"help-block\" element=\"span\" />"));
         
         assertThat(sourceCode, containsString("<spring:bind path=\"tableThree.tableThreeId\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableThree.tableThreeId\" class=\"control-label\">TableThree</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableThree.tableThreeId\" class=\"control-label\">Table Three</label>"));
         assertThat(sourceCode, containsString("<form:select path=\"tableThree.tableThreeId\" items=\"${tableThreeList}\" itemValue=\"tableThreeId\" itemLabel=\"tableThreeId\" class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"tableThree.tableThreeId\" class=\"help-block\" element=\"span\" />"));
 	}
@@ -282,12 +282,12 @@ public class VelocityEditJspGeneratorTest {
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"job\" action=\"${formActionUrl}\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"job\" action=\"${ formActionUrl }\" role=\"form\">"));
         assertThat(sourceCode, containsString("<legend>Job</legend>"));        
         assertThat(sourceCode, containsString("<form:hidden path=\"jobId\" />"));
      
         assertThat(sourceCode, containsString("<spring:bind path=\"fileName\">"));
-        assertThat(sourceCode, containsString("<label for=\"fileName\" class=\"control-label\">FileName</label>"));
+        assertThat(sourceCode, containsString("<label for=\"fileName\" class=\"control-label\">File Name</label>"));
         assertThat(sourceCode, containsString("<form:input path=\"fileName\"  class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"fileName\" class=\"help-block\" element=\"span\" />"));
         
@@ -297,12 +297,12 @@ public class VelocityEditJspGeneratorTest {
         assertThat(sourceCode, containsString("<form:errors path=\"parameters\" class=\"help-block\" element=\"span\" />"));
         
         assertThat(sourceCode, containsString("<spring:bind path=\"childJobId\">"));
-        assertThat(sourceCode, containsString("<label for=\"childJobId\" class=\"control-label\">ChildJobId</label>"));
+        assertThat(sourceCode, containsString("<label for=\"childJobId\" class=\"control-label\">Child Job Id</label>"));
         assertThat(sourceCode, containsString("<form:input path=\"childJobId\"  class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"childJobId\" class=\"help-block\" element=\"span\" />"));
         
         assertThat(sourceCode, containsString("<spring:bind path=\"jobType.jobTypeId\">"));
-        assertThat(sourceCode, containsString("<label for=\"jobType.jobTypeId\" class=\"control-label\">JobType</label>"));
+        assertThat(sourceCode, containsString("<label for=\"jobType.jobTypeId\" class=\"control-label\">Job Type</label>"));
         assertThat(sourceCode, containsString("<form:select path=\"jobType.jobTypeId\" items=\"${jobTypeList}\" itemValue=\"jobTypeId\" itemLabel=\"jobTypeId\" class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"jobType.jobTypeId\" class=\"help-block\" element=\"span\" />"));
         
@@ -355,16 +355,16 @@ public class VelocityEditJspGeneratorTest {
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobJobStatus\" action=\"${formActionUrl}\" role=\"form\">"));
-        assertThat(sourceCode, containsString("<legend>JobJobStatus</legend>"));        
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobJobStatus\" action=\"${ formActionUrl }\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<legend>Job Job Status</legend>"));        
      
         assertThat(sourceCode, containsString("<spring:bind path=\"dateSet\">"));
-        assertThat(sourceCode, containsString("<label for=\"dateSet\" class=\"control-label\">DateSet</label>"));
+        assertThat(sourceCode, containsString("<label for=\"dateSet\" class=\"control-label\">Date Set</label>"));
         assertThat(sourceCode, containsString("<form:input path=\"dateSet\"  class=\"form-control dateinput \"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"dateSet\" class=\"help-block\" element=\"span\" />"));
         
         assertThat(sourceCode, containsString("<spring:bind path=\"jobStatus.jobStatusId\">"));
-        assertThat(sourceCode, containsString("<label for=\"jobStatus.jobStatusId\" class=\"control-label\">JobStatus</label>"));
+        assertThat(sourceCode, containsString("<label for=\"jobStatus.jobStatusId\" class=\"control-label\">Job Status</label>"));
         assertThat(sourceCode, containsString("<form:select path=\"jobStatus.jobStatusId\" items=\"${jobStatusList}\" itemValue=\"jobStatusId\" itemLabel=\"jobStatusId\" class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<form:errors path=\"jobStatus.jobStatusId\" class=\"help-block\" element=\"span\" />"));
         
@@ -417,8 +417,8 @@ public class VelocityEditJspGeneratorTest {
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,jobType,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobType\" action=\"${formActionUrl}\" role=\"form\">"));
-        assertThat(sourceCode, containsString("<a class=\"btn btn-default\" href=\"${cancelUrl}\">Cancel</a>"));
+        assertThat(sourceCode, containsString("<form:form method=\"post\" commandName=\"jobType\" action=\"${ formActionUrl }\" role=\"form\">"));
+        assertThat(sourceCode, containsString("<a class=\"btn btn-default\" href=\"${ cancelUrl }\">Cancel</a>"));
         
 	}
 }

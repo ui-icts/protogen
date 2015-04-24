@@ -10,6 +10,8 @@
 		@RequestParam( value = "individualSearch" , required = false , defaultValue = "false" ) Boolean individualSearch,
 		@RequestParam( value = "display" , required = false , defaultValue = "list" ) String display ) {
 		
+		String contextPath = request.getContextPath();
+		
 		List<DataTableHeader> headers = new ArrayList<DataTableHeader>();
 		for ( int i = 0; i < columnCount; i++ ) {
 			DataTableHeader dth = new DataTableHeader();

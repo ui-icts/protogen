@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.plexus.util.StringUtils;
 
+import edu.uiowa.icts.plugin.protogen.util.GeneratorUtil;
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable.AttributeType;
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable.RelationshipType;
 import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityEditJspGenerator;
@@ -23,8 +24,10 @@ import edu.uiowa.webapp.Attribute;
 public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 	private static final Log log = LogFactory.getLog( JSPCodeGenerator.class );
+
 	public String jspRoot;
 	private Properties properties;
+	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	/**
 	 * @param model
@@ -64,16 +67,20 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
 
 		Iterator<ClassVariable> cvIter = ec.getPrimaryKeys().iterator();
-		output += "<h2>Delete " + ec.getIdentifier() + "</h2>";
-		output += lines( 1 );
+		output += "<h2>Delete " + generatorUtil.splitCapitalizedWords( ec.getIdentifier() ) + "</h2>";
+		output += lines( 2 );
 
-		output += spaces( indent ) + "";
-		lines( 1 );
+		String formactionUrl = "/";
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ) {
+			formactionUrl += ec.getSchema().getLowerLabel().toLowerCase() + "/";
+		}
+		formactionUrl += ec.getLowerIdentifier().toLowerCase() + "/";
+		formactionUrl += "delete" + properties.getProperty( "controller.request.mapping.extension", "" );
 
-		cvIter = ec.listAllIter();
-		output += lines( 1 );
+		output += spaces( indent ) + "<c:url value=\"" + formactionUrl + "\" var=\"formActionUrl\" />";
+		output += lines( 2 );
 
-		output += "<form method=\"post\" action=\"delete" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\">";
+		output += "<form method=\"post\" action=\"${ formActionUrl }\">";
 		output += lines( 1 );
 		indent += 4;
 
@@ -81,7 +88,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += lines( 1 );
 		indent += 4;
 
-		output += spaces( indent ) + "<legend>Are you sure you want to delete this " + ec.getIdentifier() + "?</legend>";
+		output += spaces( indent ) + "<legend>Are you sure you want to delete this " + generatorUtil.splitCapitalizedWords( ec.getIdentifier() ).toLowerCase() + "?</legend>";
 		output += lines( 1 );
 
 		output += spaces( indent ) + "<table class=\"table table-bordered table-hover\">";
@@ -95,9 +102,10 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += spaces( indent ) + "<tr>";
 		indent += 4;
 
+		cvIter = ec.listAllIter();
 		while ( cvIter.hasNext() ) {
 			ClassVariable cv = cvIter.next();
-			String th_label = cv.getUpperIdentifier();
+			String th_label = generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() );
 			if ( deOb && cv.getAttribute() != null ) {
 				th_label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
 			}
@@ -236,11 +244,11 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
 
 		Iterator<ClassVariable> cvIter = ec.getPrimaryKeys().iterator();
-		output += "<h2>" + ec.getIdentifier() + "</h2>";
-		output += lines( 1 );
+		output += "<h2>" + generatorUtil.splitCapitalizedWords( ec.getIdentifier() ) + "</h2>";
+		output += lines( 2 );
+
 		while ( cvIter.hasNext() ) {
 			ClassVariable cv = cvIter.next();
-			log.debug( "ClassVariable:" + cv.getIdentifier() );
 			if ( ec.isUsesCompositeKey() && cv.isPrimary() ) {
 				output += "<h2>";
 				for ( Attribute a : ec.getEntity().getPrimaryKeyAttributes() ) {
@@ -253,15 +261,11 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			output += lines( 1 );
 		}
 
-		output += spaces( indent ) + "";
-		lines( 1 );
-
-		cvIter = ec.listAllIter();
 		output += lines( 1 );
-
 		output += spaces( indent ) + "<table class=\"table table-bordered table-hover\">";
 		indent += 4;
 
+		cvIter = ec.listAllIter();
 		while ( cvIter.hasNext() ) {
 
 			ClassVariable cv = cvIter.next();
@@ -270,12 +274,13 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			output += spaces( indent ) + "<tr>";
 			indent += 4;
 
-			String th_label = cv.getUpperIdentifier();
+			String th_label;
 			if ( deOb && cv.getAttribute() != null ) {
 				th_label = "${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }";
+			} else {
+				th_label = generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() );
 			}
 
-			log.debug( "-ClassVariable:" + cv.getIdentifier() );
 			output += lines( 1 );
 			output += spaces( indent ) + "<th>" + th_label + "</th>";
 			output += lines( 1 );
@@ -287,7 +292,6 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			indent += 4;
 
 			if ( cv.getAttribType() == AttributeType.CHILD && cv.getAttribute().getEntity().getDomainClass() != null ) {
-				log.debug( "isChild" );
 				Iterator<ClassVariable> pkIter = cv.getAttribute().getEntity().getDomainClass().getPrimaryKeys().iterator();
 				while ( pkIter.hasNext() ) {
 					ClassVariable pk = pkIter.next();
@@ -397,12 +401,22 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
 		output += lines( 2 );
 
-		output += "<h2>" + ec.getIdentifier() + " List</h2>";
+		output += "<h2>" + generatorUtil.splitCapitalizedWords( ec.getIdentifier() ) + "s</h2>";
+		output += lines( 2 );
+
+		String addUrl = "/";
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ) {
+			addUrl += ec.getSchema().getLowerLabel().toLowerCase() + "/";
+		}
+		addUrl += ec.getLowerIdentifier().toLowerCase() + "/";
+		addUrl += "add" + properties.getProperty( "controller.request.mapping.extension", "" );
+
+		output += spaces( indent ) + "<c:url value=\"" + addUrl + "\" var=\"addUrl\" />";
 		output += lines( 1 );
 
-		output += lines( 1 );
-		output += spaces( indent ) + "<a href=\"add" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" class=\"btn btn-default\">Add</a>";
+		output += spaces( indent ) + "<a href=\"${ addUrl }\" class=\"btn btn-default\">Add</a>";
 		output += lines( 2 );
+
 		output += spaces( indent ) + "<div id=\"error_div\" class=\"alert alert-error\" style=\"display: none;\">";
 		output += lines( 1 );
 		indent += 4;
@@ -454,10 +468,10 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				//				}
 			} else {
 				if ( RelationshipType.NONE == cv.getRelationshipType() ) {
-					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : cv.getUpperIdentifier() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":true, \"" + searchableLabel + "\": true });";
+					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() ) ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":true, \"" + searchableLabel + "\": true });";
 					output += lines( 1 );
 				} else {
-					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : cv.getUpperIdentifier() ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
+					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() ) ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
 					output += lines( 1 );
 				}
 			}
@@ -504,7 +518,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		String output = spaces( indent ) + "<%@ include file=\"/WEB-INF/include.jsp\"  %>";
 		output += lines( 2 );
 
-		output += "<h2>" + ec.getIdentifier() + " List</h2>";
+		output += "<h2>" + generatorUtil.splitCapitalizedWords( ec.getIdentifier() ) + " List</h2>";
 		output += lines( 1 );
 
 		output += lines( 1 );
@@ -536,7 +550,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 			if ( deOb && cv.getAttribute() != null ) {
 				output += spaces( indent ) + "<th>${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') }</th>";
 			} else {
-				output += spaces( indent ) + "<th>" + cv.getUpperIdentifier() + "</th>";
+				output += spaces( indent ) + "<th>" + generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() ) + "</th>";
 			}
 			output += lines( 1 );
 		}
@@ -557,7 +571,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += lines( 1 );
 		indent += 4;
 
-		output += spaces( indent ) + "<c:forEach items=\"${" + ec.getLowerIdentifier() + "List}\" var=\"" + ec.getLowerIdentifier() + "\"  varStatus=\"status\">";
+		output += spaces( indent ) + "<c:forEach items=\"${ " + ec.getLowerIdentifier() + "List }\" var=\"" + ec.getLowerIdentifier() + "\"  varStatus=\"status\">";
 		output += lines( 1 );
 		indent += 4;
 
@@ -719,7 +733,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		while ( dcIter.hasNext() ) {
 			DomainClass dc = dcIter.next();
 			output += tabs( 1 );
-			output += "<a class=\"list-group-item\" href=\"<c:url value=\"" + ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ? "/" + dc.getSchema().getUnqualifiedLabel() : "" ) + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + dc.getIdentifier() + " List</a>";
+			output += "<a class=\"list-group-item\" href=\"<c:url value=\"" + ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ? "/" + dc.getSchema().getUnqualifiedLabel() : "" ) + "/" + dc.getLowerIdentifier().toLowerCase() + "/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\" />\" >" + generatorUtil.splitCapitalizedWords( dc.getIdentifier() ) + "s</a>";
 			output += lines( 1 );
 		}
 		output += "</div>";
@@ -758,4 +772,5 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		}
 		return out;
 	}
+
 }

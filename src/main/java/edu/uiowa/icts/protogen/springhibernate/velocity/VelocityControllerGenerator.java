@@ -229,9 +229,15 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			}
 		}
 
-		output.append( tab( indent ) + "urls += \"<a href=\\\"show" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"edit" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";\n" );
-		output.append( tab( indent ) + "urls += \"<a href=\\\"delete" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";\n" );
+		String linkPath = "\" + contextPath + \"/";
+		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ) {
+			linkPath += domainClass.getSchema().getLowerLabel().toLowerCase() + "/";
+		}
+		linkPath += domainClass.getLowerIdentifier().toLowerCase() + "/";
+
+		output.append( tab( indent ) + "urls += \"<a href=\\\"" + linkPath + "show" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"" + linkPath + "edit" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";\n" );
+		output.append( tab( indent ) + "urls += \"<a href=\\\"" + linkPath + "delete" + getPathExtension() + "?\"+" + params + "\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";\n" );
 
 		indent -= 1;
 

@@ -329,9 +329,9 @@ public class VelocityControllerGeneratorTest {
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"delete\", method = RequestMethod.POST )" ) );
 		assertThat( sourceCode, containsString( "return \"redirect:/ictssysadmin/clinicaldocument/list" + properties.getProperty( "controller.request.mapping.extension", "" ) + "\";" ) );
 		// test datatable links
-		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"show?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";" ) );
-		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"edit?\"+\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";" ) );
-		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"delete?\"+\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";" ) );
+		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"\" + contextPath + \"/ictssysadmin/clinicaldocument/show?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";" ) );
+		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"\" + contextPath + \"/ictssysadmin/clinicaldocument/edit?\"+\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";" ) );
+		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"\" + contextPath + \"/ictssysadmin/clinicaldocument/delete?\"+\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";" ) );
 	}
 
 	@Test
@@ -363,9 +363,9 @@ public class VelocityControllerGeneratorTest {
 		assertThat( sourceCode, containsString( "return \"redirect:/ictssysadmin/clinicaldocument/list.html\";" ) );
 
 		// test datatable links
-		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"show.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";" ) );
-		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"edit.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";" ) );
-		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"delete.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";" ) );
+		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"\" + contextPath + \"/ictssysadmin/clinicaldocument/show.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-eye-open\\\"></a>\";" ) );
+		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"\" + contextPath + \"/ictssysadmin/clinicaldocument/edit.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-pencil\\\"></a>\";" ) );
+		assertThat( sourceCode, containsString( "urls += \"<a href=\\\"\" + contextPath + \"/ictssysadmin/clinicaldocument/delete.html?\"+\"\\\"><span class=\\\"glyphicon glyphicon-trash\\\"></a>\";" ) );
 	}
 
 	@Test

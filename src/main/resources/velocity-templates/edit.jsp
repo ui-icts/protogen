@@ -1,14 +1,14 @@
 <%@ include file="/WEB-INF/include.jsp"  %>
 
-<c:url value="${pathPrefix}/${domainClass.getLowerIdentifier()}/save${pathExtension}" var="formActionUrl" />
-<c:url value="${pathPrefix}/${domainClass.getLowerIdentifier()}/list${pathExtension}" var="cancelUrl" />
+<c:url value="${pathPrefix}/${domainClass.getLowerIdentifier().toLowerCase()}/save${pathExtension}" var="formActionUrl" />
+<c:url value="${pathPrefix}/${domainClass.getLowerIdentifier().toLowerCase()}/list${pathExtension}" var="cancelUrl" />
 
 <div class="row">
 	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
-		<form:form method="post" commandName="${domainClass.getLowerIdentifier()}" action="${esc.d}{formActionUrl}" role="form">
+		<form:form method="post" commandName="${domainClass.getLowerIdentifier()}" action="${esc.d}{ formActionUrl }" role="form">
     		<fieldset>
     		
-    			<legend>${domainClass.getIdentifier()}</legend>
+    			<legend>${domainClassLabel}</legend>
 #foreach( $classVariable in $domainClass.listAll() )
  #if ( $domainClass.isUsesCompositeKey() && $classVariable.isPrimary() )
   #foreach( $a in $domainClass.getEntity().getPrimaryKeyAttributes() )
@@ -34,7 +34,7 @@
     #set( $path = $classVariable.getIdentifier() + "." + $classVariable.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier() )
   #end
 
-  #set( $label = $classVariable.getUpperIdentifier() )
+  #set( $label = $generatorUtil.splitCapitalizedWords( $classVariable.getUpperIdentifier() ) )
   #if ( $deOb )
     #set( $label = "${esc.d}{ " + ${domainClass.getSchema().getLowerLabel()} + ":deobfuscateColumn ( '"+ ${domainClass.getTableName()} + "', '" + ${classVariable.getAttribute().getSqlLabel()} + "') }" )
   #end
@@ -59,7 +59,7 @@
 #end 
     			
     			<input type="submit" value="Save" class="btn btn-primary" />
-    			<a class="btn btn-default" href="${esc.d}{cancelUrl}">Cancel</a>
+    			<a class="btn btn-default" href="${esc.d}{ cancelUrl }">Cancel</a>
     			
     		</fieldset>
 		</form:form>

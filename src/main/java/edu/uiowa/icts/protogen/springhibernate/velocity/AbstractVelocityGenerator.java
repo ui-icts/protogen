@@ -139,4 +139,15 @@ public abstract class AbstractVelocityGenerator {
 		}
 		return output.toString();
 	}
+
+	protected String splitCapitalizedWords( String substring ) {
+		String newString = "";
+		for ( char c : substring.toCharArray() ) {
+			if ( Character.isUpperCase( c ) ) {
+				newString += " ";
+			}
+			newString += String.valueOf( c );
+		}
+		return StringUtils.trim( newString );
+	}
 }
