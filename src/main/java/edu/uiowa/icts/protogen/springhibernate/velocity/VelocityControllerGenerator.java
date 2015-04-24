@@ -13,6 +13,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable;
+import edu.uiowa.icts.protogen.springhibernate.ClassVariable.AttributeType;
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
 import edu.uiowa.webapp.Attribute;
 
@@ -151,7 +152,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		int indent = 4;
 
-		output.append( tab( indent ) + "LinkedHashMap<String, String> tableRow = new LinkedHashMap<String, String>();\n" );
+		output.append( tab( indent ) + "LinkedHashMap<String, Object> tableRow = new LinkedHashMap<String, Object>();\n" );
 
 		if ( StringUtils.equals( properties.getProperty( "datatables.generation", "1" ), "2" ) ) {
 			output.append( tab( indent ) + "for ( DataTableHeader header : headers ) {\n" );
@@ -171,18 +172,33 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 				for ( Attribute a : domainClass.getEntity().getPrimaryKeyAttributes() ) {
 					output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"id." + a.getLowerLabel() + "\", headerName ) ){\n" );
 					indent += 1;
-					output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".getId().get" + a.getUpperLabel() + "() );\n" );
+					output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".getId().get" + a.getUpperLabel() + "() );\n" );
 					indent -= 1;
 					count++;
 				}
 			} else {
 				output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"" + cv.getLowerIdentifier() + "\", headerName ) ){\n" );
 				indent += 1;
-				if ( cv.getType().contains( "Set<" ) ) {
-					output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
+				log.debug( "\n\n\n ************************  " + cv.getUpperIdentifier() + " - " + cv.getAttribType() + " **********************\n\n\n" );
+
+				if ( AttributeType.FOREIGNATTRIBUTE == cv.getAttribType() ) {
+					output.append( tab( indent ) + "if( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() != null ){\n" );
+					output.append( tab( indent + 1 ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().toString() );\n" );
+					output.append( tab( indent ) + "}\n" );
+				} else if ( AttributeType.CHILD == cv.getAttribType() ) {
+					output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
 				} else {
-					output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+					// AttributeType.LOCALATTRIBUTE
+					// AttributeType.PRIMARYKEY
+					output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
 				}
+
+				// if ( cv.getType().contains( "Set<" ) ) {
+				//	output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
+				// } else {
+				//	output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+				// }
+
 				indent -= 1;
 				count++;
 			}

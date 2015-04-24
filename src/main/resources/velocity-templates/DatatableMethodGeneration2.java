@@ -76,7 +76,7 @@
 
             List<${domainName}> ${lowerDomainName}List = ${daoServiceName}.get${domainName}Service().list( options );
 
-			List<LinkedHashMap<String, String>> data = new ArrayList<LinkedHashMap<String, String>>();
+			List<LinkedHashMap<String, Object>> data = new ArrayList<LinkedHashMap<String, Object>>();
 
 			for( ${domainName} ${lowerDomainName} : ${lowerDomainName}List ){
 ${datatableColumnForEach}

@@ -3,6 +3,8 @@ package edu.uiowa.icts.protogen.springhibernate.velocity;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
@@ -11,6 +13,8 @@ import edu.uiowa.icts.protogen.springhibernate.DomainClass;
 import edu.uiowa.webapp.Schema;
 
 public abstract class AbstractVelocityGenerator {
+
+	protected final Log log = LogFactory.getLog( getClass() );
 
 	protected static final String INTERFACE_SUFFIX = "Service";
 

@@ -399,8 +399,8 @@ public class VelocityControllerGeneratorTest {
 		String sourceCode = generator.javaSourceCode();
 		//	System.out.println(sourceCode);
 
-		assertThat( sourceCode, containsString( "tableRow.put( dataName, \"\"+ jobType.getJobTypeId() );" ) );
-		assertThat( sourceCode, containsString( "tableRow.put( dataName, \"\"+ jobType.getParameters() );" ) );
-		assertThat( sourceCode, containsString( "tableRow.put( dataName, \"\"+ jobType.getJobs().size() );" ) );
+		assertThat( sourceCode, containsString( "tableRow.put( dataName, jobType.getJobTypeId() );" ) );
+		assertThat( sourceCode, containsString( "tableRow.put( dataName, jobType.getParameters() );" ) );
+		assertThat( sourceCode, containsString( "tableRow.put( dataName, jobType.getJobs().size() );" ) );
 	}
 }

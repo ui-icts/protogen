@@ -28,10 +28,10 @@ public class DomainClass {
 	private boolean usesCompositeKey;
 	private boolean nullablePrimitives = true;
 	private boolean defaultToLong;//not implemented
-	
+
 	private Properties properties;
-	
-	public DomainClass( Properties properties ){
+
+	public DomainClass( Properties properties ) {
 		this.properties = properties;
 	}
 
@@ -153,14 +153,11 @@ public class DomainClass {
 
 		return listAllSym;
 	}
-	
-	public Iterator<ClassVariable> listAllIter()
-	{
-		List<ClassVariable> listAllSym = new ArrayList<ClassVariable>();
 
+	public Iterator<ClassVariable> listAllIter() {
+		List<ClassVariable> listAllSym = new ArrayList<ClassVariable>();
 		listAllSym.addAll( getPrimaryKeys() );
 		listAllSym.addAll( getNonKeys() );
-
 		return listAllSym.iterator();
 	}
 
@@ -175,22 +172,18 @@ public class DomainClass {
 		return output;
 	}
 
-	public String getSelectBoxLabel()
-	{
-
+	public String getSelectBoxLabel() {
 		Iterator<ClassVariable> cvIter = listAllIter();
 		String output = "";
-		while ( cvIter.hasNext() )
-		{
+		while ( cvIter.hasNext() ) {
 			ClassVariable cv = cvIter.next();
 			output += "${item." + cv.getIdentifier() + "}";
-			if ( cvIter.hasNext() )
+			if ( cvIter.hasNext() ){
 				output += " - ";
+			}
 
 		}
-
 		return output;
-
 	}
 
 	public String genGettersSetters( String indent ) {
@@ -343,10 +336,10 @@ public class DomainClass {
 
 	private String genAnnotations( String indent ) {
 		String schemaLabel = schema.getSqlLabel();
-		if( properties != null ){
-			
+		if ( properties != null ) {
+
 		}
-		
+
 		if ( classType == ClassType.ENTITY && entity != null ) {
 			String anno = "";
 			anno += "@Entity( name = \"" + getPackageName().replaceAll( "\\.", "_" ) + "_" + getLowerIdentifier() + "\" )\n";
