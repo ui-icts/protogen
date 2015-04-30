@@ -33,7 +33,7 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     private ${className} first${className};
     
     @Before
-    public void setup() {
+    public void before() {
       #if ( ${domainClass.isUsesCompositeKey()} ) 
     	// at the moment, do nothing for composite keys 
       #elseif ( ${domainClass.getPrimaryKey().getType()} && ${domainClass.getPrimaryKey().getType()} != "Integer" )

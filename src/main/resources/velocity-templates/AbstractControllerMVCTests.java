@@ -43,7 +43,7 @@ public abstract class AbstractControllerMVCTests {
 	protected MockMvc mockMvc;
 	
 	@Before
-	public void setUp() {
+	public final void setUp${daoServiceClassName}ControllerMVCTests() {
 		
 		log.debug( "setting up mock MVC" );
 		this.mockMvc = MockMvcBuilders.webAppContextSetup( this.wac ).build();

@@ -15,7 +15,7 @@ public class AbstractControllerMVCTestsGeneratorTest {
 
 	@Test
 	public void shouldGenerateJavaSourceCodeForAbstractSpringMVCTestFile() {
-		String packageName = "edu.uiowa.icts.ictssysadmin.controller";
+		String packageName = "edu.uiowa.icts";
 
 		Schema schema = new Schema();
 		schema.setSqlLabel( "ictssysadmin" );
