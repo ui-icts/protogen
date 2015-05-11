@@ -152,13 +152,20 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		int indent = 4;
 
-		output.append( tab( indent ) + "LinkedHashMap<String, Object> tableRow = new LinkedHashMap<String, Object>();\n" );
+		output.append( "\n" );
+
+		output.append( tab( indent ) + "LinkedHashMap<String, Object> tableRow = new LinkedHashMap<String, Object>();" );
+
+		output.append( "\n\n" );
 
 		if ( StringUtils.equals( properties.getProperty( "datatables.generation", "1" ), "2" ) ) {
-			output.append( tab( indent ) + "for ( DataTableHeader header : headers ) {\n" );
+			output.append( tab( indent ) + "for ( DataTableColumn column : dataTableRequest.getColumns() ) {" );
+			output.append( "\n\n" );
 			indent += 1;
-			output.append( tab( indent ) + "String headerName = header.getName();\n" );
-			output.append( tab( indent ) + "String dataName = header.getData();\n" );
+			output.append( tab( indent ) + "String headerName = column.getName();" );
+			output.append( "\n" );
+			output.append( tab( indent ) + "String dataName = column.getData();" );
+			output.append( "\n\n" );
 		} else {
 			output.append( tab( indent ) + "for( String headerName : colArr ){\n" );
 			indent += 1;

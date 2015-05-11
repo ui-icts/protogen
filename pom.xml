@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -94,97 +95,7 @@
 		<dependency>
 			<groupId>edu.uiowa.icts.spring</groupId>
 			<artifactId>spring-utils</artifactId>
-			<version>2.0.6</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>batik-xml</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-gvt</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-anim</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-extension</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-dom</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-gui-util</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-awt-util</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-parser</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-swing</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-script</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-svg-dom</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-codec</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-util</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-svggen</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>pdf-transcoder</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-css</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-transcoder</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-ext</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-bridge</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>batik-js</artifactId>
-					<groupId>batik</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>json</artifactId>
-					<groupId>json</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>pdfbox</artifactId>
-					<groupId>pdfbox</groupId>
-				</exclusion>
-			</exclusions>
+			<version>2.0.7-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
