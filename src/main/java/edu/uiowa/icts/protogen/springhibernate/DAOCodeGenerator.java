@@ -20,7 +20,6 @@ import java.util.TimeZone;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import edu.uiowa.icts.util.IctsStringUtils;
 import edu.uiowa.webapp.Schema;
 
 public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
@@ -218,7 +217,6 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		if ( Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) ) ) {
 
-			IctsStringUtils stringUtils = new IctsStringUtils();
 			String table = properties.getProperty( "dictionary.table.name" );
 
 			if ( table != null && dc.getEntity().getSqlLabel().equals( table ) ) {
@@ -227,9 +225,9 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				tabs( out, 2 );
 				out.write( "Criteria c = this.sessionFactory.getCurrentSession().createCriteria( " + dc.getIdentifier() + ".class );\n" );
 				tabs( out, 2 );
-				out.write( "c.add( Restrictions.eq( \"" + stringUtils.relabel( (String) properties.get( "dictionary.table.columnname" ), false ) + "\", tableName ) );\n" );
+				out.write( "c.add( Restrictions.eq( \"" + relabel( (String) properties.get( "dictionary.table.columnname" ), false ) + "\", tableName ) );\n" );
 				tabs( out, 2 );
-				out.write( "c.add( Restrictions.eq( \"" + stringUtils.relabel( (String) properties.get( "dictionary.column.columnname" ), false ) + "\", columnName ) );\n" );
+				out.write( "c.add( Restrictions.eq( \"" + relabel( (String) properties.get( "dictionary.column.columnname" ), false ) + "\", columnName ) );\n" );
 				tabs( out, 2 );
 				out.write( "c.setMaxResults( 1 );\n" );
 				tabs( out, 2 );
@@ -237,7 +235,7 @@ public class DAOCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				tabs( out, 2 );
 				out.write( "if( dict != null ){\n" );
 				tabs( out, 3 );
-				out.write( "return dict.get" + stringUtils.relabel( (String) properties.get( "dictionary.deobfuscated.columnname" ), true ) + "();\n" );
+				out.write( "return dict.get" + relabel( (String) properties.get( "dictionary.deobfuscated.columnname" ), true ) + "();\n" );
 				tabs( out, 2 );
 				out.write( "}\n" );
 				tabs( out, 2 );

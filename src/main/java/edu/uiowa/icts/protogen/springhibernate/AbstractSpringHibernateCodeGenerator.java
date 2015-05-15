@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -62,6 +63,20 @@ public abstract class AbstractSpringHibernateCodeGenerator {
 		for ( int i = 0; i < num; i++ ) {
 			out.write( '\t' );
 		}
+	}
+	
+	protected String relabel( String sqllabel, boolean leadingCapital ) {
+		StringBuffer result = new StringBuffer();
+		StringTokenizer theTokenizer = new StringTokenizer( sqllabel, "_-" );
+		while ( theTokenizer.hasMoreTokens() ) {
+			String theToken = theTokenizer.nextToken().toLowerCase();
+			result.append( Character.toUpperCase( theToken.charAt( 0 ) ) );
+			result.append( theToken.substring( 1 ) );
+		}
+		if ( !leadingCapital ) {
+			result.setCharAt( 0, Character.toLowerCase( result.charAt( 0 ) ) );
+		}
+		return result.toString();
 	}
 
 	public String createGetter( String type, String variableName, int indent ) {
