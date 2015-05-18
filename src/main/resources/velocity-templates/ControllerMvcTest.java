@@ -2,6 +2,8 @@ package ${packageName};
 
 #set( $classNameLowerCaseFirstLetter = $display.uncapitalize($className) )
 
+import java.util.List;
+
 import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +14,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Arrays;
+
+import edu.uiowa.icts.datatable.DataTableColumn;
+import edu.uiowa.icts.datatable.DataTableRequest;
+import edu.uiowa.icts.datatable.DataTableSearch;
 import ${basePackageName}.dao.*;
 import ${basePackageName}.domain.*;
 import static org.hamcrest.Matchers.containsString;
@@ -87,16 +96,25 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
       #elseif ( ${domainClass.getPrimaryKey().getType()} && ${domainClass.getPrimaryKey().getType()} != "Integer" )
         // at the moment, don't test datatables for ids generated without sequences  
       #else	  
- /*   	  
+    	  
     @Test
-    public void saveShouldPersistAndRedirectToListView() throws Exception {
+    public void saveNewShouldPersistAndRedirectToListView() throws Exception {
        int count = ${daoServiceName}.get${className}Service().list().size();
        
        mockMvc.perform(post("${pathPrefix}/save${pathExtension}")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));   
        
        assertEquals("${className} count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().list().size());
 	}
-  */
+     
+    @Test
+    public void saveExistingShouldPersistAndRedirectToListView() throws Exception {
+       int count = ${daoServiceName}.get${className}Service().list().size();
+         
+       mockMvc.perform(post("${pathPrefix}/save${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));   
+         
+       assertEquals("${className} count NOT should increase", count , ${daoServiceName}.get${className}Service().list().size());
+  	}      
+  
     @Test
     public void editShouldLoadObjectAndDisplayForm() throws Exception {
     	mockMvc.perform(get("${pathPrefix}/edit${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
@@ -143,21 +161,12 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
       
     @Test
     public void defaultDatatableShouldReturnJSONDataWith10Rows() throws Exception {
-    	mockMvc.perform(get("${pathPrefix}/datatable${pathExtension}")
+    	DataTableRequest dtr = getDataTableRequest( Arrays.asList("urls",#foreach( $columnName in $columnNamesList )"$columnName"#if( $foreach.hasNext ),#end#end ));
+    	ObjectMapper mapper = new ObjectMapper();
+    	
+    	mockMvc.perform(post("${pathPrefix}/datatable${pathExtension}").content(mapper.writeValueAsString(dtr))
 			.param("display", "list")
-			.param("search[value]", "")
-			.param("search[regex]", "false")
-			.param("length", "10")
-			.param("start", "0")
-			.param("columnCount", "${columnNamesList.size()}")
-			.param("draw", "1")
-			.param("individualSearch", "true")
-			.param("columns[0][data]","0").param("columns[0][name]","urls").param("columns[0][searchable]","false").param("columns[0][orderable]","false").param("columns[0][search][regex]","false").param("columns[0][search][value]","")
-			#foreach( $columnName in $columnNamesList )
-			   #set( $arrayIndex = $foreach.count)
-			.param("columns[${arrayIndex}][data]","${arrayIndex}").param("columns[${arrayIndex}][name]","${columnName}").param("columns[${arrayIndex}][searchable]","true").param("columns[${arrayIndex}][orderable]","true").param("columns[${arrayIndex}][search][regex]","false").param("columns[${arrayIndex}][search][value]","")
-			#end    	    			
-			.accept(MediaType.APPLICATION_JSON))
+			.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())
     	.andExpect(content().contentType("application/json"))
     	.andExpect(jsonPath("$.recordsTotal", is(${daoServiceName}.get${className}Service().list().size())))
@@ -172,18 +181,44 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     }
     	  
     @Test
+    public void defaultDatatableShouldReturnJSONDataWith10RowsAndDisplayAltnerateGlyphiconURLsAsEmptyByDefault() throws Exception {
+    	DataTableRequest dtr = getDataTableRequest( Arrays.asList("urls",#foreach( $columnName in $columnNamesList )"$columnName"#if( $foreach.hasNext ),#end#end ));
+    	ObjectMapper mapper = new ObjectMapper();
+    	
+    	mockMvc.perform(post("${pathPrefix}/datatable${pathExtension}").content(mapper.writeValueAsString(dtr))
+			.param("display", "alternateURLs")
+			.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+    	.andExpect(status().isOk())
+    	.andExpect(content().contentType("application/json"))
+    	.andExpect(jsonPath("$.recordsTotal", is(${daoServiceName}.get${className}Service().list().size())))
+    	.andExpect(jsonPath("$.recordsFiltered", is(${daoServiceName}.get${className}Service().list().size())))
+    	.andExpect(jsonPath("$.draw", is("1")))
+    	// max # of returned data rows should be 10 per "length" value
+    	.andExpect(jsonPath("$.data", hasSize(is(10))))
+    	.andExpect(jsonPath("$.data[0][0]", is("")))
+        ;
+    }
+    
+    @Test
     public void defaultDatatableShouldReturnErrorTextForBogusColumnName() throws Exception {
-    	mockMvc.perform(get("${pathPrefix}/datatable${pathExtension}")
+    	DataTableRequest dtr = new DataTableRequest();
+    	dtr.setStart(1);
+    	dtr.setDraw("1");
+    	dtr.setLength(10);
+    	dtr.setIndividualSearch(true);
+    	
+    	List<DataTableColumn> columns = dtr.getColumns();
+    	DataTableColumn column = new DataTableColumn("0", "asdfasdf", null, true, true, true);
+    	DataTableSearch columnSearch = new DataTableSearch("", false);
+    	column.setSearch(columnSearch);
+    	columns.add(column);
+    	dtr.setColumns(columns);
+    	
+    	ObjectMapper mapper = new ObjectMapper();
+    	
+    	mockMvc.perform(post("${pathPrefix}/datatable${pathExtension}").content(mapper.writeValueAsString(dtr))
 			.param("display", "list")
-			.param("search[value]", "")
-			.param("search[regex]", "false")
-			.param("length", "10")
-			.param("start", "1")
-			.param("columnCount", "1")
-			.param("draw", "1")
-			.param("individualSearch", "true")
-			.param("columns[0][data]","0").param("columns[0][name]","asdfasdf").param("columns[0][searchable]","true").param("columns[0][orderable]","true").param("columns[0][search][regex]","false").param("columns[0][search][value]","")
-			.accept(MediaType.APPLICATION_JSON))
+			.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())
     	.andExpect(content().contentType("application/json"))
     	.andExpect(jsonPath("$.recordsTotal", is(${daoServiceName}.get${className}Service().list().size())))
@@ -195,25 +230,32 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     }    
     	  
     @Test
-    public void defaultDatatableShouldReturnException() throws Exception {
-    	mockMvc.perform(get("${pathPrefix}/datatable${pathExtension}")
+    public void defaultDatatableShouldReturnExceptionBecauseCantSearchColumnThatDoesntExist() throws Exception {			
+		DataTableRequest dtr = new DataTableRequest();
+    	dtr.setStart(1);
+    	dtr.setDraw("1");
+    	dtr.setLength(10);
+    	dtr.setIndividualSearch(true);
+    	
+    	List<DataTableColumn> columns = dtr.getColumns();
+    	DataTableColumn column = new DataTableColumn("0", "asdfasdf", null, true, true, true);
+    	DataTableSearch columnSearch = new DataTableSearch("epic fail", false);
+    	column.setSearch(columnSearch);
+    	columns.add(column);
+    	dtr.setColumns(columns);
+    	
+    	ObjectMapper mapper = new ObjectMapper();
+    	
+    	mockMvc.perform(post("${pathPrefix}/datatable${pathExtension}").content(mapper.writeValueAsString(dtr))
 			.param("display", "list")
-			.param("search[value]", "")
-			.param("search[regex]", "false")
-			.param("length", "10")
-			.param("start", "1")
-			.param("columnCount", "1")
-			.param("draw", "1")
-			.param("individualSearch", "true")
-			.param("order[0][column]","1").param(".order[0][dir]", "asc")
-			.accept(MediaType.APPLICATION_JSON))
+			.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))	
     	.andExpect(status().isOk())
     	.andExpect(content().contentType("application/json"))
     	.andExpect(jsonPath("$.recordsTotal", is(0)))
     	.andExpect(jsonPath("$.recordsFiltered", is(0)))
     	.andExpect(jsonPath("$.draw", is("1")))
-    	.andExpect(jsonPath("$.data", IsNull.nullValue()))
-    //	.andExpect(jsonPath("$.error", is("")))
+    	.andExpect(jsonPath("$.data", hasSize(is(0))))
+    	.andExpect(jsonPath("$.error", IsNull.notNullValue()))
     	;
     }      
       #end

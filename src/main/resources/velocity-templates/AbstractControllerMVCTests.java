@@ -20,6 +20,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import edu.uiowa.icts.datatable.DataTableColumn;
+import edu.uiowa.icts.datatable.DataTableRequest;
+import edu.uiowa.icts.datatable.DataTableSearch;
+
 import ${daoPackageName}.${daoServiceClassName};
 
 /**
@@ -54,5 +58,31 @@ public abstract class AbstractControllerMVCTests {
 		SecurityContextHolder.getContext().setAuthentication( new UsernamePasswordAuthenticationToken( "adminUser", "[PROTECTED]", grantedAuthorities ) );
 		
 	}
+	
+	protected DataTableRequest getDataTableRequest(List<String> columnNames) {
+
+    	DataTableRequest dtr = new DataTableRequest();
+    	dtr.setStart(1);
+    	dtr.setDraw("1");
+    	dtr.setLength(10);
+    	dtr.setIndividualSearch(true);
+    	List<DataTableColumn> columns = dtr.getColumns();
+    	
+    	int count = 0;
+    	for (String colName : columnNames) {
+    		DataTableColumn column = new DataTableColumn();
+        	column.setSearchable(true);
+        	column.setOrderable(true);
+        	column.setName(colName);
+        	column.setData("" + count++);
+        	DataTableSearch columnSearch = new DataTableSearch();
+        	columnSearch.setRegex(false);
+        	columnSearch.setValue("");
+        	column.setSearch(columnSearch);
+        	columns.add(column);
+        	dtr.setColumns(columns);	
+    	}
+    	return dtr;
+    }
 	
 }

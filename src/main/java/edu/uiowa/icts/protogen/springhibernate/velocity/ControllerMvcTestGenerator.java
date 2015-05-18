@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
@@ -38,12 +39,12 @@ public class ControllerMvcTestGenerator extends AbstractVelocityGenerator {
 		Iterator<ClassVariable> iter = domainClass.listAllIter();
 		while ( iter.hasNext() ) {
 			ClassVariable cv = iter.next();
-			if ( !cv.isPrimary() ) {
-				columnNamesList.add( cv.getLowerIdentifier() );
-			}
+		//	if ( !cv.isPrimary() ) {
+			columnNamesList.add( cv.getLowerIdentifier() );
+		//	}
 		}
 		Collections.sort( columnNamesList );
-		context.put( "columnNamesList", columnNamesList );
+	    context.put( "columnNamesList", columnNamesList );
 
 		/* lets render a template loaded from the classpath */
 		StringWriter w = new StringWriter();
