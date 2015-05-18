@@ -1,13 +1,17 @@
 package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Properties;
 
+import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -115,8 +119,8 @@ public class ControllerMvcTestGeneratorTest {
 		assertThat( sourceCode, containsString( ".andExpect(model().attributeExists(\"clinicalDocument\"))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(view().name(\"/ictssysadmin/clinicaldocument/edit\"));" ) );
 
-		// test save
-		assertThat( sourceCode, containsString( "public void saveShouldPersistAndRedirectToListView() throws Exception {" ) );
+		// test save new
+		assertThat( sourceCode, containsString( "public void saveNewShouldPersistAndRedirectToListView() throws Exception {" ) );
 		assertThat( sourceCode, containsString( "int count = ictssysadminDaoService.getClinicalDocumentService().list().size();" ) );
 		assertThat( sourceCode, containsString( "mockMvc.perform(post(\"/ictssysadmin/clinicaldocument/save\")).andExpect(status().is3xxRedirection()).andExpect(view().name(\"redirect:/ictssysadmin/clinicaldocument/list\"));" ) );
 		assertThat( sourceCode, containsString( "assertEquals(\"ClinicalDocument count should increase by 1\", count +1 , ictssysadminDaoService.getClinicalDocumentService().list().size());" ) );
@@ -171,7 +175,7 @@ public class ControllerMvcTestGeneratorTest {
 		assertThat( sourceCode, containsString( ".andExpect(view().name(\"/ictssysadmin/clinicaldocument/edit\"));" ) );
 
 		// test save
-		assertThat( sourceCode, containsString( "public void saveShouldPersistAndRedirectToListView() throws Exception {" ) );
+		assertThat( sourceCode, containsString( "public void saveNewShouldPersistAndRedirectToListView() throws Exception {" ) );
 		assertThat( sourceCode, containsString( "int count = ictssysadminDaoService.getClinicalDocumentService().list().size();" ) );
 		assertThat( sourceCode, containsString( "mockMvc.perform(post(\"/clinicaldocument/save\")).andExpect(status().is3xxRedirection()).andExpect(view().name(\"redirect:/clinicaldocument/list\"));" ) );
 		assertThat( sourceCode, containsString( "assertEquals(\"ClinicalDocument count should increase by 1\", count +1 , ictssysadminDaoService.getClinicalDocumentService().list().size());" ) );
@@ -256,6 +260,7 @@ public class ControllerMvcTestGeneratorTest {
 		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator( packageRoot, jobType, properties );
 
 		String sourceCode = generator.javaSourceCode();
+		System.out.println(sourceCode);
 
 		// test imports
 		assertThat( sourceCode, containsString( "import edu.uiowa.icts.aptamer.domain.*;" ) );
@@ -270,21 +275,10 @@ public class ControllerMvcTestGeneratorTest {
 
 		// test datatables test
 		assertThat( sourceCode, containsString( "public void defaultDatatableShouldReturnJSONDataWith10Rows() throws Exception {" ) );
-		assertThat( sourceCode, containsString( "mockMvc.perform(get(\"/jobtype/datatable\")" ) );
+		assertThat( sourceCode, containsString( "DataTableRequest dtr = getDataTableRequest( Arrays.asList(\"urls\",\"description\",\"jobTypeId\",\"jobs\",\"name\",\"parameters\" ));" ) );
+		assertThat( sourceCode, containsString( "mockMvc.perform(post(\"/jobtype/datatable\")" ) );
 		assertThat( sourceCode, containsString( ".param(\"display\", \"list\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"search[value]\", \"\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"search[regex]\", \"false\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"length\", \"10\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"start\", \"0\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"columnCount\", \"4\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"draw\", \"1\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"individualSearch\", \"true\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"columns[0][data]\",\"0\").param(\"columns[0][name]\",\"urls\").param(\"columns[0][searchable]\",\"false\").param(\"columns[0][orderable]\",\"false\").param(\"columns[0][search][regex]\",\"false\").param(\"columns[0][search][value]\",\"\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"columns[1][data]\",\"1\").param(\"columns[1][name]\",\"description\").param(\"columns[1][searchable]\",\"true\").param(\"columns[1][orderable]\",\"true\").param(\"columns[1][search][regex]\",\"false\").param(\"columns[1][search][value]\",\"\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"columns[2][data]\",\"2\").param(\"columns[2][name]\",\"jobs\").param(\"columns[2][searchable]\",\"true\").param(\"columns[2][orderable]\",\"true\").param(\"columns[2][search][regex]\",\"false\").param(\"columns[2][search][value]\",\"\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"columns[3][data]\",\"3\").param(\"columns[3][name]\",\"name\").param(\"columns[3][searchable]\",\"true\").param(\"columns[3][orderable]\",\"true\").param(\"columns[3][search][regex]\",\"false\").param(\"columns[3][search][value]\",\"\")" ) );
-		assertThat( sourceCode, containsString( ".param(\"columns[4][data]\",\"4\").param(\"columns[4][name]\",\"parameters\").param(\"columns[4][searchable]\",\"true\").param(\"columns[4][orderable]\",\"true\").param(\"columns[4][search][regex]\",\"false\").param(\"columns[4][search][value]\",\"\")" ) );
-		assertThat( sourceCode, containsString( ".accept(MediaType.APPLICATION_JSON))" ) );
+		assertThat( sourceCode, containsString( ".accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(status().isOk())" ) );
 		assertThat( sourceCode, containsString( ".andExpect(content().contentType(\"application/json\"))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.recordsTotal\", is(aptamerDaoService.getJobTypeService().list().size())))" ) );
@@ -297,13 +291,12 @@ public class ControllerMvcTestGeneratorTest {
 
 		// test datatables bogus column name
 		assertThat( sourceCode, containsString( "public void defaultDatatableShouldReturnErrorTextForBogusColumnName() throws Exception {" ) );
-		assertThat( sourceCode, containsString( ".param(\"columns[0][data]\",\"0\").param(\"columns[0][name]\",\"asdfasdf\")" ) );
 		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.data[0].error\", is(\"[error: column asdfasdf not supported]\")))" ) );
 
 		// test datatables exception scenario
-		assertThat( sourceCode, containsString( "public void defaultDatatableShouldReturnException() throws Exception {" ) );
-		assertThat( sourceCode, containsString( ".param(\"order[0][column]\",\"1\").param(\".order[0][dir]\", \"asc\")" ) );
-		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.data\", IsNull.nullValue()))" ) );
+		assertThat( sourceCode, containsString( "public void defaultDatatableShouldReturnExceptionBecauseCantSearchColumnThatDoesntExist() throws Exception {" ) );
+		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.data\", hasSize(is(0))))" ) );
+		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.error\", IsNull.notNullValue()))" ) );
 
 		// test edit
 		assertThat( sourceCode, containsString( "public void editShouldLoadObjectAndDisplayForm() throws Exception {" ) );
