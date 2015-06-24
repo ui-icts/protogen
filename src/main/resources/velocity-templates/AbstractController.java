@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import edu.uiowa.icts.datatable.DataTable;
+import edu.uiowa.icts.spring.Security;
 import ${daoPackageName}.${daoServiceClassName};
 
 /**
@@ -22,7 +23,10 @@ public abstract class ${abstractControllerClassName} {
 
 	@ModelAttribute( value = "username" )
 	public String getUsername() {
-		return SecurityContextHolder.getContext().getAuthentication().getName();
+		if ( Security.isAuthenticated() ) {
+			return SecurityContextHolder.getContext().getAuthentication().getName();
+		}
+		return null;
 	}
 
 	/**
