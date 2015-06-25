@@ -235,14 +235,17 @@ public class ClassVariable
 
 	String toGetter( String indent ) {
 		String output = "";
+		if (this.attribType == AttributeType.CHILD){
+			output += indent + "@JsonIgnore\n" ;
+		}
 		if ( attribType == AttributeType.CHILD && getReferenedClassVariable() != null && relationshipType != RelationshipType.MANYTOMANY ) {
 			if ( domainClass.getIdentifier().equals( getAttribute().getEntity().getUnqualifiedLabel() ) ) {
-				output = indent + "@OneToMany(fetch = FetchType.LAZY, mappedBy = \"" + getReferenedClassVariable().getIdentifier() + "\",targetEntity = " + getAttribute().getEntity().getUnqualifiedLabel() + ".class)\n";
+				output += indent + "@OneToMany(fetch = FetchType.LAZY, mappedBy = \"" + getReferenedClassVariable().getIdentifier() + "\",targetEntity = " + getAttribute().getEntity().getUnqualifiedLabel() + ".class)\n";
 			} else {
-				output = indent + "@OneToMany(fetch = FetchType.LAZY, mappedBy = \"" + getReferenedClassVariable().getDomainClass().getLowerIdentifier() + "\", targetEntity = " + getAttribute().getEntity().getUnqualifiedLabel() + ".class)\n";
+				output += indent + "@OneToMany(fetch = FetchType.LAZY, mappedBy = \"" + getReferenedClassVariable().getDomainClass().getLowerIdentifier() + "\", targetEntity = " + getAttribute().getEntity().getUnqualifiedLabel() + ".class)\n";
 			}
 		} else {
-			output = getterAnnotationsToString( indent );
+			output += getterAnnotationsToString( indent );
 		}
 
 		if ( attribType == AttributeType.COMPOSITEKEY ) {

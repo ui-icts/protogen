@@ -74,9 +74,8 @@ ${compositeKey}
     }
 
     @RequestMapping( value = "save${pathExtension}", method = RequestMethod.POST )
-    public String save(${foreignClassParameters}@Valid @ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName}, BindingResult result, Model model ) {
+    public String save(@Valid @ModelAttribute( "${lowerDomainName}" ) ${domainName} ${lowerDomainName}, BindingResult result, Model model ) {
 ${newCompositeKey}
-${foreignClassSetters}
 ${compositeKeySetter}
 		if (result.hasErrors()) { 
 			${addEditListDependencies}

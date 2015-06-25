@@ -96,7 +96,6 @@ public class DomainCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				spaces( out, 4 );
 				out.write( "@DateTimeFormat( pattern = \"yyyy-MM-dd\" )\n" );
 			}
-
 			field = "private " + attrib.getJavaTypeClass() + " " + attrib.getUnqualifiedLowerLabel() + ";\n";
 			spaces( out, 4 );
 			out.write( field );

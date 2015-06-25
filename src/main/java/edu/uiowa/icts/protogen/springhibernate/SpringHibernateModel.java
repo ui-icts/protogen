@@ -118,6 +118,9 @@ public class SpringHibernateModel {
 		importList.add( "org.springframework.format.annotation.DateTimeFormat" );
 		importList.add( "org.hibernate.annotations.*" );
 		importList.add( "javax.persistence.CascadeType" );
+		importList.add( "com.fasterxml.jackson.annotation.JsonIgnoreProperties" );
+		importList.add( "javax.validation.constraints.NotNull");
+		importList.add( "com.fasterxml.jackson.annotation.JsonIgnore");
 		importList.add( packageRoot + ".*" );
 
 		// If entity's primary key's are composite, create class and attribute for composite ID

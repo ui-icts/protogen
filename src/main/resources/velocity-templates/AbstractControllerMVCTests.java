@@ -23,7 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 import edu.uiowa.icts.datatable.DataTableColumn;
 import edu.uiowa.icts.datatable.DataTableRequest;
 import edu.uiowa.icts.datatable.DataTableSearch;
-
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 import ${daoPackageName}.${daoServiceClassName};
 
 /**
@@ -48,15 +48,8 @@ public abstract class AbstractControllerMVCTests {
 	
 	@Before
 	public final void setUp${daoServiceClassName}ControllerMVCTests() {
-		
-		log.debug( "setting up mock MVC" );
-		this.mockMvc = MockMvcBuilders.webAppContextSetup( this.wac ).build();
-
-		log.debug( "setting authentication" );
-		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-		grantedAuthorities.add( new SimpleGrantedAuthority( "ROLE_ICTS-DEVELOPERS" ) );
-		SecurityContextHolder.getContext().setAuthentication( new UsernamePasswordAuthenticationToken( "adminUser", "[PROTECTED]", grantedAuthorities ) );
-		
+		log.debug( "setting up mock MVC and loading security configuration" );
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
 	}
 	
 	protected DataTableRequest getDataTableRequest(List<String> columnNames) {

@@ -218,7 +218,7 @@ public class VelocityControllerGeneratorTest {
 
 		// test save
 		assertThat( sourceCode, containsString( "@RequestMapping( value = \"save\", method = RequestMethod.POST )" ) );
-		assertThat( sourceCode, containsString( "public String save( @Valid @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument, BindingResult result, Model model ) {" ) );
+		assertThat( sourceCode, containsString( "public String save(@Valid @ModelAttribute( \"clinicalDocument\" ) ClinicalDocument clinicalDocument, BindingResult result, Model model ) {" ) );
 		// assertThat( sourceCode, containsString( "if (result.hasErrors()) { return \"/ictssysadmin/clinicaldocument/edit\"; }" ) );
 		assertThat( sourceCode, containsString( "ictssysadminDaoService.getClinicalDocumentService().saveOrUpdate( clinicalDocument );" ) );
 		assertThat( sourceCode, containsString( "return \"redirect:/ictssysadmin/clinicaldocument/list\";" ) );

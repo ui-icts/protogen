@@ -48,10 +48,11 @@
 	      				<label for="${path}" class="control-label">$label</label>
     #if ( $classVariable.getAttribType() == "FOREIGNATTRIBUTE" )
 					<form:select path="${path}" items="${esc.d}{${classVariable.getDomainClass().getLowerIdentifier()}List}" itemValue="${classVariable.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier()}" itemLabel="${classVariable.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier()}" class="form-control"/>
+					<form:errors path="${classVariable.getLowerIdentifier()}" class="help-block" element="span" />
     #else     
-					<form:input path="${path}"  class="form-control#if ( $classVariable.getType().equalsIgnoreCase( "date" ) ) dateinput #end"/>
+					<form:input path="${path}"  class="form-control#if ( $classVariable.getType().equalsIgnoreCase( "date" ) ) dateinput#end"#if ( $classVariable.getType().equalsIgnoreCase( "date" ) ) data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true"#end/>
+    				<form:errors path="${path}" class="help-block" element="span" />
     #end
-					<form:errors path="${path}" class="help-block" element="span" />
 	     			</div>
 				</spring:bind>	
   #end         

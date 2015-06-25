@@ -343,7 +343,8 @@ public class DomainClass {
 		if ( classType == ClassType.ENTITY && entity != null ) {
 			String anno = "";
 			anno += "@Entity( name = \"" + getPackageName().replaceAll( "\\.", "_" ) + "_" + getLowerIdentifier() + "\" )\n";
-			anno += "@Table( name = \"" + entity.getSqlLabel() + "\", schema = \"" + schemaLabel + "\" )";
+			anno += "@Table( name = \"" + entity.getSqlLabel() + "\", schema = \"" + schemaLabel + "\" )\n";
+			anno += "@JsonIgnoreProperties( { \"hibernateLazyInitializer\", \"handler\" } )";
 			return anno;
 		}
 		return "";
