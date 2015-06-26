@@ -12,6 +12,7 @@ import edu.uiowa.icts.protogen.springhibernate.ControllerCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.DAOCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.JSPCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.DomainCodeGenerator;
+import edu.uiowa.icts.protogen.springhibernate.ResourceCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
 import edu.uiowa.icts.protogen.tiles.TilesTemplatesXMLGenerator;
 
@@ -210,6 +211,22 @@ public class Generator {
 				log.debug( "Not generating controller code" );
 			}
 
+			/*
+			 * generate.rest.api = true 
+			 */
+			if ( Boolean.parseBoolean( props.getProperty( "generate.rest.api", "true" ) ) ) {
+				String controllerPath = props.getProperty( "rest.api.file.location", pathPrefix + projectName + "/" + "src" );
+				ResourceCodeGenerator codeGen = new ResourceCodeGenerator( model, controllerPath, packageName, props );
+				try {
+					codeGen.generate();
+				} catch ( Exception e3 ) {
+					log.error( "Could not generate Rest Api Classes: " + controllerPath, e3 );
+					error = 1;
+				}
+			} else {
+				log.debug( "Not generating rest api" );
+			}
+			
 			/*
 			 * generate.jsp = true 
 			 */
