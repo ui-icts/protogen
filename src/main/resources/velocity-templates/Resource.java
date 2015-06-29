@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.*;
 
 import ${domainPackageName}.*;
-import edu.uiowa.icts.demo.domain.HospitalUnit;
 import edu.uiowa.icts.spring.GenericDaoListOptions;
 
 /**
