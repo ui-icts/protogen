@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractControllerMVCTestsGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ControllerMvcTestGenerator;
+import edu.uiowa.icts.protogen.springhibernate.velocity.DefaultResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ResourceMvcTestGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityAbstractControllerGenerator;
@@ -71,15 +72,33 @@ public class ResourceCodeGenerator extends AbstractSpringHibernateCodeGenerator 
 		for ( Schema schema : model.getSchemaMap().keySet() ) {
 			List<DomainClass> domainClassList = model.getSchemaMap().get( schema );
 			if ( domainClassList != null && domainClassList.isEmpty() == false ) {
-				generateAbstractController( schema, model.getPackageRoot(), properties );
+				generateDefaultResource( schema, model.getPackageRoot(), properties );
+				generateAbstractResource( schema, model.getPackageRoot(), properties );
 			}
 		}
 	}
 
 	/**
+	 * generates an default controller
+	 */
+	private void generateDefaultResource( Schema schema, String packageRoot, Properties properties ) throws IOException {
+
+		String packageName = model.getPackageRoot() + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + schema.getLowerLabel() : "" ) + ".resource";
+		String packagePath = pathBase + "/" + packageName.replaceAll( "\\.", "/" );
+
+		// generate abstract resource
+		DefaultResourceGenerator generator = new DefaultResourceGenerator( schema, packageRoot, properties );
+		BufferedWriter out = createFileInSrcElseTarget( packagePath, "DefaultResource.java" );
+		try {
+			out.write( generator.javaSourceCode() );
+		} finally {
+			out.close();
+		}
+	}
+	/**
 	 * generates an abstract controller
 	 */
-	private void generateAbstractController( Schema schema, String packageRoot, Properties properties ) throws IOException {
+	private void generateAbstractResource( Schema schema, String packageRoot, Properties properties ) throws IOException {
 
 		String packageName = model.getPackageRoot() + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + schema.getLowerLabel() : "" ) + ".resource";
 		String packagePath = pathBase + "/" + packageName.replaceAll( "\\.", "/" );

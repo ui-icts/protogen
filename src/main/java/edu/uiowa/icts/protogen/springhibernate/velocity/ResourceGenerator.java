@@ -40,7 +40,7 @@ public class ResourceGenerator extends AbstractVelocityGenerator {
 
 		/* lets make a Context and put data into it */
 		VelocityContext context = new VelocityContext();
-//		context.put( "domainClass", domainClass );
+		context.put( "domainClass", domainClass );
 //		context.put( "controllerName", controllerName );
 //		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
 		context.put( "packageName", getBasePackageName() + ".resource" );

@@ -54,8 +54,8 @@ public class ResourceGeneratorTest {
 		
 		// generate show by id
 		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"{jobTypeId}\" }, method = RequestMethod.GET, produces = \"application/json\"  )" ) );
-		assertThat( sourceCode, containsString( "public JobType get(@PathVariable( \"jobTypeId\" ) Integer jobTypeId ) {" ) );
-		assertThat( sourceCode, containsString( "return aptamerDaoService.getJobTypeService().findById( jobTypeId );" ) );
+		assertThat( sourceCode, containsString( "public ResponseEntity<JobType> get(@PathVariable( \"jobTypeId\" ) Integer jobTypeId ) {" ) );
+		assertThat( sourceCode, containsString( "return new ResponseEntity<>(jobType, HttpStatus.OK);" ) );
 		
 		// generate create
 		

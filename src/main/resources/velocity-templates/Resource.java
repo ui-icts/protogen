@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
 
 import ${domainPackageName}.*;
+import edu.uiowa.icts.demo.domain.HospitalUnit;
 import edu.uiowa.icts.spring.GenericDaoListOptions;
 
 /**
@@ -34,8 +36,13 @@ public class ${className} extends ${abstractControllerClassName} {
     private static final Log log = LogFactory.getLog( ${className}.class );
     
     @RequestMapping( value = { "{${lowerDomainName}Id}" }, method = RequestMethod.GET, produces = "application/json"  )
-    public ${domainName} get(@PathVariable( "${lowerDomainName}Id" ) Integer ${lowerDomainName}Id ) {
-         return ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id );
+    public ResponseEntity<${domainName}> get(@PathVariable( "${lowerDomainName}Id" ) ${domainClass.getPrimaryKey().getAttribute().getJavaTypeClass()} ${lowerDomainName}Id ) {
+    	 ${domainName} ${lowerDomainName} = ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id );
+		 if (${lowerDomainName} == null){
+			 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		 } else {
+			 return new ResponseEntity<>(${lowerDomainName}, HttpStatus.OK);
+		 }
     }
 
 }

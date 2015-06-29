@@ -30,7 +30,6 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import ${controllerPackageName}.AbstractControllerMVCTests;
 
 /**
@@ -73,6 +72,21 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	         .andExpect(content().contentType("application/json"))
 	        .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
 	        ;
+	    }
+      
+	    @Test
+	    public void getByPathVariableIdShouldReturn404ForBogusId() throws Exception {
+	    	mockMvc.perform(get("${pathPrefix}/-123")).andExpect(status().isNotFound());
+	    }
+	    
+	    @Test
+	    public void restMappingNotFoundShouldReturn404() throws Exception {
+	    	mockMvc.perform(get("${pathPrefix}/asdfasdf/asdfasdf"))
+	    	.andExpect(status().isNotFound())
+	    	 .andExpect(content().contentType("application/json"))
+	        .andExpect(jsonPath("$.message", is("${pathPrefix}/asdfasdf/asdfasdf could not be found.")))
+	        .andExpect(jsonPath("$.error", is(true)))
+	    	;
 	    }
     
       #end
