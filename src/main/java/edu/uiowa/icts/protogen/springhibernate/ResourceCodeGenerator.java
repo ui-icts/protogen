@@ -13,6 +13,7 @@ import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractControllerMVCTes
 import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ControllerMvcTestGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ResourceGenerator;
+import edu.uiowa.icts.protogen.springhibernate.velocity.ResourceMvcTestGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityAbstractControllerGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityControllerGenerator;
 import edu.uiowa.webapp.Schema;
@@ -41,16 +42,16 @@ public class ResourceCodeGenerator extends AbstractSpringHibernateCodeGenerator 
 
 		String className = domainClass.getIdentifier() + "Resource";
 
-//		if ( Boolean.valueOf( properties.getProperty( "generate.test", "false" ) ) ) {
-//			// Generate corresponding Spring MVC test file
-//			ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator( model.getPackageRoot(), domainClass, properties );
-//			BufferedWriter testWriter = createFileInSrcElseTarget( packagePath.replaceFirst( "src/main", "src/test" ), className + "MvcTest.java" );
-//			try {
-//				testWriter.write( generator.javaSourceCode() );
-//			} finally {
-//				testWriter.close();
-//			}
-//		}
+		if ( Boolean.valueOf( properties.getProperty( "generate.test", "false" ) ) ) {
+			// Generate corresponding Spring MVC test file
+			ResourceMvcTestGenerator generator = new ResourceMvcTestGenerator( model.getPackageRoot(), domainClass, properties );
+			BufferedWriter testWriter = createFileInSrcElseTarget( packagePath.replaceFirst( "src/main", "src/test" ), className + "MvcTest.java" );
+			try {
+				testWriter.write( generator.javaSourceCode() );
+			} finally {
+				testWriter.close();
+			}
+		}
 
 		ResourceGenerator vcg = new ResourceGenerator( model.getPackageRoot(), domainClass, properties );
 		BufferedWriter controllerWriter = createFileInSrcElseTarget( packagePath, className + ".java" );
