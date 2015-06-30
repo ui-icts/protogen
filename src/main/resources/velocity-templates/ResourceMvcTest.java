@@ -39,6 +39,7 @@ import ${controllerPackageName}.AbstractControllerMVCTests;
 public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	
     private ${className} first${className};
+    private ObjectMapper mapper;
     
     @Before
     public void before() {
@@ -56,6 +57,10 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	        	first${className} = ${classNameLowerCaseFirstLetter};
 	        }
         }   
+        this.mapper = new ObjectMapper();
+        // fix NonUniqueObjectException
+        this.${daoServiceName}.get${className}Service().getSession().flush();
+        this.${daoServiceName}.get${className}Service().getSession().clear();
       #end
     }    
     
@@ -85,8 +90,58 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	    	.andExpect(status().isNotFound())
 	    	 .andExpect(content().contentType("application/json"))
 	        .andExpect(jsonPath("$.message", is("${pathPrefix}/asdfasdf/asdfasdf could not be found.")))
-	        .andExpect(jsonPath("$.error", is(true)))
 	    	;
+	    }
+	    
+	    @Test
+	    public void createShouldPersistAndReturnObject() throws Exception {
+		   long count = ${daoServiceName}.get${className}Service().count();	       
+		   ${className} ${classNameLowerCaseFirstLetter} = new ${className}(); 
+	       
+	       mockMvc.perform(post("${pathPrefix}/").content(this.mapper.writeValueAsString(${classNameLowerCaseFirstLetter}))
+		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+	       .andExpect(status().isOk())
+	       .andExpect(content().contentType("application/json"))
+	       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}").value(IsNull.notNullValue()))  
+	       ;
+	       
+	       assertEquals("count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().count());
+		}
+	     
+	    @Test
+	    public void updateShouldPersistExistingAndReturnObject() throws Exception {
+	       long count = ${daoServiceName}.get${className}Service().count();
+
+	       mockMvc.perform(post("${pathPrefix}/"+ first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())
+	    		   .content(this.mapper.writeValueAsString(first${className}))
+	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+	       .andExpect(status().isOk())
+	       .andExpect(content().contentType("application/json"))
+	       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
+	       ;
+	         
+	       assertEquals("count NOT should increase", count , ${daoServiceName}.get${className}Service().count());
+	  	}  
+	    
+	    @Test
+	    public void updateByPathVariableIdShouldReturn404ForMismatchBetweenPathIdAndObjectId() throws Exception {	       
+	       String correctId =  first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString();
+	       // this ID manipulation should be overwritten with path variable id
+	       first${className}.set${domainClass.getPrimaryKey().getUpperIdentifier()}(-123);
+	       
+	       mockMvc.perform(post("${pathPrefix}/"+correctId)
+	    		   .content(this.mapper.writeValueAsString(first${className}))
+	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+	       .andExpect(status().isNotFound());
+	       ;
+	  	} 
+	    
+	    @Test
+	    public void updateByPathVariableIdShouldReturn404ForBogusPathId() throws Exception {
+	    	mockMvc.perform(post("${pathPrefix}/-123")
+	    			.content(this.mapper.writeValueAsString(first${className}))
+	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+	    	.andExpect(status().isNotFound());
 	    }
     
       #end

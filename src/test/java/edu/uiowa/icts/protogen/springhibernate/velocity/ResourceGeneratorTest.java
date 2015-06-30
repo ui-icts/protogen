@@ -50,12 +50,12 @@ public class ResourceGeneratorTest {
 		assertThat( sourceCode, containsString( "package edu.uiowa.icts.aptamer.resource;" ) );
 		assertThat( sourceCode, containsString( "@RestController" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( \"/api/jobtype\" )" ) );
-		assertThat( sourceCode, containsString( "public class JobTypeResource extends AbstractAptamerResource {"));
+		assertThat( sourceCode, containsString( "public class JobTypeResource extends AbstractAptamerApiResource {"));
 		
 		// generate show by id
-		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"{jobTypeId}\" }, method = RequestMethod.GET, produces = \"application/json\"  )" ) );
-		assertThat( sourceCode, containsString( "public ResponseEntity<JobType> get(@PathVariable( \"jobTypeId\" ) Integer jobTypeId ) {" ) );
-		assertThat( sourceCode, containsString( "return new ResponseEntity<>(jobType, HttpStatus.OK);" ) );
+		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"{jobTypeId}\" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )" ) );
+		assertThat( sourceCode, containsString( "public JobType get(@PathVariable( \"jobTypeId\" ) Integer jobTypeId ) {" ) );
+		assertThat( sourceCode, containsString( "return jobType;" ) );
 		
 		// generate create
 		

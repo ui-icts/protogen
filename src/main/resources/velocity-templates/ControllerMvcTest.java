@@ -55,6 +55,8 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
 	        	first${className} = ${classNameLowerCaseFirstLetter};
 	        }
         }   
+        this.${daoServiceName}.get${className}Service().getSession().flush();
+        this.${daoServiceName}.get${className}Service().getSession().clear();
       #end
     }
 
@@ -97,20 +99,20 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     	  
     @Test
     public void saveNewShouldPersistAndRedirectToListView() throws Exception {
-       int count = ${daoServiceName}.get${className}Service().list().size();
+       long count = ${daoServiceName}.get${className}Service().count();
        
        mockMvc.perform(post("${pathPrefix}/save${pathExtension}")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));   
        
-       assertEquals("${className} count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().list().size());
+       assertEquals("count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().count());
 	}
      
     @Test
     public void saveExistingShouldPersistAndRedirectToListView() throws Exception {
-       int count = ${daoServiceName}.get${className}Service().list().size();
+       long count = ${daoServiceName}.get${className}Service().count();
          
        mockMvc.perform(post("${pathPrefix}/save${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));   
          
-       assertEquals("${className} count NOT should increase", count , ${daoServiceName}.get${className}Service().list().size());
+       assertEquals("count NOT should increase", count , ${daoServiceName}.get${className}Service().count());
   	}      
   
     @Test
@@ -139,22 +141,22 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
     
     @Test
     public void deletePostSubmitYesShouldDeleteAndRedirectToListView() throws Exception {
-        int count = ${daoServiceName}.get${className}Service().list().size();
+        long count = ${daoServiceName}.get${className}Service().count();
 
        mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())
        .param("submit", "Yes")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));  
        
-       assertEquals("count should decrease by 1", count - 1 , ${daoServiceName}.get${className}Service().list().size());
+       assertEquals("count should decrease by 1", count - 1 , ${daoServiceName}.get${className}Service().count());
     }
     
     @Test
     public void deletePostSubmitNoShouldNotDeleteAndRedirectToListView() throws Exception {
-        int count = ${daoServiceName}.get${className}Service().list().size();
+        long count = ${daoServiceName}.get${className}Service().count();
 
        mockMvc.perform(post("${pathPrefix}/delete${pathExtension}").param("${domainClass.getPrimaryKey().getLowerIdentifier()}", first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())
        .param("submit", "No")).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:${pathPrefix}/list${pathExtension}"));  
        
-       assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().list().size());
+       assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().count());
     }
       
     @Test
@@ -167,8 +169,8 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
 			.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())
     	.andExpect(content().contentType("application/json"))
-    	.andExpect(jsonPath("$.recordsTotal", is(${daoServiceName}.get${className}Service().list().size())))
-    	.andExpect(jsonPath("$.recordsFiltered", is(${daoServiceName}.get${className}Service().list().size())))
+    	.andExpect(jsonPath("$.recordsTotal", is((int) ${daoServiceName}.get${className}Service().count())))
+    	.andExpect(jsonPath("$.recordsFiltered", is((int) ${daoServiceName}.get${className}Service().count())))
     	.andExpect(jsonPath("$.draw", is("1")))
     	// max # of returned data rows should be 10 per "length" value
     	.andExpect(jsonPath("$.data", hasSize(is(10))))
@@ -188,8 +190,8 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
 			.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())
     	.andExpect(content().contentType("application/json"))
-    	.andExpect(jsonPath("$.recordsTotal", is(${daoServiceName}.get${className}Service().list().size())))
-    	.andExpect(jsonPath("$.recordsFiltered", is(${daoServiceName}.get${className}Service().list().size())))
+    	.andExpect(jsonPath("$.recordsTotal", is((int) ${daoServiceName}.get${className}Service().count())))
+    	.andExpect(jsonPath("$.recordsFiltered", is((int) ${daoServiceName}.get${className}Service().count())))
     	.andExpect(jsonPath("$.draw", is("1")))
     	// max # of returned data rows should be 10 per "length" value
     	.andExpect(jsonPath("$.data", hasSize(is(10))))
@@ -219,8 +221,8 @@ public class ${className}ControllerMvcTest extends AbstractControllerMVCTests {
 			.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())
     	.andExpect(content().contentType("application/json"))
-    	.andExpect(jsonPath("$.recordsTotal", is(${daoServiceName}.get${className}Service().list().size())))
-    	.andExpect(jsonPath("$.recordsFiltered", is(${daoServiceName}.get${className}Service().list().size())))
+    	.andExpect(jsonPath("$.recordsTotal", is((int) ${daoServiceName}.get${className}Service().count())))
+    	.andExpect(jsonPath("$.recordsFiltered", is((int) ${daoServiceName}.get${className}Service().count())))
     	.andExpect(jsonPath("$.draw", is("1")))
     	.andExpect(jsonPath("$.data", hasSize(is(10))))
     	.andExpect(jsonPath("$.data[0].error", is("[error: column asdfasdf not supported]")))

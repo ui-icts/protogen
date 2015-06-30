@@ -48,12 +48,7 @@ public class ResourceGenerator extends AbstractVelocityGenerator {
 		context.put( "pathPrefix", properties.getProperty( "rest.api.url") + getPathPrefix() );
 		context.put( "domainName", domainClass.getIdentifier() );
 		context.put( "lowerDomainName", domainClass.getLowerIdentifier() );
-
-		String abstractControllerClassName = properties.getProperty( domainClass.getSchema().getLabel().toLowerCase() + ".abstract.resource.name" );
-		if ( abstractControllerClassName == null ) {
-			abstractControllerClassName = "Abstract" + domainClass.getSchema().getUpperLabel() + "Resource";
-		}
-		context.put( "abstractControllerClassName", abstractControllerClassName );
+		context.put( "abstractApiResourceClassName", getAbstractApiResourceClassName() );
 
 		addDaoServiceNameToVelocityContext( context );
 
@@ -76,5 +71,7 @@ public class ResourceGenerator extends AbstractVelocityGenerator {
 		return writer.toString();
 
 	}
+
+	
 
 }

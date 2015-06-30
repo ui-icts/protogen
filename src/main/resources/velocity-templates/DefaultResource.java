@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping( "${pathPrefix}" )
-public class DefaultResource extends AbstractDemoResource {
+public class DefaultResource extends ${abstractApiResourceClassName} {
 
 	@RequestMapping( value = "/**" , produces = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Map<String, Object>> mappingNotFound( HttpServletRequest request ) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put( "error", true );
 		map.put( "message", request.getRequestURI() + " could not be found." );
 		return new ResponseEntity<Map<String, Object>>( map, HttpStatus.NOT_FOUND );
 	}

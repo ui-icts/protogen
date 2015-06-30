@@ -32,6 +32,7 @@ public class DefaultResourceGenerator extends AbstractVelocityGenerator {
 		context.put( "packageName", getBasePackageName() + ".resource");
 		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
 		context.put( "pathPrefix", properties.getProperty( "rest.api.url"));
+		context.put( "abstractApiResourceClassName", getAbstractApiResourceClassName() );
 
 		StringWriter writer = new StringWriter();
 		Velocity.mergeTemplate( "/velocity-templates/DefaultResource.java", Velocity.ENCODING_DEFAULT, context, writer );

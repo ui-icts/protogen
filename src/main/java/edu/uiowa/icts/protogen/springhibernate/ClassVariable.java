@@ -277,6 +277,7 @@ public class ClassVariable
 
 	String getDateStringSetter( String indent ) {
 		String output = "\n";
+		output += indent + "@JsonIgnore\n";
 		output += indent + "public void set" + getUpperIdentifier() + "( String " + identifier + " ){\n";
 		output += indent + indent + "try{\n";
 		output += indent + indent + indent + "DateFormat formatter = new SimpleDateFormat( \"MM/dd/yyyy\" );\n";

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.*;
 
 import ${domainPackageName}.*;
+import edu.uiowa.icts.exception.EntityNotFoundException;
 import edu.uiowa.icts.spring.GenericDaoListOptions;
 
 /**
@@ -30,18 +31,35 @@ import edu.uiowa.icts.spring.GenericDaoListOptions;
  */
 @RestController
 @RequestMapping( "${pathPrefix}" )
-public class ${className} extends ${abstractControllerClassName} {
+public class ${className} extends ${abstractApiResourceClassName} {
 
     private static final Log log = LogFactory.getLog( ${className}.class );
     
-    @RequestMapping( value = { "{${lowerDomainName}Id}" }, method = RequestMethod.GET, produces = "application/json"  )
-    public ResponseEntity<${domainName}> get(@PathVariable( "${lowerDomainName}Id" ) ${domainClass.getPrimaryKey().getAttribute().getJavaTypeClass()} ${lowerDomainName}Id ) {
+    @RequestMapping( value = { "{${lowerDomainName}Id}" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
+    public ${domainName} get(@PathVariable( "${lowerDomainName}Id" ) ${domainClass.getPrimaryKey().getAttribute().getJavaTypeClass()} ${lowerDomainName}Id ) {
     	 ${domainName} ${lowerDomainName} = ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id );
 		 if (${lowerDomainName} == null){
-			 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		 } else {
-			 return new ResponseEntity<>(${lowerDomainName}, HttpStatus.OK);
-		 }
+			 throw new EntityNotFoundException();
+		 } 
+	     return ${lowerDomainName};
+    }
+    
+    @RequestMapping( method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE  )
+    public ${domainName} create(@RequestBody @Valid ${domainName} ${lowerDomainName} ) {
+		 ${daoServiceName}.get${domainName}Service().save( ${lowerDomainName} );
+		 return ${lowerDomainName};
+    }
+    
+    @RequestMapping( value = { "{${lowerDomainName}Id}" }, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE  )
+    public ${domainName} update(@PathVariable( "${lowerDomainName}Id" ) ${domainClass.getPrimaryKey().getAttribute().getJavaTypeClass()} ${lowerDomainName}Id, @RequestBody @Valid ${domainName} ${lowerDomainName} ) {
+    	${domainName} ${lowerDomainName}Record = ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id );
+    	if (${lowerDomainName}Record == null || !${lowerDomainName}Record.get${domainClass.getPrimaryKey().getUpperIdentifier()}().equals(${lowerDomainName}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())){
+			 throw new EntityNotFoundException(); 
+		 } 
+    	 ${daoServiceName}.get${domainName}Service().getSession().flush();
+         ${daoServiceName}.get${domainName}Service().getSession().clear();
+		 ${daoServiceName}.get${domainName}Service().update( ${lowerDomainName} );
+		 return ${lowerDomainName};
     }
 
 }

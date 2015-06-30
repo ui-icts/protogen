@@ -18,9 +18,9 @@ import edu.uiowa.webapp.Schema;
  * @author rmjames
  * @since April 23, 2015
  */
-public class AbstractResourceGenerator extends AbstractVelocityGenerator {
+public class AbstractApiResourceGenerator extends AbstractVelocityGenerator {
 
-	public AbstractResourceGenerator( Schema schema, String packageRoot, Properties properties ) {
+	public AbstractApiResourceGenerator( Schema schema, String packageRoot, Properties properties ) {
 		super( schema, packageRoot, properties );
 	}
 
@@ -30,22 +30,21 @@ public class AbstractResourceGenerator extends AbstractVelocityGenerator {
 		sdf.setTimeZone( TimeZone.getDefault() );
 
 		VelocityContext context = new VelocityContext();
-		context.put( "packageName", getBasePackageName() + ".web");
+		context.put( "packageName", getBasePackageName() + ".resource");
+		context.put( "abstractResourcePackageName", getBasePackageName() + ".web");
 		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
-
+		
+		String abstractApiResourceClassName = properties.getProperty( schema + ".abstract.resource.name" );
+		if ( abstractApiResourceClassName == null ) {
+			abstractApiResourceClassName = "Abstract" + schema.getUpperLabel() + "ApiResource";
+		}
+		context.put( "abstractApiResourceClassName", abstractApiResourceClassName );
 		context.put( "abstractResourceClassName", getAbstractResourceClassName() );
-		context.put( "daoPackageName", getDaoPackageName() );
-
-		String daoServiceClassName = getDaoServiceClassName();
-		context.put( "daoServiceClassName", daoServiceClassName );
-		context.put( "daoServiceVariableName", StringUtils.substring( daoServiceClassName, 0, 1 ).toLowerCase() + StringUtils.substring( daoServiceClassName, 1, daoServiceClassName.length() ) );
 		
 		StringWriter writer = new StringWriter();
-		Velocity.mergeTemplate( "/velocity-templates/AbstractResource.java", Velocity.ENCODING_DEFAULT, context, writer );
+		Velocity.mergeTemplate( "/velocity-templates/AbstractApiResource.java", Velocity.ENCODING_DEFAULT, context, writer );
 		return writer.toString();
 
 	}
-
-	
 
 }

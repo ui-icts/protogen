@@ -102,7 +102,23 @@ public abstract class AbstractVelocityGenerator {
 		}
 		return daoServiceName;
 	}
-
+	
+	protected String getAbstractResourceClassName() {
+		String abstractResourceClassName = properties.getProperty( this.schema.getLowerLabel() + ".abstract.resource.name" );
+		if ( abstractResourceClassName == null ) {
+			abstractResourceClassName = "Abstract" + this.schema.getUpperLabel() + "Resource";
+		}
+		return abstractResourceClassName;
+	}
+	
+	protected String getAbstractApiResourceClassName() {
+		String abstractApiResourceClassName = properties.getProperty( this.schema.getLowerLabel() + ".abstract.resource.name" );
+		if ( abstractApiResourceClassName == null ) {
+			abstractApiResourceClassName = "Abstract" + this.schema.getUpperLabel() + "ApiResource";
+		}
+		return abstractApiResourceClassName;
+	}
+	
 	protected String newCompositeKey() {
 		StringBuilder output = new StringBuilder();
 		if ( domainClass.isUsesCompositeKey() ) {

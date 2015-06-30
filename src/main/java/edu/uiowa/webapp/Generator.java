@@ -1,11 +1,13 @@
 package edu.uiowa.webapp;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import edu.uiowa.icts.protogen.springhibernate.AbstractResourceCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.BaseTestCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.ColumnDeobfuscationCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.ControllerCodeGenerator;
@@ -14,6 +16,7 @@ import edu.uiowa.icts.protogen.springhibernate.JSPCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.DomainCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.ResourceCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
+import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractResourceGenerator;
 import edu.uiowa.icts.protogen.tiles.TilesTemplatesXMLGenerator;
 
 public class Generator {
@@ -193,6 +196,23 @@ public class Generator {
 				}
 			} else {
 				log.debug( "Not generating dao code" );
+			}
+
+			/*
+			 * generate abstract resource
+			 */
+			if ( Boolean.parseBoolean( props.getProperty( "generate.controller", "true" ) ) || Boolean.parseBoolean( props.getProperty( "generate.rest.api", "true" ) ) ) {
+				String controllerPath = props.getProperty( "controller.file.location", pathPrefix + projectName + "/" + "src" );
+				AbstractResourceCodeGenerator codeGen = new AbstractResourceCodeGenerator( model, controllerPath, packageName, props );
+				try {
+					codeGen.generate();
+				} catch ( Exception e3 ) {
+					log.error( "Could not generate abstract resource: " + controllerPath, e3 );
+					error = 1;
+				}
+				
+			} else {
+				log.debug( "Not generating abstract resource" );
 			}
 
 			/*

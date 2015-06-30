@@ -119,9 +119,9 @@ public class ControllerMvcTestGeneratorTest {
 
 		// test save new
 		assertThat( sourceCode, containsString( "public void saveNewShouldPersistAndRedirectToListView() throws Exception {" ) );
-		assertThat( sourceCode, containsString( "int count = ictssysadminDaoService.getClinicalDocumentService().list().size();" ) );
+		assertThat( sourceCode, containsString( "long count = ictssysadminDaoService.getClinicalDocumentService().count();" ) );
 		assertThat( sourceCode, containsString( "mockMvc.perform(post(\"/ictssysadmin/clinicaldocument/save\")).andExpect(status().is3xxRedirection()).andExpect(view().name(\"redirect:/ictssysadmin/clinicaldocument/list\"));" ) );
-		assertThat( sourceCode, containsString( "assertEquals(\"ClinicalDocument count should increase by 1\", count +1 , ictssysadminDaoService.getClinicalDocumentService().list().size());" ) );
+		assertThat( sourceCode, containsString( "assertEquals(\"count should increase by 1\", count +1 , ictssysadminDaoService.getClinicalDocumentService().count());" ) );
 	}
 
 	@Test
@@ -174,9 +174,9 @@ public class ControllerMvcTestGeneratorTest {
 
 		// test save
 		assertThat( sourceCode, containsString( "public void saveNewShouldPersistAndRedirectToListView() throws Exception {" ) );
-		assertThat( sourceCode, containsString( "int count = ictssysadminDaoService.getClinicalDocumentService().list().size();" ) );
+		assertThat( sourceCode, containsString( "long count = ictssysadminDaoService.getClinicalDocumentService().count();" ) );
 		assertThat( sourceCode, containsString( "mockMvc.perform(post(\"/clinicaldocument/save\")).andExpect(status().is3xxRedirection()).andExpect(view().name(\"redirect:/clinicaldocument/list\"));" ) );
-		assertThat( sourceCode, containsString( "assertEquals(\"ClinicalDocument count should increase by 1\", count +1 , ictssysadminDaoService.getClinicalDocumentService().list().size());" ) );
+		assertThat( sourceCode, containsString( "assertEquals(\"count should increase by 1\", count +1 , ictssysadminDaoService.getClinicalDocumentService().count());" ) );
 
 	}
 
@@ -279,8 +279,8 @@ public class ControllerMvcTestGeneratorTest {
 		assertThat( sourceCode, containsString( ".accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(status().isOk())" ) );
 		assertThat( sourceCode, containsString( ".andExpect(content().contentType(\"application/json\"))" ) );
-		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.recordsTotal\", is(aptamerDaoService.getJobTypeService().list().size())))" ) );
-		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.recordsFiltered\", is(aptamerDaoService.getJobTypeService().list().size())))" ) );
+		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.recordsTotal\", is((int) aptamerDaoService.getJobTypeService().count())))" ) );
+		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.recordsFiltered\", is((int) aptamerDaoService.getJobTypeService().count())))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.draw\", is(\"1\")))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.data\", hasSize(is(10))))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.data[0][0]\", containsString(\"show?\")))" ) );
@@ -318,18 +318,18 @@ public class ControllerMvcTestGeneratorTest {
 		assertThat( sourceCode, containsString( ".andExpect(view().name(\"/aptamer/jobtype/delete\"));" ) );
 
 		// test delete POST - YES
-		assertThat( sourceCode, containsString( "int count = aptamerDaoService.getJobTypeService().list().size();" ) );
+		assertThat( sourceCode, containsString( "long count = aptamerDaoService.getJobTypeService().count();" ) );
 		assertThat( sourceCode, containsString( "public void deletePostSubmitYesShouldDeleteAndRedirectToListView() throws Exception {" ) );
 		assertThat( sourceCode, containsString( "mockMvc.perform(post(\"/jobtype/delete\").param(\"jobTypeId\", firstJobType.getJobTypeId().toString())" ) );
 		assertThat( sourceCode, containsString( ".param(\"submit\", \"Yes\")).andExpect(status().is3xxRedirection()).andExpect(view().name(\"redirect:/jobtype/list\"));" ) );
-		assertThat( sourceCode, containsString( "assertEquals(\"count should decrease by 1\", count - 1 , aptamerDaoService.getJobTypeService().list().size());" ) );
+		assertThat( sourceCode, containsString( "assertEquals(\"count should decrease by 1\", count - 1 , aptamerDaoService.getJobTypeService().count());" ) );
 
 		// test delete POST - NO
-		assertThat( sourceCode, containsString( "int count = aptamerDaoService.getJobTypeService().list().size();" ) );
+		assertThat( sourceCode, containsString( "long count = aptamerDaoService.getJobTypeService().count();" ) );
 		assertThat( sourceCode, containsString( "public void deletePostSubmitNoShouldNotDeleteAndRedirectToListView() throws Exception {" ) );
 		assertThat( sourceCode, containsString( "mockMvc.perform(post(\"/jobtype/delete\").param(\"jobTypeId\", firstJobType.getJobTypeId().toString())" ) );
 		assertThat( sourceCode, containsString( ".param(\"submit\", \"No\")).andExpect(status().is3xxRedirection()).andExpect(view().name(\"redirect:/jobtype/list\"));" ) );
-		assertThat( sourceCode, containsString( "assertEquals(\"count should NOT decrease by 1\", count , aptamerDaoService.getJobTypeService().list().size());" ) );
+		assertThat( sourceCode, containsString( "assertEquals(\"count should NOT decrease by 1\", count , aptamerDaoService.getJobTypeService().count());" ) );
 
 	}
 

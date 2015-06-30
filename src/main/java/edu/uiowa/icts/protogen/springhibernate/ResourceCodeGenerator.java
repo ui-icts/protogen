@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractApiResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractControllerMVCTestsGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ControllerMvcTestGenerator;
@@ -104,14 +105,14 @@ public class ResourceCodeGenerator extends AbstractSpringHibernateCodeGenerator 
 		String packagePath = pathBase + "/" + packageName.replaceAll( "\\.", "/" );
 
 		// generate abstract resource
-		AbstractResourceGenerator generator = new AbstractResourceGenerator( schema, packageRoot, properties );
+		AbstractApiResourceGenerator generator = new AbstractApiResourceGenerator( schema, packageRoot, properties );
 
-		String abstractControllerClassName = properties.getProperty( schema.getLabel().toLowerCase() + ".abstract.resource.name" );
-		if ( abstractControllerClassName == null ) {
-			abstractControllerClassName = "Abstract" + schema.getUpperLabel() + "Resource";
+		String abstractClassName = properties.getProperty( schema.getLabel().toLowerCase() + ".abstract.resource.name" + "Api");
+		if ( abstractClassName == null ) {
+			abstractClassName = "Abstract" + schema.getUpperLabel() + "ApiResource";
 		}
 
-		BufferedWriter out = createFileInSrcElseTarget( packagePath, abstractControllerClassName + ".java" );
+		BufferedWriter out = createFileInSrcElseTarget( packagePath, abstractClassName + ".java" );
 		try {
 			out.write( generator.javaSourceCode() );
 		} finally {

@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.TimeZone;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
@@ -31,19 +30,16 @@ public class VelocityAbstractControllerGenerator extends AbstractVelocityGenerat
 
 		VelocityContext context = new VelocityContext();
 		context.put( "packageName", getControllerPackageName() );
-		context.put( "daoPackageName", getDaoPackageName() );
+		context.put( "abstractResourcePackageName", getBasePackageName() + ".web");
 		context.put( "date", sdf.format( new Date() ) ); // can be done with Velocity tools but let's keep it simple to start
-
-		String daoServiceClassName = getDaoServiceClassName();
-		context.put( "daoServiceClassName", daoServiceClassName );
-		context.put( "daoServiceVariableName", StringUtils.substring( daoServiceClassName, 0, 1 ).toLowerCase() + StringUtils.substring( daoServiceClassName, 1, daoServiceClassName.length() ) );
 
 		String abstractControllerClassName = properties.getProperty( schema + ".abstract.controller.name" );
 		if ( abstractControllerClassName == null ) {
 			abstractControllerClassName = "Abstract" + schema.getUpperLabel() + "Controller";
 		}
 		context.put( "abstractControllerClassName", abstractControllerClassName );
-
+		context.put( "abstractResourceClassName", getAbstractResourceClassName() );
+		
 		StringWriter writer = new StringWriter();
 		Velocity.mergeTemplate( "/velocity-templates/AbstractController.java", Velocity.ENCODING_DEFAULT, context, writer );
 		return writer.toString();
