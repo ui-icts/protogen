@@ -81,7 +81,7 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
       
 	    @Test
 	    public void getByPathVariableIdShouldReturn404ForBogusId() throws Exception {
-	    	mockMvc.perform(get("${pathPrefix}/-123")).andExpect(status().isNotFound());
+	    	mockMvc.perform(get("${pathPrefix}/-123")).andExpect(status().isNotFound()).andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));
 	    }
 	    
 	    @Test
@@ -132,7 +132,9 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	       mockMvc.perform(post("${pathPrefix}/"+correctId)
 	    		   .content(this.mapper.writeValueAsString(first${className}))
 	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-	       .andExpect(status().isNotFound());
+	       .andExpect(status().isNotFound())
+	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+	       .andExpect(jsonPath("$.message", is("${pathPrefix}/" +correctId +" could not be found.")))
 	       ;
 	  	} 
 	    
@@ -141,7 +143,31 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	    	mockMvc.perform(post("${pathPrefix}/-123")
 	    			.content(this.mapper.writeValueAsString(first${className}))
 	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-	    	.andExpect(status().isNotFound());
+	    	.andExpect(status().isNotFound())
+	    	.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		    .andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));
+	    }
+	    
+	    @Test
+	    public void deleteShouldDeleteAndReturnStatusOk() throws Exception {
+	        long count = ${daoServiceName}.get${className}Service().count();
+
+	        mockMvc.perform(delete("${pathPrefix}/"+ first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
+	       .andExpect(status().isOk());  
+	       
+	       assertEquals("count should decrease by 1", count - 1 , ${daoServiceName}.get${className}Service().count());
+	    }
+	    
+	    @Test
+	    public void deleteShouldFailWithBogusId() throws Exception {
+	        long count = ${daoServiceName}.get${className}Service().count();
+
+	        mockMvc.perform(delete("${pathPrefix}/-123"))
+	       .andExpect(status().isNotFound())
+	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+	       .andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));  
+	       
+	       assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().count());
 	    }
     
       #end

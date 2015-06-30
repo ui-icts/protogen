@@ -61,5 +61,15 @@ public class ${className} extends ${abstractApiResourceClassName} {
 		 ${daoServiceName}.get${domainName}Service().update( ${lowerDomainName} );
 		 return ${lowerDomainName};
     }
+    
+    @RequestMapping( value = { "{${lowerDomainName}Id}" }, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE )
+    public String delete(@PathVariable( "${lowerDomainName}Id" ) ${domainClass.getPrimaryKey().getAttribute().getJavaTypeClass()} ${lowerDomainName}Id ) {
+    	${domainName} ${lowerDomainName} = ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id );
+		 if (${lowerDomainName} == null){
+			 throw new EntityNotFoundException();
+		 } 
+		 ${daoServiceName}.get${domainName}Service().delete(${lowerDomainName});
+	     return "";
+    }
 
 }
