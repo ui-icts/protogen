@@ -71,5 +71,10 @@ public class ${className} extends ${abstractApiResourceClassName} {
 		 ${daoServiceName}.get${domainName}Service().delete(${lowerDomainName});
 	     return "";
     }
+    
+    @RequestMapping( value = {  "", "/"  }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
+    public List<${domainName}> list() {
+    	 return ${daoServiceName}.get${domainName}Service().list();
+    }
 
 }

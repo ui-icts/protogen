@@ -69,7 +69,7 @@ public class ResourceTestGeneratorTest {
 		assertThat( sourceCode, containsString( "public void getByPathVariableIdShouldLoadAndReturnObject() throws Exception {" ) );
 		assertThat( sourceCode, containsString( "mockMvc.perform(get(\"/api/jobtype/\"+firstJobType.getJobTypeId().toString()))" ));
 		assertThat( sourceCode, containsString( ".andExpect(status().isOk())" ) );
-		assertThat( sourceCode, containsString( ".andExpect(content().contentType(\"application/json\"))" ) );
+		assertThat( sourceCode, containsString( ".andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))" ) );
 		assertThat( sourceCode, containsString( ".andExpect(jsonPath(\"$.jobTypeId\", is(firstJobType.getJobTypeId()))" ) );
 		
 		// generate create

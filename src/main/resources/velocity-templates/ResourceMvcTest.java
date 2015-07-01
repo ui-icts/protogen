@@ -74,7 +74,7 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	    public void getByPathVariableIdShouldLoadAndReturnObject() throws Exception {
 	    	mockMvc.perform(get("${pathPrefix}/"+first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
 	         .andExpect(status().isOk())
-	         .andExpect(content().contentType("application/json"))
+	         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 	        .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
 	        ;
 	    }
@@ -88,7 +88,7 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	    public void restMappingNotFoundShouldReturn404() throws Exception {
 	    	mockMvc.perform(get("${pathPrefix}/asdfasdf/asdfasdf"))
 	    	.andExpect(status().isNotFound())
-	    	 .andExpect(content().contentType("application/json"))
+	    	 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 	        .andExpect(jsonPath("$.message", is("${pathPrefix}/asdfasdf/asdfasdf could not be found.")))
 	    	;
 	    }
@@ -101,7 +101,7 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	       mockMvc.perform(post("${pathPrefix}/").content(this.mapper.writeValueAsString(${classNameLowerCaseFirstLetter}))
 		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
 	       .andExpect(status().isOk())
-	       .andExpect(content().contentType("application/json"))
+	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 	       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}").value(IsNull.notNullValue()))  
 	       ;
 	       
@@ -116,7 +116,7 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	    		   .content(this.mapper.writeValueAsString(first${className}))
 	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
 	       .andExpect(status().isOk())
-	       .andExpect(content().contentType("application/json"))
+	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 	       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
 	       ;
 	         
@@ -170,5 +170,24 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
 	       assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().count());
 	    }
     
+	    @Test
+	    public void listShouldReturnAllByDefault() throws Exception {
+	    	mockMvc.perform(get("${pathPrefix}/"))
+	         .andExpect(status().isOk())
+	         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+	         .andExpect(jsonPath("$.", hasSize(is(20))))
+	        .andExpect(jsonPath("$.[0].${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
+	        ;
+	    }
+	    
+	    @Test
+	    public void listShouldReturnAllByDefaultWithoutTrailUrlSlash() throws Exception {
+	    	mockMvc.perform(get("${pathPrefix}"))
+	         .andExpect(status().isOk())
+	         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+	         .andExpect(jsonPath("$.", hasSize(is(20))))
+	        .andExpect(jsonPath("$.[0].${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
+	        ;
+	    }
       #end
 }
