@@ -404,12 +404,12 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += "<h2>" + generatorUtil.splitCapitalizedWords( ec.getIdentifier() ) + "s</h2>";
 		output += lines( 2 );
 
-		String addUrl = "/";
+		String resource = "";
 		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ) {
-			addUrl += ec.getSchema().getLowerLabel().toLowerCase() + "/";
+			resource += ec.getSchema().getLowerLabel().toLowerCase() + "/";
 		}
-		addUrl += ec.getLowerIdentifier().toLowerCase() + "/";
-		addUrl += "add" + properties.getProperty( "controller.request.mapping.extension", "" );
+		resource += ec.getLowerIdentifier().toLowerCase();
+		String addUrl = "/" + resource + "/add" + properties.getProperty( "controller.request.mapping.extension", "" );
 
 		output += spaces( indent ) + "<c:url value=\"" + addUrl + "\" var=\"addUrl\" />";
 		output += lines( 1 );
@@ -494,6 +494,10 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		indent -= 4;
 		output += spaces( indent ) + "</script>";
 
+		// add angular grid integration with REST API
+		if ( Boolean.parseBoolean( properties.getProperty( "generate.rest.api", "false" ) ) ) {
+			output += "<jsp:include page=\"/WEB-INF/jsp/angular-grid-rest-api.jsp\" ><jsp:param name=\"restApiUrl\" value=\"" + properties.getProperty("rest.api.url") +"\"/><jsp:param name=\"resourceName\" value=\""+ resource +"\"/><jsp:param name=\"resourceId\" value=\""+ ec.getPrimaryKey().getLowerIdentifier() +"\"/></jsp:include>";
+		}
 		String directory = getJspDirectory( ec );
 
 		BufferedWriter out = jspWriter( directory, "list.jsp" );
