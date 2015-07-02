@@ -161,13 +161,13 @@ public class DomainClass {
 		return listAllSym.iterator();
 	}
 
-	public String symbolsToString( String indent ) {
+	public String symbolsToString(  ) {
 		Iterator<ClassVariable> cvIter = listAllIter();
 		String output = "";
 		while ( cvIter.hasNext() ) {
 			ClassVariable cv = cvIter.next();
-			output += indent + cv.toAnnotationDeclaration();
-			output += indent + cv.toDeclaration();
+			output += cv.toAnnotationDeclaration();
+			output += cv.toDeclaration();
 		}
 		return output;
 	}
@@ -322,7 +322,7 @@ public class DomainClass {
 		output += "	private static final Log log = LogFactory.getLog( " + identifier + ".class );\n\n";
 
 		indent = "    ";
-		output += symbolsToString( indent );
+		output += symbolsToString( );
 		output += "\n";
 
 		output += "\n";

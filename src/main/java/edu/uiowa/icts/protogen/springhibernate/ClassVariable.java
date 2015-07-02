@@ -208,16 +208,16 @@ public class ClassVariable
 	public String toDeclaration()
 	{
 
-		return modifier + " " + getType() + " " + identifier + initializer + ";\n";
+		return "    " + modifier + " " + getType() + " " + identifier + initializer + ";\n";
 	}
 
 	public String toAnnotationDeclaration() {
 		String annotation = "";
 		if ( type.equals( "Date" ) ) {
-			annotation = "@DateTimeFormat( pattern = \"yyyy-MM-dd\" )\n";
+			annotation = "    @DateTimeFormat( pattern = \"yyyy-MM-dd\" )\n";
 			if ( attribute != null ) {
 				if ( attribute.getType().equalsIgnoreCase( "timestamp" ) ) {
-					annotation = " @DateTimeFormat( pattern = \"yyyy-MM-dd hh:mm:ss\" )\n";
+					annotation = "    @DateTimeFormat( pattern = \"yyyy-MM-dd hh:mm:ss\" )\n";
 				}
 			}
 		}

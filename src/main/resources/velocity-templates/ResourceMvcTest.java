@@ -42,12 +42,7 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
     private ObjectMapper mapper;
     
     @Before
-    public void before() {
-      #if ( ${domainClass.isUsesCompositeKey()} ) 
-    	// at the moment, do nothing for composite keys 
-      #elseif ( ${domainClass.getPrimaryKey().getType()} && ${domainClass.getPrimaryKey().getType()} != "Integer" )
-        // at the moment, do nothing for ids generated without sequences  
-      #else	  
+    public void before() { 
         // add 20 records to test database
         for(int x=1; x<21; x++){
         	${className} ${classNameLowerCaseFirstLetter} = new ${className}();
@@ -61,133 +56,125 @@ public class ${className}ResourceMvcTest extends AbstractControllerMVCTests {
         // fix NonUniqueObjectException
         this.${daoServiceName}.get${className}Service().getSession().flush();
         this.${daoServiceName}.get${className}Service().getSession().clear();
-      #end
     }    
-    
-      #if ( ${domainClass.isUsesCompositeKey()} ) 
-    	// at the moment, don't test datatables for composite keys 
-      #elseif ( ${domainClass.getPrimaryKey().getType()} && ${domainClass.getPrimaryKey().getType()} != "Integer" )
-        // at the moment, don't test datatables for ids generated without sequences  
-      #else	  
       
-	    @Test
-	    public void getByPathVariableIdShouldLoadAndReturnObject() throws Exception {
-	    	mockMvc.perform(get("${pathPrefix}/"+first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
-	         .andExpect(status().isOk())
-	         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	        .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
-	        ;
-	    }
-      
-	    @Test
-	    public void getByPathVariableIdShouldReturn404ForBogusId() throws Exception {
-	    	mockMvc.perform(get("${pathPrefix}/-123")).andExpect(status().isNotFound()).andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));
-	    }
-	    
-	    @Test
-	    public void restMappingNotFoundShouldReturn404() throws Exception {
-	    	mockMvc.perform(get("${pathPrefix}/asdfasdf/asdfasdf"))
-	    	.andExpect(status().isNotFound())
-	    	 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	        .andExpect(jsonPath("$.message", is("${pathPrefix}/asdfasdf/asdfasdf could not be found.")))
-	    	;
-	    }
-	    
-	    @Test
-	    public void createShouldPersistAndReturnObject() throws Exception {
-		   long count = ${daoServiceName}.get${className}Service().count();	       
-		   ${className} ${classNameLowerCaseFirstLetter} = new ${className}(); 
-	       
-	       mockMvc.perform(post("${pathPrefix}/").content(this.mapper.writeValueAsString(${classNameLowerCaseFirstLetter}))
-		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-	       .andExpect(status().isOk())
-	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}").value(IsNull.notNullValue()))  
-	       ;
-	       
-	       assertEquals("count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().count());
-		}
-	     
-	    @Test
-	    public void updateShouldPersistExistingAndReturnObject() throws Exception {
-	       long count = ${daoServiceName}.get${className}Service().count();
-
-	       mockMvc.perform(post("${pathPrefix}/"+ first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())
-	    		   .content(this.mapper.writeValueAsString(first${className}))
-	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-	       .andExpect(status().isOk())
-	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
-	       ;
-	         
-	       assertEquals("count NOT should increase", count , ${daoServiceName}.get${className}Service().count());
-	  	}  
-	    
-	    @Test
-	    public void updateByPathVariableIdShouldReturn404ForMismatchBetweenPathIdAndObjectId() throws Exception {	       
-	       String correctId =  first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString();
-	       // this ID manipulation should be overwritten with path variable id
-	       first${className}.set${domainClass.getPrimaryKey().getUpperIdentifier()}(-123);
-	       
-	       mockMvc.perform(post("${pathPrefix}/"+correctId)
-	    		   .content(this.mapper.writeValueAsString(first${className}))
-	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-	       .andExpect(status().isNotFound())
-	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	       .andExpect(jsonPath("$.message", is("${pathPrefix}/" +correctId +" could not be found.")))
-	       ;
-	  	} 
-	    
-	    @Test
-	    public void updateByPathVariableIdShouldReturn404ForBogusPathId() throws Exception {
-	    	mockMvc.perform(post("${pathPrefix}/-123")
-	    			.content(this.mapper.writeValueAsString(first${className}))
-	    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-	    	.andExpect(status().isNotFound())
-	    	.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-		    .andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));
-	    }
-	    
-	    @Test
-	    public void deleteShouldDeleteAndReturnStatusOk() throws Exception {
-	        long count = ${daoServiceName}.get${className}Service().count();
-
-	        mockMvc.perform(delete("${pathPrefix}/"+ first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
-	       .andExpect(status().isOk());  
-	       
-	       assertEquals("count should decrease by 1", count - 1 , ${daoServiceName}.get${className}Service().count());
-	    }
-	    
-	    @Test
-	    public void deleteShouldFailWithBogusId() throws Exception {
-	        long count = ${daoServiceName}.get${className}Service().count();
-
-	        mockMvc.perform(delete("${pathPrefix}/-123"))
-	       .andExpect(status().isNotFound())
-	       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	       .andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));  
-	       
-	       assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().count());
-	    }
+    @Test
+    public void getByPathVariableIdShouldLoadAndReturnObject() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/"+first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
+         .andExpect(status().isOk())
+         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
+        ;
+    }
+  
+    @Test
+    public void getByPathVariableIdShouldReturn404ForBogusId() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/-123")).andExpect(status().isNotFound()).andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));
+    }
     
-	    @Test
-	    public void listShouldReturnAllByDefault() throws Exception {
-	    	mockMvc.perform(get("${pathPrefix}/"))
-	         .andExpect(status().isOk())
-	         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	         .andExpect(jsonPath("$.", hasSize(is(20))))
-	        .andExpect(jsonPath("$.[0].${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
-	        ;
-	    }
-	    
-	    @Test
-	    public void listShouldReturnAllByDefaultWithoutTrailUrlSlash() throws Exception {
-	    	mockMvc.perform(get("${pathPrefix}"))
-	         .andExpect(status().isOk())
-	         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-	         .andExpect(jsonPath("$.", hasSize(is(20))))
-	        .andExpect(jsonPath("$.[0].${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
-	        ;
-	    }
-      #end
+    @Test
+    public void restMappingNotFoundShouldReturn404() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/asdfasdf/asdfasdf"))
+    	.andExpect(status().isNotFound())
+    	 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(jsonPath("$.message", is("${pathPrefix}/asdfasdf/asdfasdf could not be found.")))
+    	;
+    }
+    
+    @Test
+    public void createShouldPersistAndReturnObject() throws Exception {
+	   long count = ${daoServiceName}.get${className}Service().count();	       
+	   ${className} ${classNameLowerCaseFirstLetter} = new ${className}(); 
+       
+       mockMvc.perform(post("${pathPrefix}/").content(this.mapper.writeValueAsString(${classNameLowerCaseFirstLetter}))
+	   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+       .andExpect(status().isOk())
+       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}").value(IsNull.notNullValue()))  
+       ;
+       
+       assertEquals("count should increase by 1", count +1 , ${daoServiceName}.get${className}Service().count());
+	}
+     
+    @Test
+    public void updateShouldPersistExistingAndReturnObject() throws Exception {
+       long count = ${daoServiceName}.get${className}Service().count();
+
+       mockMvc.perform(post("${pathPrefix}/"+ first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString())
+    		   .content(this.mapper.writeValueAsString(first${className}))
+    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+       .andExpect(status().isOk())
+       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+       .andExpect(jsonPath("$.${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
+       ;
+         
+       assertEquals("count NOT should increase", count , ${daoServiceName}.get${className}Service().count());
+  	}  
+    
+    @Test
+    public void updateByPathVariableIdShouldReturn404ForMismatchBetweenPathIdAndObjectId() throws Exception {	       
+       String correctId =  first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString();
+       // this ID manipulation should be overwritten with path variable id
+       first${className}.set${domainClass.getPrimaryKey().getUpperIdentifier()}(-123);
+       
+       mockMvc.perform(post("${pathPrefix}/"+correctId)
+    		   .content(this.mapper.writeValueAsString(first${className}))
+    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+       .andExpect(status().isNotFound())
+       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+       .andExpect(jsonPath("$.message", is("${pathPrefix}/" +correctId +" could not be found.")))
+       ;
+  	} 
+    
+    @Test
+    public void updateByPathVariableIdShouldReturn404ForBogusPathId() throws Exception {
+    	mockMvc.perform(post("${pathPrefix}/-123")
+    			.content(this.mapper.writeValueAsString(first${className}))
+    		   .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+    	.andExpect(status().isNotFound())
+    	.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+	    .andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));
+    }
+    
+    @Test
+    public void deleteShouldDeleteAndReturnStatusOk() throws Exception {
+        long count = ${daoServiceName}.get${className}Service().count();
+
+        mockMvc.perform(delete("${pathPrefix}/"+ first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}().toString()))
+       .andExpect(status().isOk());  
+       
+       assertEquals("count should decrease by 1", count - 1 , ${daoServiceName}.get${className}Service().count());
+    }
+    
+    @Test
+    public void deleteShouldFailWithBogusId() throws Exception {
+        long count = ${daoServiceName}.get${className}Service().count();
+
+        mockMvc.perform(delete("${pathPrefix}/-123"))
+       .andExpect(status().isNotFound())
+       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+       .andExpect(jsonPath("$.message", is("${pathPrefix}/-123 could not be found.")));  
+       
+       assertEquals("count should NOT decrease by 1", count , ${daoServiceName}.get${className}Service().count());
+    }
+
+    @Test
+    public void listShouldReturnAllByDefault() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}/"))
+         .andExpect(status().isOk())
+         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+         .andExpect(jsonPath("$.", hasSize(is(20))))
+        .andExpect(jsonPath("$.[0].${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
+        ;
+    }
+    
+    @Test
+    public void listShouldReturnAllByDefaultWithoutTrailUrlSlash() throws Exception {
+    	mockMvc.perform(get("${pathPrefix}"))
+         .andExpect(status().isOk())
+         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+         .andExpect(jsonPath("$.", hasSize(is(20))))
+        .andExpect(jsonPath("$.[0].${domainClass.getPrimaryKey().getLowerIdentifier()}", is(first${className}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())))
+        ;
+    }
 }

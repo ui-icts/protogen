@@ -36,7 +36,7 @@ public class ResourceCodeGenerator extends AbstractSpringHibernateCodeGenerator 
 		this.properties = properties;
 	}
 
-	private void generateController( DomainClass domainClass ) throws IOException {
+	private void generateResource( DomainClass domainClass ) throws IOException {
 
 		String packageName = model.getPackageRoot() + ( Boolean.valueOf( properties.getProperty( "include.schema.in.package.name", "true" ) ) ? "." + domainClass.getSchema().getLowerLabel() : "" ) + ".resource";
 
@@ -125,7 +125,10 @@ public class ResourceCodeGenerator extends AbstractSpringHibernateCodeGenerator 
 	 */
 	public void generate() throws IOException {
 		for ( DomainClass dc : model.getDomainClassList() ) {
-			generateController( dc );
+			// only generate REST API for tables with single column primary keys generated from sequences
+			if (!dc.isUsesCompositeKey() && dc.getPrimaryKey() != null && dc.getPrimaryKey().getType() != null && dc.getPrimaryKey().getType().equals("Integer")){
+				generateResource( dc );
+			}
 		}
 		generateAbstractControllers();
 	}

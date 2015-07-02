@@ -157,8 +157,6 @@ public class DomainCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	 */
 	private void generateSetter( BufferedWriter out, Attribute attrib ) throws IOException {
 		spaces( out, 4 );
-		out.write( "@JsonSetter\n" );
-		spaces( out, 4 );
 		out.write( "public void set" + attrib.getUpperLabel() + "(" + attrib.getJavaTypeClass() + " " + attrib.getUnqualifiedLowerLabel() + ") {\n" );
 		spaces( out, 8 );
 		out.write( "this." + attrib.getUnqualifiedLowerLabel() + " = " + attrib.getUnqualifiedLowerLabel() + ";\n" );
