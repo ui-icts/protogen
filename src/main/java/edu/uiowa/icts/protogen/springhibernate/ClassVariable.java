@@ -260,6 +260,10 @@ public class ClassVariable
 
 	String toSetter( String indent ) {
 		String output = "\n";
+		if ( type.equalsIgnoreCase( "date" ) ) {
+			// turn on the java.util.Date setter
+			output += indent + "@JsonSetter\n";
+		}
 		if ( attribType == AttributeType.COMPOSITEKEY ) {
 			output += indent + "public void setId( " + type + " " + identifier + " ){\n";
 		} else {
@@ -277,6 +281,7 @@ public class ClassVariable
 
 	String getDateStringSetter( String indent ) {
 		String output = "\n";
+		// turn off the String date setter
 		output += indent + "@JsonIgnore\n";
 		output += indent + "public void set" + getUpperIdentifier() + "( String " + identifier + " ){\n";
 		output += indent + indent + "try{\n";

@@ -20,6 +20,7 @@ import java.util.TimeZone;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+
 import edu.uiowa.webapp.Attribute;
 import edu.uiowa.webapp.Entity;
 
@@ -155,6 +156,8 @@ public class DomainCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	 * @throws IOException
 	 */
 	private void generateSetter( BufferedWriter out, Attribute attrib ) throws IOException {
+		spaces( out, 4 );
+		out.write( "@JsonSetter\n" );
 		spaces( out, 4 );
 		out.write( "public void set" + attrib.getUpperLabel() + "(" + attrib.getJavaTypeClass() + " " + attrib.getUnqualifiedLowerLabel() + ") {\n" );
 		spaces( out, 8 );
