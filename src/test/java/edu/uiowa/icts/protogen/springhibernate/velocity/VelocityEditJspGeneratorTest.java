@@ -148,7 +148,6 @@ public class VelocityEditJspGeneratorTest {
         
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator(packageRoot,tableFive,properties);
 		String sourceCode = generator.javaSourceCode();
-	//	System.out.println(sourceCode);
 
         assertThat(sourceCode, containsString("<label for=\"id.idOne\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_one') }"));
         assertThat(sourceCode, containsString("<label for=\"id.idTwo\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_five', 'id_two') }"));   

@@ -397,7 +397,6 @@ public class VelocityControllerGeneratorTest {
 		VelocityControllerGenerator generator = new VelocityControllerGenerator( packageRoot, jobType, properties );
 
 		String sourceCode = generator.javaSourceCode();
-		//	System.out.println(sourceCode);
 
 		assertThat( sourceCode, containsString( "tableRow.put( dataName, jobType.getJobTypeId() );" ) );
 		assertThat( sourceCode, containsString( "tableRow.put( dataName, jobType.getParameters() );" ) );

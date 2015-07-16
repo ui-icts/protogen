@@ -51,7 +51,6 @@ public class ResourceTestGeneratorTest {
 		ResourceMvcTestGenerator generator = new ResourceMvcTestGenerator( packageRoot, jobType, properties );
 
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
 
 		// test imports
 		

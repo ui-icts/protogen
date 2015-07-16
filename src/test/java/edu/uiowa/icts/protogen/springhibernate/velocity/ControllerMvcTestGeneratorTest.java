@@ -258,7 +258,6 @@ public class ControllerMvcTestGeneratorTest {
 		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator( packageRoot, jobType, properties );
 
 		String sourceCode = generator.javaSourceCode();
-		System.out.println(sourceCode);
 
 		// test imports
 		assertThat( sourceCode, containsString( "import edu.uiowa.icts.aptamer.domain.*;" ) );
@@ -362,7 +361,6 @@ public class ControllerMvcTestGeneratorTest {
 		ControllerMvcTestGenerator generator = new ControllerMvcTestGenerator( packageRoot, tablewithprimarykeyasid, properties );
 
 		String sourceCode = generator.javaSourceCode();
-		//	System.out.println(sourceCode);
 		// test edit
 		assertThat( sourceCode, containsString( "mockMvc.perform(get(\"/tablewithprimarykeyasid/edit\").param(\"id\", firstTableWithPrimaryKeyAsId.getId().toString()))" ) );
 
