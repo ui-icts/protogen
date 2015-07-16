@@ -369,6 +369,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 	private void generateListJSP( DomainClass ec ) throws IOException {
 
+		String dataLabel = "sData";
 		String nameLabel = "sName";
 		String titleLabel = "sTitle";
 		String classLabel = "sClass";
@@ -379,6 +380,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		String datatableUrl = "datatable" + properties.getProperty( "controller.request.mapping.extension", "" ) + "";
 
 		if ( StringUtils.equals( properties.getProperty( "datatables.generation", "1" ), "2" ) ) {
+			dataLabel = "data";
 			nameLabel = "name";
 			titleLabel = "title";
 			classLabel = "class";
@@ -453,7 +455,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += spaces( indent ) + "var columns = [];";
 		output += lines( 1 );
 
-		output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"urls\", \"" + titleLabel + "\":\"\", \"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
+		output += spaces( indent ) + "columns.push({ \"" + dataLabel + "\": \"urls\", \"" + nameLabel + "\": \"urls\", \"" + titleLabel + "\":\"\", \"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
 		output += lines( 1 );
 		boolean deOb = Boolean.parseBoolean( properties.getProperty( "deobfuscate.column.names", "false" ) );
 
@@ -468,10 +470,10 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 				//				}
 			} else {
 				if ( RelationshipType.NONE == cv.getRelationshipType() ) {
-					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() ) ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":true, \"" + searchableLabel + "\": true });";
+					output += spaces( indent ) + "columns.push({ \"" + dataLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() ) ) + "\", \"" + classLabel + "\":\"\", \"" + sortableLabel + "\":true, \"" + searchableLabel + "\": true });";
 					output += lines( 1 );
 				} else {
-					output += spaces( indent ) + "columns.push({ \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() ) ) + "\",	\"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
+					output += spaces( indent ) + "columns.push({ \"" + dataLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + nameLabel + "\": \"" + cv.getLowerIdentifier() + "\", \"" + titleLabel + "\":\"" + ( deOb ? " ${ " + ec.getSchema().getLowerLabel() + ":deobfuscateColumn ( '" + ec.getTableName() + "', '" + cv.getAttribute().getSqlLabel() + "') } " : generatorUtil.splitCapitalizedWords( cv.getUpperIdentifier() ) ) + "\", \"" + classLabel + "\":\"\", \"" + sortableLabel + "\":false, \"" + searchableLabel + "\": false });";
 					output += lines( 1 );
 				}
 			}
