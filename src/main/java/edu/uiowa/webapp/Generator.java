@@ -1,6 +1,5 @@
 package edu.uiowa.webapp;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -12,11 +11,10 @@ import edu.uiowa.icts.protogen.springhibernate.BaseTestCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.ColumnDeobfuscationCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.ControllerCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.DAOCodeGenerator;
-import edu.uiowa.icts.protogen.springhibernate.JSPCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.DomainCodeGenerator;
+import edu.uiowa.icts.protogen.springhibernate.JSPCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.ResourceCodeGenerator;
 import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
-import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractResourceGenerator;
 import edu.uiowa.icts.protogen.tiles.TilesTemplatesXMLGenerator;
 
 public class Generator {

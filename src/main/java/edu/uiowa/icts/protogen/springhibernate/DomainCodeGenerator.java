@@ -20,7 +20,6 @@ import java.util.TimeZone;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 import edu.uiowa.webapp.Attribute;
 import edu.uiowa.webapp.Entity;
 

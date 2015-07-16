@@ -69,6 +69,10 @@ public abstract class AbstractVelocityGenerator {
 	public String getControllerPackageName() {
 		return getBasePackageName() + ".controller";
 	}
+	
+	public String getRestApiResourcePackageName() {
+		return getBasePackageName() + ".resource";
+	}
 
 	public String getPathPrefix() {
 		if ( Boolean.valueOf( properties.getProperty( "include.schema.in.request.mapping", "true" ) ) ) {

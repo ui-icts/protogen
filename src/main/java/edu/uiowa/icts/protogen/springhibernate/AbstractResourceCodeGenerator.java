@@ -9,11 +9,7 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractControllerMVCTestsGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractResourceGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.ControllerMvcTestGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityAbstractControllerGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityControllerGenerator;
 import edu.uiowa.webapp.Schema;
 
 /**

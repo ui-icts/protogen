@@ -1,11 +1,15 @@
 package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertNull;
+
 import java.util.Properties;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import edu.uiowa.icts.protogen.springhibernate.DomainClass;
 import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
 import edu.uiowa.webapp.ClayLoader;

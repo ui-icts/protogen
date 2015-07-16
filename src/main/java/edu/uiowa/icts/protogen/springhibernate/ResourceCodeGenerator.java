@@ -10,19 +10,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractApiResourceGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractControllerMVCTestsGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.AbstractResourceGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.ControllerMvcTestGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.DefaultResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ResourceGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.ResourceMvcTestGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityAbstractControllerGenerator;
-import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityControllerGenerator;
 import edu.uiowa.webapp.Schema;
 
 /**
  * @author rrlorent, rmjames
- * Generates spring controller java files
+ * Generates spring rest api resource java files
  */
 public class ResourceCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 

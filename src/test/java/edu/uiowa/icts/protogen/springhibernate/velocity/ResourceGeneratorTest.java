@@ -2,7 +2,7 @@ package edu.uiowa.icts.protogen.springhibernate.velocity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.Properties;
 
@@ -13,7 +13,6 @@ import edu.uiowa.icts.protogen.springhibernate.SpringHibernateModel;
 import edu.uiowa.webapp.ClayLoader;
 import edu.uiowa.webapp.Database;
 import edu.uiowa.webapp.DatabaseSchemaLoader;
-import edu.uiowa.webapp.Schema;
 
 public class ResourceGeneratorTest {
 
@@ -30,8 +29,9 @@ public class ResourceGeneratorTest {
 		try {
 			theLoader.run( pathPrefix + "/src/test/resources/mvc-test-generator.clay" );
 		} catch ( Exception e ) {
-			assertNull( e );
+			fail( e.getMessage() );
 		}
+		
 		Database database = theLoader.getDatabase();
 		//   database.dump();
 		SpringHibernateModel model = new SpringHibernateModel( database, packageRoot, properties );
@@ -42,7 +42,7 @@ public class ResourceGeneratorTest {
 				jobType = dc;
 			}
 		}
-		
+
 		ResourceGenerator generator = new ResourceGenerator( packageRoot, jobType, properties );
 
 		String sourceCode = generator.javaSourceCode();
@@ -50,21 +50,20 @@ public class ResourceGeneratorTest {
 		assertThat( sourceCode, containsString( "package edu.uiowa.icts.aptamer.resource;" ) );
 		assertThat( sourceCode, containsString( "@RestController" ) );
 		assertThat( sourceCode, containsString( "@RequestMapping( \"/api/jobtype\" )" ) );
-		assertThat( sourceCode, containsString( "public class JobTypeResource extends AbstractAptamerApiResource {"));
-		
+		assertThat( sourceCode, containsString( "public class JobTypeResource extends AbstractAptamerApiResource {" ) );
+
 		// generate show by id
 		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"{jobTypeId}\" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )" ) );
-		assertThat( sourceCode, containsString( "public JobType get(@PathVariable( \"jobTypeId\" ) Integer jobTypeId ) {" ) );
+		assertThat( sourceCode, containsString( "public JobType get( @PathVariable( \"jobTypeId\" ) Integer jobTypeId ) {" ) );
 		assertThat( sourceCode, containsString( "return jobType;" ) );
-		
+
 		// generate create
-		
+
 		// generate save
-		
+
 		// generate delete
-		
+
 		// generate list all
 
-		
 	}
 }

@@ -38,11 +38,6 @@ public class GeneratorTest extends TestCase {
 	 */
 	public void testHibernateCodeGeneration() {
 
-		String packagePath = "asdfasdf/src/asdfasdf";
-		packagePath = packagePath.replaceFirst( "src/", "target/src/" );
-
-		assertEquals( packagePath, "asdfasdf/target/src/asdfasdf" );
-
 		String projectName = "Protogen";
 		String pathPrefix = System.getProperty( "user.dir" );
 		log.debug( "PathPrefix:" + pathPrefix );
@@ -58,12 +53,14 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "generate.controller", "true" );
 		props.setProperty( "generate.jsp", "true" );
 		props.setProperty( "generate.tests", "true" );
-		props.setProperty( "domain.file.location", pathPrefix + "/target/clay/test/java" + "src" );
-		props.setProperty( "dao.file.location", pathPrefix + "/target/clay/test/java" + "src" );
-		props.setProperty( "controller.file.location", pathPrefix + "/target/clay/test/java" + "src" );
-		props.setProperty( "jsp.file.location", pathPrefix + "/target/clay/test/jsp" + "src" );
-		props.setProperty( "test.file.location", pathPrefix + "/target/clay/test/javatest" + "src" );
-		
+
+		props.setProperty( "rest.api.file.location", pathPrefix + "/target/clay/test/java/resource" );
+		props.setProperty( "domain.file.location", pathPrefix + "/target/clay/test/java/doamin" );
+		props.setProperty( "dao.file.location", pathPrefix + "/target/clay/test/java/dao" );
+		props.setProperty( "controller.file.location", pathPrefix + "/target/clay/test/java/controller" );
+		props.setProperty( "jsp.file.location", pathPrefix + "/target/clay/test/jsp" );
+		props.setProperty( "test.file.location", pathPrefix + "/target/clay/test/javatest" );
+
 		props.setProperty( "generate.templates.xml", "true" );
 		props.setProperty( "overwrite.templates.xml", "true" );
 		props.setProperty( "templates.xml.file.location", pathPrefix + "/target/clay/test/src/main/resources/tiles/" );
@@ -74,10 +71,10 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "include.schema.in.request.mapping", "true" );
 		props.setProperty( "include.schema.in.jsp.path", "false" );
 		props.setProperty( "include.schema.in.package.name", "false" );
-		
+
 		props.setProperty( "ryanlorentzen.master.dao.service.name", "FooBarDaoService" );
 		props.setProperty( "ryanlorentzen.abstract.controller.name", "SomeOtherAbstractControllerName" );
-		
+
 		props.setProperty( "deobfuscate.tld.file.location", pathPrefix + "/target/clay/test/resources/META-INF/" );
 		props.setProperty( "deobfuscate.column.names", "true" );
 		props.setProperty( "dictionary.table.name", "MST_DICT" );
@@ -92,8 +89,6 @@ public class GeneratorTest extends TestCase {
 
 	/**
 	 * Verify the generation 2 data tables method and list.jsp generates properly using velocity.
-	 * @author rrlorent
-	 * @since August 5, 2014
 	 */
 	public void generation2Datatable() {
 
@@ -111,12 +106,12 @@ public class GeneratorTest extends TestCase {
 		props.setProperty( "generate.controller", "true" );
 		props.setProperty( "generate.jsp", "true" );
 		props.setProperty( "generate.tests", "true" );
-		
+
 		props.setProperty( "generate.domain", "false" );
 		props.setProperty( "generate.dao", "false" );
 
 		props.setProperty( "templates.xml.file.location", pathPrefix + "/target/clay/test/src/main/resources/tiles/" );
-		
+
 		props.setProperty( "controller.file.location", pathPrefix + "/target/clay/test/javasrc" );
 		props.setProperty( "jsp.file.location", pathPrefix + "/target/clay/test/jspsrc/generation2" );
 		props.setProperty( "test.file.location", pathPrefix + "/target/clay/test/javatestsrc" );
@@ -129,4 +124,5 @@ public class GeneratorTest extends TestCase {
 		assertEquals( "Error during generation 2 controller code generation", 0, result );
 
 	}
+
 }
