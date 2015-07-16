@@ -4,7 +4,6 @@
 		@RequestParam( value = "display" , required = false , defaultValue = "list" ) String display ) {
 		
 		String contextPath = request.getContextPath();
-		DataTable dt = new DataTable();
 		GenericDaoListOptions options = dataTableRequest.getGenericDaoListOptions();
 
 		try {
@@ -18,15 +17,16 @@
 ${datatableColumnForEach}
 			}
 
-			dt.setDraw( dataTableRequest.getDraw() );
-            dt.setRecordsFiltered( count );
-            dt.setRecordsTotal( count );
-			dt.setData( data );
-
+			DataTable dataTable = new DataTable();
+			dataTable.setDraw( dataTableRequest.getDraw() );
+			dataTable.setRecordsFiltered( count );
+			dataTable.setRecordsTotal( count );
+			dataTable.setData( data );
+			return dataTable;
+			
 		} catch ( Exception e ) {
 			log.error( "error builing datatable json object for ${domainName}", e );
 			return datatableError( e, dataTableRequest.getDraw() );
 		}
 		
-		return dt;
 	}

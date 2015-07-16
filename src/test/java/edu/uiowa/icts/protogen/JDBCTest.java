@@ -51,6 +51,7 @@ public class JDBCTest extends TestCase {
 		props.setProperty( "generate.controller", "true" );
 		props.setProperty( "generate.jsp", "true" );
 		props.setProperty( "generate.tests", "true" );
+		props.setProperty( "datatables.generation", "2" );
 
 		props.setProperty( "rest.api.file.location", pathPrefix + "/target/jdbc/test/java/resource" );
 		props.setProperty( "domain.file.location", pathPrefix + "/target/jdbc/test/java/domain" );

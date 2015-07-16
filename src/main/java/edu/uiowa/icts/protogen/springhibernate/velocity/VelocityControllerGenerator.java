@@ -61,8 +61,7 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 
 		context.put( "domainPackageName", packageRoot + "." + domainClass.getSchema().getLowerLabel() + ".domain" );
 
-		String dtMethod = datatableMethod( context );
-		context.put( "datatableMethod", dtMethod );
+		context.put( "datatableMethod", datatableMethod( context ) );
 
 		context.put( "requestParameterIdentifier", requestParameterIdentifier() );
 		context.put( "addEditListDependencies", addEditListDependencies() );
@@ -171,23 +170,33 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 			indent += 1;
 		}
 
-		int count = 0;
+		output.append( tab( indent ) + "switch ( headerName ) {\n" );
+		indent += 1;
+
+		// int count = 0;
 		Iterator<ClassVariable> iter = domainClass.listAllIter();
 		while ( iter.hasNext() ) {
 			ClassVariable cv = iter.next();
 			if ( cv.isPrimary() && domainClass.isUsesCompositeKey() ) {
 				for ( Attribute a : domainClass.getEntity().getPrimaryKeyAttributes() ) {
-					output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"id." + a.getLowerLabel() + "\", headerName ) ){\n" );
+
+					output.append( tab( indent ) + "case \"id." + a.getLowerLabel() + "\" :\n" );
 					indent += 1;
 					output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".getId().get" + a.getUpperLabel() + "() );\n" );
+					output.append( tab( indent ) + "break;\n" );
 					indent -= 1;
-					count++;
+
+					//					 output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"id." + a.getLowerLabel() + "\", headerName ) ){\n" );
+					//					 indent += 1;
+					//					 output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".getId().get" + a.getUpperLabel() + "() );\n" );
+					//					 indent -= 1;
+					// count++;
+
 				}
 			} else {
-				output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"" + cv.getLowerIdentifier() + "\", headerName ) ){\n" );
-				indent += 1;
-				log.debug( "\n\n\n ************************  " + cv.getUpperIdentifier() + " - " + cv.getAttribType() + " **********************\n\n\n" );
 
+				output.append( tab( indent ) + "case \"" + cv.getLowerIdentifier() + "\" :\n" );
+				indent += 1;
 				if ( AttributeType.FOREIGNATTRIBUTE == cv.getAttribType() ) {
 					output.append( tab( indent ) + "if( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() != null ){\n" );
 					output.append( tab( indent + 1 ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().toString() );\n" );
@@ -199,19 +208,38 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 					// AttributeType.PRIMARYKEY
 					output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
 				}
-
-				// if ( cv.getType().contains( "Set<" ) ) {
-				//	output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
-				// } else {
-				//	output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
-				// }
-
+				output.append( tab( indent ) + "break;\n" );
 				indent -= 1;
-				count++;
+
+				//				output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"" + cv.getLowerIdentifier() + "\", headerName ) ){\n" );
+				//				indent += 1;
+				//				log.debug( "\n\n\n ************************  " + cv.getUpperIdentifier() + " - " + cv.getAttribType() + " **********************\n\n\n" );
+				//
+				//				if ( AttributeType.FOREIGNATTRIBUTE == cv.getAttribType() ) {
+				//					output.append( tab( indent ) + "if( " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() != null ){\n" );
+				//					output.append( tab( indent + 1 ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().toString() );\n" );
+				//					output.append( tab( indent ) + "}\n" );
+				//				} else if ( AttributeType.CHILD == cv.getAttribType() ) {
+				//					output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
+				//				} else {
+				//					// AttributeType.LOCALATTRIBUTE
+				//					// AttributeType.PRIMARYKEY
+				//					output.append( tab( indent ) + "tableRow.put( dataName, " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+				//				}
+
+				//				if ( cv.getType().contains( "Set<" ) ) {
+				//					output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "().size() );\n" );
+				//				} else {
+				//					output.append( tab( indent ) + "tableRow.put( dataName, \"\"+ " + domainClass.getLowerIdentifier() + ".get" + cv.getUpperIdentifier() + "() );\n" );
+				//				}
+
+				//				indent -= 1;
+				// count++;
 			}
 		}
 
-		output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"urls\", headerName ) ) {\n" );
+		// output.append( tab( indent ) + ( count > 0 ? "} else " : "" ) + "if( StringUtils.equals( \"urls\", headerName ) ) {\n" );
+		output.append( tab( indent ) + "case \"urls\" :\n" );
 		indent += 1;
 
 		output.append( tab( indent ) + "String urls = \"\";\n" );
@@ -251,22 +279,29 @@ public class VelocityControllerGenerator extends AbstractVelocityGenerator {
 		output.append( tab( indent ) + "} else {\n\n" );
 		output.append( tab( indent ) + "}\n" );
 		output.append( tab( indent ) + "tableRow.put( dataName, urls );\n" );
+		output.append( tab( indent ) + "break;\n" );
 
 		indent -= 1;
 
-		output.append( tab( indent ) + "} else {\n" );
+		// output.append( tab( indent ) + "} else {\n" );
+		// indent += 1;
+		// output.append( tab( indent ) + "tableRow.put( \"error\", \"[error: column \" + headerName + \" not supported]\" );\n" );
 
+		output.append( tab( indent ) + "default :\n" );
 		indent += 1;
+		output.append( tab( indent ) + "tableRow.put( dataName, \"[error: column \" + headerName + \" not supported]\" );\n" );
+		output.append( tab( indent ) + "break;\n" );
 
-		output.append( tab( indent ) + "tableRow.put( \"error\", \"[error: column \" + headerName + \" not supported]\" );\n" );
+		indent -= 2;
+
+		// indent -= 1;
+
+		output.append( tab( indent ) + "}\n" );
 
 		indent -= 1;
 
 		output.append( tab( indent ) + "}\n" );
-
-		indent -= 1;
-
-		output.append( tab( indent ) + "}\n" );
+		
 		output.append( tab( indent ) + "data.add( tableRow );" );
 
 		return output.toString();
