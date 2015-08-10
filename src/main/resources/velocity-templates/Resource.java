@@ -50,7 +50,7 @@ public class ${className} extends ${abstractApiResourceClassName} {
 		 return ${lowerDomainName};
     }
     
-    @RequestMapping( value = { "{${lowerDomainName}Id}" }, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE  )
+    @RequestMapping( value = { "{${lowerDomainName}Id}" }, method = { RequestMethod.POST, RequestMethod.PUT }, produces = MediaType.APPLICATION_JSON_VALUE  )
     public ${domainName} update( @PathVariable( "${lowerDomainName}Id" ) ${domainClass.getPrimaryKey().getAttribute().getJavaTypeClass()} ${lowerDomainName}Id, @RequestBody @Valid ${domainName} ${lowerDomainName} ) {
     	${domainName} ${lowerDomainName}Record = ${daoServiceName}.get${domainName}Service().findById( ${lowerDomainName}Id );
     	if ( ${lowerDomainName}Record == null || !${lowerDomainName}Record.get${domainClass.getPrimaryKey().getUpperIdentifier()}().equals(${lowerDomainName}.get${domainClass.getPrimaryKey().getUpperIdentifier()}())){
