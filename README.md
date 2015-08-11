@@ -1,4 +1,4 @@
-# Blue Button: Code Generator Java, Spring MVC, and Hibernate
+# Protogen: Code Generator for Java, Spring MVC, and Hibernate
 ===============================================
 
 ## Background: Two starting points
@@ -13,7 +13,6 @@
 * Look at exported keys to build relationships
 
 ## Generated Code
-
 * Uses database object created by clay or JDBC loader
 * Creates boilerplate code for CRUD operations
 * For each database table, the following are generated:
@@ -27,7 +26,6 @@ The is a maven project that requires Java 1.7 and should be built using:
     mvn clean install
     
 ## Execute Protogen:generate
-
 1. Create a Maven Java Web Application project with Spring Framework 4.1.6, Tiles 3.0.5, Jetty 9.2.10, Spring Security 4.0.1, Hibernate 4.3.9.Final, and Jackson 2.5.2.
 2. Open src/test/resources/Model.clay and edit tables as necessary
 3. Run Protogen goals: mvn edu.uiowa.icts:protogen:2.0.5-SNAPSHOT:generate
