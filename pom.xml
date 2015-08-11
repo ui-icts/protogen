@@ -27,7 +27,13 @@
 			<url>https://www-test.icts.uiowa.edu/artifactory/plugins-release-local</url>
 		</repository>
 	</distributionManagement>
-
+	<!-- open source license -->
+	<organization>
+		<name>University of Iowa Institute for Clinical and Translational Science (ICTS)</name>
+		<url>https://www.icts.uiowa.edu/</url>
+	</organization>
+	<inceptionYear>2009</inceptionYear>
+	<!-- end open source license -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
@@ -57,6 +63,42 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>1.8</version>
+					<configuration>
+						<verbose>false</verbose>
+						<licenseName>apache_v2</licenseName>
+						<roots>
+							<root>src/main/java</root>
+							<root>src/main/resources</root>
+							<root>src/main/webapp/WEB-INF</root>
+							<root>src/main/webapp/resources/js</root>
+							<root>src/main/webapp/resources/css</root>
+							<root>src/test</root>
+						</roots>
+						<includes>
+							<include>**/*.java</include>
+							<include>**/*.jsp</include>
+							<include>**/*.xml</include>
+							<include>**/*.properties</include>
+							<include>**/*.sql</include>
+							<include>**/*.css</include>
+							<include>**/*.js</include>
+						</includes>
+					</configuration>
+					<executions>
+						<execution>
+							<id>add-license</id>
+							<goals>
+								<goal>update-file-header</goal>
+							</goals>
+							<phase>process-sources</phase>
+						</execution>
+					</executions>
+				</plugin>
+
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -92,13 +134,8 @@
 	</build>
 
 	<dependencies>
-		<!--
-		<dependency>
-			<groupId>edu.uiowa.icts.spring</groupId>
-			<artifactId>spring-utils</artifactId>
-			<version>2.0.7-SNAPSHOT</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>edu.uiowa.icts.spring</groupId> <artifactId>spring-utils</artifactId> 
+			<version>2.0.7-SNAPSHOT</version> </dependency> -->
 
 		<dependency>
 			<groupId>log4j</groupId>
