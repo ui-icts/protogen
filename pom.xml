@@ -12,6 +12,39 @@
 	<packaging>maven-plugin</packaging>
 
 	<description>Code generation project.</description>
+	
+	<developers>
+		<developer>
+			<name>Ryan Lorentzen</name>
+			<email>ryan-lorentezen@uiowa.edu</email>
+			<organization>University of Iowa ICTS</organization>
+			<organizationUrl>http://www.icts.uiowa.edu</organizationUrl>
+		</developer>
+	    <developer>
+			<name>Robert Miller</name>
+			<email>robert-james-miller@uiowa.edu</email>
+			<organization>University of Iowa ICTS</organization>
+			<organizationUrl>http://www.icts.uiowa.edu</organizationUrl>
+		</developer>
+	
+		<developer>
+			<name>James Schappet</name>
+			<email>james-schappet@uiowa.edu</email>
+			<organization>University of Iowa ICTS</organization>
+			<organizationUrl>http://www.icts.uiowa.edu</organizationUrl>
+		</developer>
+		
+		<developer>
+			<name>David Eichmann</name>
+			<email>david-eichmann@uiowa.edu</email>
+			<organization>University of Iowa ICTS</organization>
+			<organizationUrl>http://informatics.grad.uiowa.edu/faculty/David-Eichmann</organizationUrl>
+		</developer>
+	
+	
+	
+	</developers>
+
 
 	<scm>
 		<connection>scm:git:ssh://git@git.its.uiowa.edu:7999/icts/protogen.git</connection>
