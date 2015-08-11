@@ -1,6 +1,8 @@
 # Protogen: Code Generator for Java, Spring MVC, and Hibernate
 ===============================================
 
+[![Build Status](https://travis-ci.org/ui-icts/Protogen.svg?branch=master)](https://travis-ci.org/ui-icts/Protogen)
+
 ## Background: Two starting points
 
 ### Clay schema 
