@@ -66,7 +66,9 @@ public class ${className} extends ${abstractControllerClassName} {
     }
 
     @RequestMapping( value = { "list${pathExtension}", "", "/" }, method = RequestMethod.GET )
-    public String list() {
+    public String list(Model model) {
+    	// needed for AngularJS grid/CRUD functionality
+    	${addEditListDependencies} 
         return "${jspPath}/list";
     }
 

@@ -279,7 +279,7 @@ public class VelocityControllerGeneratorTest {
 		assertThat( sourceCode, containsString( "return \"/ictssysadmin/clinicaldocument/list_alt\";" ) );
 		// test list
 		assertThat( sourceCode, containsString( "@RequestMapping( value = { \"list\", \"\", \"/\" }, method = RequestMethod.GET )" ) );
-		assertThat( sourceCode, containsString( "public String list() {" ) );
+		assertThat( sourceCode, containsString( "public String list(Model model) {" ) );
 		assertThat( sourceCode, containsString( "return \"/ictssysadmin/clinicaldocument/list\";" ) );
 	}
 
@@ -317,7 +317,7 @@ public class VelocityControllerGeneratorTest {
 		assertThat( sourceCode, containsString( "model.addAttribute( \"clinicalDocumentList\", ictssysadminDaoService.getClinicalDocumentService().list() );" ) );
 		assertThat( sourceCode, containsString( "return \"/ictssysadmin/clinicaldocument/list_alt\";" ) );
 		// test list
-		assertThat( sourceCode, containsString( "public String list() {" ) );
+		assertThat( sourceCode, containsString( "public String list(Model model) {" ) );
 		assertThat( sourceCode, containsString( "return \"/ictssysadmin/clinicaldocument/list\";" ) );
 	}
 
