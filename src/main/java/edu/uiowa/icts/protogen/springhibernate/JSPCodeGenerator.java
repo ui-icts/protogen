@@ -35,6 +35,7 @@ import org.codehaus.plexus.util.StringUtils;
 import edu.uiowa.icts.plugin.protogen.util.GeneratorUtil;
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable.AttributeType;
 import edu.uiowa.icts.protogen.springhibernate.ClassVariable.RelationshipType;
+import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityAngularEditJspGenerator;
 import edu.uiowa.icts.protogen.springhibernate.velocity.VelocityEditJspGenerator;
 import edu.uiowa.webapp.Attribute;
 
@@ -100,7 +101,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 		output += spaces( indent ) + "<c:url value=\"" + formactionUrl + "\" var=\"formActionUrl\" />";
 		output += lines( 2 );
 
-		output += "<form method=\"post\" action=\"${ formActionUrl }\">";
+		output += "<form:form method=\"post\" action=\"${ formActionUrl }\">";
 		output += lines( 1 );
 		indent += 4;
 
@@ -240,7 +241,7 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 
 		output += lines( 1 );
 		indent -= 4;
-		output += spaces( indent ) + "</form>";
+		output += spaces( indent ) + "</form:form>";
 
 		String directory = getJspDirectory( ec );
 
@@ -708,11 +709,22 @@ public class JSPCodeGenerator extends AbstractSpringHibernateCodeGenerator {
 	}
 
 	private void generateEditJSP( DomainClass ec ) throws IOException {
+		String directory = getJspDirectory( ec );
+		
+		VelocityAngularEditJspGenerator generator2 = new VelocityAngularEditJspGenerator( packageRoot, ec, properties );
+		String sourceCode2 = generator2.javaSourceCode();
 
+		BufferedWriter out2 = jspWriter( directory, "edit-angular-fields.jsp" );
+		try {
+			out2.write( sourceCode2 );
+			out2.flush();
+		} finally {
+			out2.close();
+		}
+		log.debug( ".........edit-angular-fields.jsp done" );
+		
 		VelocityEditJspGenerator generator = new VelocityEditJspGenerator( packageRoot, ec, properties );
 		String sourceCode = generator.javaSourceCode();
-
-		String directory = getJspDirectory( ec );
 
 		BufferedWriter out = jspWriter( directory, "edit.jsp" );
 		try {
