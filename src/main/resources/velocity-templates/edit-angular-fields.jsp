@@ -28,11 +28,11 @@
 	  #if ( $deOb )
 	    #set( $label = "${esc.d}{ " + ${domainClass.getSchema().getLowerLabel()} + ":deobfuscateColumn ( '"+ ${domainClass.getTableName()} + "', '" + ${a.getSqlLabel()} + "') }" )
 	  #end
-	     			<div class="form-group" ng-class="{ 'has-error' : resourceForm.${path}.${esc.d}invalid && !resourceForm.${path}.${esc.d}pristine }">
-	      				<label for="${path}" class="control-label">$label</label>
-	      				<input type="text" id="${path}" ng-model="resource.${path}" name="${path}" required="" class="form-control"/>
-	      				<p ng-show="resourceForm.${path}.$invalid && !resourceForm.${path}.$pristine" class="help-block"> is required.</p>
-		 			</div>
+		<div class="form-group" ng-class="{ 'has-error' : resourceForm.${path}.${esc.d}invalid && !resourceForm.${path}.${esc.d}pristine }">
+			<label for="${path}" class="control-label">$label</label>
+			<input type="text" id="${path}" ng-model="resource.${path}" name="${path}" required="" class="form-control"/>
+			<p ng-show="resourceForm.${path}.$invalid && !resourceForm.${path}.$pristine" class="help-block"> is required.</p>
+        </div>
 	#end
   #end
  #else
@@ -49,17 +49,24 @@
   #if ( $classVariable.isPrimary() ) 
   #elseif ($classVariable.getAttribType() == "CHILD")	
   #else
-                    <div class="form-group" ng-class="{ 'has-error' : resourceForm.${path}.${esc.d}invalid && !resourceForm.${path}.${esc.d}pristine }">
-	      				<label for="${path}" class="control-label">$label</label>
+    
     #if ( $classVariable.getAttribType() == "FOREIGNATTRIBUTE" )
-					<form:select ng-model="resource.${path}" required="required" path="${path}" items="${esc.d}{${classVariable.getDomainClass().getLowerIdentifier()}List}" itemValue="${classVariable.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier()}" itemLabel="${classVariable.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier()}" class="form-control"/>
-					<p ng-show="resourceForm.${path}.$invalid && !resourceForm.${path}.$pristine" class="help-block"> is required.</p>
-					
-    #else     
-                    <input type="text" id="${path}" ng-model="resource.${path}" name="${path}" required="" class="form-control#if ( $classVariable.getType().equalsIgnoreCase( "date" ) ) dateinput#end"#if ( $classVariable.getType().equalsIgnoreCase( "date" ) ) data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true"#end/>
-    				<p ng-show="resourceForm.${path}.$invalid && !resourceForm.${path}.$pristine" class="help-block"> is required.</p>
+      #set( $resourceFormInputName = ${classVariable.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier()} )
+      
+    <div class="form-group" ng-class="{ 'has-error' : resourceForm.$resourceFormInputName.${esc.d}invalid && !resourceForm.$resourceFormInputName.${esc.d}pristine }">
+      <label for="$resourceFormInputName" class="control-label">$label</label>
+      <select ng-model="resource.${path}" ng-options='o as o for o in  [<c:forEach var="x" items="${esc.d}{${classVariable.getDomainClass().getLowerIdentifier()}List}" varStatus="loopStatus">${ x.${classVariable.getDomainClass().getPrimaryKeys().iterator().next().getLowerIdentifier()} }<c:if test="${!loopStatus.last}">,</c:if></c:forEach>]' required="" id="$resourceFormInputName" name="$resourceFormInputName" class="form-control">
+	   <option value="">Select One</option>
+	  </select>              
+	  <p ng-show="resourceForm.$resourceFormInputName.${esc.d}invalid && !resourceForm.$resourceFormInputName.${esc.d}pristine" class="help-block"> is required.</p>		
+	</div>		
+    #else  
+    <div class="form-group" ng-class="{ 'has-error' : resourceForm.${path}.${esc.d}invalid && !resourceForm.${path}.${esc.d}pristine }">
+      <label for="${path}" class="control-label">$label</label>   
+      <input type="text" id="${path}" ng-model="resource.${path}" name="${path}" required="" class="form-control#if ( $classVariable.getType().equalsIgnoreCase( "date" ) ) dateinput#end"#if ( $classVariable.getType().equalsIgnoreCase( "date" ) ) data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true"#end/>
+      <p ng-show="resourceForm.${path}.$invalid && !resourceForm.${path}.$pristine" class="help-block"> is required.</p>
+    </div>
     #end
-	     			</div>
   #end         
  #end
 #end 

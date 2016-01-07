@@ -181,15 +181,15 @@ public class VelocityAngularEditJspGeneratorTest {
 		VelocityAngularEditJspGenerator generator = new VelocityAngularEditJspGenerator(packageRoot,tableThree,properties);
 		String sourceCode = generator.javaSourceCode();
 
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableTwo.tableTwoId.$invalid && !resourceForm.tableTwo.tableTwoId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableTwo.tableTwoId\" class=\"control-label\">Table Two</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.tableTwo.tableTwoId\" required=\"required\" path=\"tableTwo.tableTwoId\" items=\"${tableTwoList}\" itemValue=\"tableTwoId\" itemLabel=\"tableTwoId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableTwo.tableTwoId.$invalid && !resourceForm.tableTwo.tableTwoId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableTwoId.$invalid && !resourceForm.tableTwoId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableTwoId\" class=\"control-label\">Table Two</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.tableTwo.tableTwoId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${tableTwoList}\" varStatus=\"loopStatus\">${ x.tableTwoId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"tableTwoId\" name=\"tableTwoId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableTwoId.$invalid && !resourceForm.tableTwoId.$pristine\" class=\"help-block\"> is required.</p>"));
         
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableOne.tableOneId.$invalid && !resourceForm.tableOne.tableOneId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableOne.tableOneId\" class=\"control-label\">Table One</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.tableOne.tableOneId\" required=\"required\" path=\"tableOne.tableOneId\" items=\"${tableOneList}\" itemValue=\"tableOneId\" itemLabel=\"tableOneId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableOne.tableOneId.$invalid && !resourceForm.tableOne.tableOneId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableOneId.$invalid && !resourceForm.tableOneId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableOneId\" class=\"control-label\">Table One</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.tableOne.tableOneId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${tableOneList}\" varStatus=\"loopStatus\">${ x.tableOneId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"tableOneId\" name=\"tableOneId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableOneId.$invalid && !resourceForm.tableOneId.$pristine\" class=\"help-block\"> is required.</p>"));
 	}
 	
 	@Test
@@ -211,8 +211,8 @@ public class VelocityAngularEditJspGeneratorTest {
 		VelocityAngularEditJspGenerator generator = new VelocityAngularEditJspGenerator(packageRoot,tableThree,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<label for=\"tableTwo.tableTwoId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_two_id') }</label>"));
-        assertThat(sourceCode, containsString("<label for=\"tableOne.tableOneId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_one_id') }</label>"));   
+        assertThat(sourceCode, containsString("<label for=\"tableTwoId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_two_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableOneId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_three', 'table_one_id') }</label>"));   
 	}
 	
 	@Test
@@ -232,15 +232,15 @@ public class VelocityAngularEditJspGeneratorTest {
 		VelocityAngularEditJspGenerator generator = new VelocityAngularEditJspGenerator(packageRoot,tableFour,properties);
 		String sourceCode = generator.javaSourceCode();    
         
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableFour.tableFourId.$invalid && !resourceForm.tableFour.tableFourId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableFour.tableFourId\" class=\"control-label\">Table Four</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.tableFour.tableFourId\" required=\"required\" path=\"tableFour.tableFourId\" items=\"${tableFourList}\" itemValue=\"tableFourId\" itemLabel=\"tableFourId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableFour.tableFourId.$invalid && !resourceForm.tableFour.tableFourId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableFourId.$invalid && !resourceForm.tableFourId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableFourId\" class=\"control-label\">Table Four</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.tableFour.tableFourId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${tableFourList}\" varStatus=\"loopStatus\">${ x.tableFourId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"tableFourId\" name=\"tableFourId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableFourId.$invalid && !resourceForm.tableFourId.$pristine\" class=\"help-block\"> is required.</p>"));
         
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableThree.tableThreeId.$invalid && !resourceForm.tableThree.tableThreeId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"tableThree.tableThreeId\" class=\"control-label\">Table Three</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.tableThree.tableThreeId\" required=\"required\" path=\"tableThree.tableThreeId\" items=\"${tableThreeList}\" itemValue=\"tableThreeId\" itemLabel=\"tableThreeId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableThree.tableThreeId.$invalid && !resourceForm.tableThree.tableThreeId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.tableThreeId.$invalid && !resourceForm.tableThreeId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"tableThreeId\" class=\"control-label\">Table Three</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.tableThree.tableThreeId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${tableThreeList}\" varStatus=\"loopStatus\">${ x.tableThreeId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"tableThreeId\" name=\"tableThreeId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.tableThreeId.$invalid && !resourceForm.tableThreeId.$pristine\" class=\"help-block\"> is required.</p>"));
 	}
 	
 	@Test
@@ -262,8 +262,8 @@ public class VelocityAngularEditJspGeneratorTest {
 		VelocityAngularEditJspGenerator generator = new VelocityAngularEditJspGenerator(packageRoot,tableFour,properties);
 		String sourceCode = generator.javaSourceCode();
 
-        assertThat(sourceCode, containsString("<label for=\"tableFour.tableFourId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_four', 'table_two_id') }</label>"));
-        assertThat(sourceCode, containsString("<label for=\"tableThree.tableThreeId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_four', 'table_one_id') }</label>"));   
+        assertThat(sourceCode, containsString("<label for=\"tableFourId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_four', 'table_two_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"tableThreeId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'table_four', 'table_one_id') }</label>"));   
 	}
 	
 	
@@ -299,15 +299,15 @@ public class VelocityAngularEditJspGeneratorTest {
         assertThat(sourceCode, containsString("<input type=\"text\" id=\"childJobId\" ng-model=\"resource.childJobId\" name=\"childJobId\" required=\"\" class=\"form-control\"/>"));
         assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.childJobId.$invalid && !resourceForm.childJobId.$pristine\" class=\"help-block\"> is required.</p>"));
         
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.jobType.jobTypeId.$invalid && !resourceForm.jobType.jobTypeId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"jobType.jobTypeId\" class=\"control-label\">Job Type</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.jobType.jobTypeId\" required=\"required\" path=\"jobType.jobTypeId\" items=\"${jobTypeList}\" itemValue=\"jobTypeId\" itemLabel=\"jobTypeId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.jobType.jobTypeId.$invalid && !resourceForm.jobType.jobTypeId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.jobTypeId.$invalid && !resourceForm.jobTypeId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"jobTypeId\" class=\"control-label\">Job Type</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.jobType.jobTypeId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${jobTypeList}\" varStatus=\"loopStatus\">${ x.jobTypeId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"jobTypeId\" name=\"jobTypeId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.jobTypeId.$invalid && !resourceForm.jobTypeId.$pristine\" class=\"help-block\"> is required.</p>"));
         
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.person.personId.$invalid && !resourceForm.person.personId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"person.personId\" class=\"control-label\">Person</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.person.personId\" required=\"required\" path=\"person.personId\" items=\"${personList}\" itemValue=\"personId\" itemLabel=\"personId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.person.personId.$invalid && !resourceForm.person.personId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.personId.$invalid && !resourceForm.personId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"personId\" class=\"control-label\">Person</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.person.personId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${personList}\" varStatus=\"loopStatus\">${ x.personId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"personId\" name=\"personId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.personId.$invalid && !resourceForm.personId.$pristine\" class=\"help-block\"> is required.</p>"));
 	}
 	
 	@Test
@@ -332,8 +332,8 @@ public class VelocityAngularEditJspGeneratorTest {
         assertThat(sourceCode, containsString("<label for=\"fileName\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job', 'file_name') }</label>"));
         assertThat(sourceCode, containsString("<label for=\"parameters\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job', 'parameters') }</label>"));
         assertThat(sourceCode, containsString("<label for=\"childJobId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job', 'child_job_id') }</label>"));
-        assertThat(sourceCode, containsString("<label for=\"jobType.jobTypeId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job', 'job_type_id') }</label>"));
-        assertThat(sourceCode, containsString("<label for=\"person.personId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job', 'person_id') }</label>"));      
+        assertThat(sourceCode, containsString("<label for=\"jobTypeId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job', 'job_type_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"personId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job', 'person_id') }</label>"));      
 	}
 	
 	@Test
@@ -358,15 +358,15 @@ public class VelocityAngularEditJspGeneratorTest {
         assertThat(sourceCode, containsString("<input type=\"text\" id=\"dateSet\" ng-model=\"resource.dateSet\" name=\"dateSet\" required=\"\" class=\"form-control dateinput\" data-provide=\"datepicker\" data-date-format=\"yyyy-mm-dd\" data-date-autoclose=\"true\"/>"));
         assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.dateSet.$invalid && !resourceForm.dateSet.$pristine\" class=\"help-block\"> is required.</p>"));
         
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.jobStatus.jobStatusId.$invalid && !resourceForm.jobStatus.jobStatusId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"jobStatus.jobStatusId\" class=\"control-label\">Job Status</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.jobStatus.jobStatusId\" required=\"required\" path=\"jobStatus.jobStatusId\" items=\"${jobStatusList}\" itemValue=\"jobStatusId\" itemLabel=\"jobStatusId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.jobStatus.jobStatusId.$invalid && !resourceForm.jobStatus.jobStatusId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.jobStatusId.$invalid && !resourceForm.jobStatusId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"jobStatusId\" class=\"control-label\">Job Status</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.jobStatus.jobStatusId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${jobStatusList}\" varStatus=\"loopStatus\">${ x.jobStatusId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"jobStatusId\" name=\"jobStatusId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.jobStatusId.$invalid && !resourceForm.jobStatusId.$pristine\" class=\"help-block\"> is required.</p>"));
         
-		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.job.jobId.$invalid && !resourceForm.job.jobId.$pristine }\">"));
-        assertThat(sourceCode, containsString("<label for=\"job.jobId\" class=\"control-label\">Job</label>"));
-        assertThat(sourceCode, containsString("<form:select ng-model=\"resource.job.jobId\" required=\"required\" path=\"job.jobId\" items=\"${jobList}\" itemValue=\"jobId\" itemLabel=\"jobId\" class=\"form-control\"/>"));
-        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.job.jobId.$invalid && !resourceForm.job.jobId.$pristine\" class=\"help-block\"> is required.</p>"));
+		assertThat(sourceCode, containsString("<div class=\"form-group\" ng-class=\"{ 'has-error' : resourceForm.jobId.$invalid && !resourceForm.jobId.$pristine }\">"));
+        assertThat(sourceCode, containsString("<label for=\"jobId\" class=\"control-label\">Job</label>"));
+        assertThat(sourceCode, containsString("<select ng-model=\"resource.job.jobId\" ng-options='o as o for o in  [<c:forEach var=\"x\" items=\"${jobList}\" varStatus=\"loopStatus\">${ x.jobId }<c:if test=\"${!loopStatus.last}\">,</c:if></c:forEach>]' required=\"\" id=\"jobId\" name=\"jobId\" class=\"form-control\">"));
+        assertThat(sourceCode, containsString("<p ng-show=\"resourceForm.jobId.$invalid && !resourceForm.jobId.$pristine\" class=\"help-block\"> is required.</p>"));
 	}
 	
 	@Test
@@ -389,8 +389,8 @@ public class VelocityAngularEditJspGeneratorTest {
 		String sourceCode = generator.javaSourceCode();
 		
         assertThat(sourceCode, containsString("<label for=\"dateSet\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'date_set') }</label>"));
-        assertThat(sourceCode, containsString("<label for=\"jobStatus.jobStatusId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'job_status_id') }</label>"));
-        assertThat(sourceCode, containsString("<label for=\"job.jobId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'job_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"jobStatusId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'job_status_id') }</label>"));
+        assertThat(sourceCode, containsString("<label for=\"jobId\" class=\"control-label\">${ aptamer:deobfuscateColumn ( 'job_job_status', 'job_id') }</label>"));
 	}
 	
 	@Test
